@@ -59,7 +59,7 @@
 
 % 定义注意环境
 \newenvironment{note}
-  {\renewcommand{\qedsymbol}{}\begin{mdframed}[linewidth=1pt,linecolor=black,innerleftmargin=10pt,innerrightmargin=10pt,innertopmargin=10pt,innerbottommargin=0pt]\begin{proof}[注意]}
+  {\renewcommand{\qedsymbol}{}\begin{mdframed}[linewidth=1pt,linecolor=black,innerleftmargin=10pt,innerrightmargin=10pt,innertopmargin=10pt,innerbottommargin=10pt]\begin{proof}[注意]}
   {\end{proof}\end{mdframed}}
 
 % 定义新命令
