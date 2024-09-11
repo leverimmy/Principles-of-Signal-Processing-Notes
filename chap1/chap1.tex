@@ -34,7 +34,7 @@
 
     除此之外，还有加速度传感器、压力传感器、流量传感器等。
     值得注意的是，耳朵（图 \ref{fig:ear}）就是一种传感器。
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{chap1/img/ear.png}
         \caption{耳朵是一种传感器}
@@ -95,7 +95,7 @@
         \item 数学描述：$f(t) = \sin t, x(n) = a^nu(n)$。
         \item 波形描述：$\sa(t) = \frac{\sin t}{t}$ 的示意图如图 \ref{fig:sa-t-wave-description}。
     \end{itemize}
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \begin{tikzpicture}
             \begin{axis}[
@@ -122,7 +122,7 @@
 
 \begin{example}[时域波形与频谱图]
     时域波形与频谱图如图 \ref{fig:wave-spectrum} 所示。
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{chap1/img/wave-spectrum.png}
         \caption{左侧为时域波形，右侧为频谱图}
@@ -249,7 +249,7 @@
     如果将 $\mathe^{\mathi \varphi}$ 看成一个复平面上的向量，
     则它的模长为 $1$，辐角主值为 $\varphi$，
     如图 \ref{fig:euler-formula-imaginary-plane} 所示。
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{chap1/img/euler-formula-imaginary-plane.png}
         \caption{$\mathe^{\mathi \varphi}$ 在复平面上的表示}
@@ -258,7 +258,7 @@
 
     如果使 $\varphi$ 随着时间 $t$ 的变化而变化，则画出三维图像（纵轴为时间）
     如图 \ref{fig:euler-formula-imaginary-signals.png} 所示。
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{chap1/img/euler-formula-imaginary-signals.png}
         \caption{$\mathe^{\mathi \varphi}$ 随时间的变化的在三维空间中的轨迹}
@@ -307,19 +307,19 @@
         \item 固定 $K = 1, \omega = 1$，$\sigma$ 变化：图 \ref{fig:complex-exponential-signal-sigma-vary}。
         \item 固定 $K = 1, \sigma = 0.2$，$\omega$ 变化：图 \ref{fig:complex-exponential-signal-omega-vary}。
     \end{itemize}
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{chap1/img/complex-exponential-signal-k-vary.png}
         \caption{固定 $\sigma = 0.2, \omega = 1$，$K$ 变化}
         \label{fig:complex-exponential-signal-k-vary}
     \end{figure}
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{chap1/img/complex-exponential-signal-sigma-vary.png}
         \caption{固定 $K = 1, \omega = 1$，$\sigma$ 变化}
         \label{fig:complex-exponential-signal-sigma-vary}
     \end{figure}
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{chap1/img/complex-exponential-signal-omega-vary.png}
         \caption{固定 $K = 1, \sigma = 0.2$，$\omega$ 变化}
@@ -396,13 +396,13 @@
 
 \begin{proof}
     整个证明分为四部分：
-    首先，$1$ 和 $\cos(k\omega_0t + \varphi_k), \quad k = 1, 2, \cdots, n$ 之间正交。
+    首先，$1$ 与 $\cos(k\omega_0t + \varphi_k), \quad k = 1, 2, \cdots, n$ 正交。
     \begin{align*}
         \int_{0}^{\frac{2\pi}{\omega_0}}1\cos(k\omega_0t + \varphi_k)\D{t}
         = \int_{0}^{\frac{2\pi}{\omega_0}}\cos(k\omega_0t + \varphi_k)\D{t}
         = 0.
     \end{align*}
-    其次，$\cos(k_1\omega_0t + \varphi_{k_1}), \cos(k_2\omega_0t + \varphi_{k_2}), \quad k_1 \ne k_2$ 之间正交。
+    其次，$\cos(k_1\omega_0t + \varphi_{k_1})$ 与 $\cos(k_2\omega_0t + \varphi_{k_2})$, 在 $k_1 \ne k_2$ 的条件下正交。
     \begin{align*}
         & \quad \int_{0}^{\frac{2\pi}{\omega_0}}\cos(k_1\omega_0t + \varphi_{k_1})\cos(k_2\omega_0t + \varphi_{k_2})\D{t} \\
         & = \int_{0}^{\frac{2\pi}{\omega_0}}\frac{1}{2}(\cos((k_1\omega_0t + \varphi_{k_1}) + (k_2\omega_0t + \varphi_{k_2})) + \cos((k_1\omega_0t + \varphi_{k_1}) - (k_2\omega_0t + \varphi_{k_2}))) \\
