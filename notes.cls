@@ -25,7 +25,7 @@
 \newtheoremstyle{mystyle}% 名称
   {3pt}% 上间距
   {3pt}% 下间距
-  {\itshape}% 正文字体
+  {}% 正文字体
   {}% 缩进
   {\bfseries}% 标题字体
   {.}% 标题后的标点
