@@ -10,6 +10,7 @@
 \RequirePackage{floatrow,graphicx}
 \RequirePackage{tikz,pgfplots,bm}
 \RequirePackage{enumitem}
+\pgfplotsset{compat=1.18}
 
 % 页面布局
 \RequirePackage[a4paper,left=1.5cm,right=1.5cm,top=3cm,bottom=3cm]{geometry}
@@ -72,6 +73,7 @@
 \newcommand\mathi{\mathrm{i}}
 \newcommand\D[1]{\mathrm{d}#1}
 \newcommand\sa{\mathrm{Sa}}
+\newcommand\sgn{\mathrm{sgn}}
 
 % 设置列表环境的行间距
 \setlist[enumerate,1]{itemsep=1pt,parsep=0pt,topsep=0pt}
