@@ -36,7 +36,7 @@
                 grid = major,
                 grid style = dashed,
             ]
-            \addplot[domain=-10:10, samples=100, smooth, blue] {sin(deg(x))/x};
+            \addplot[domain=-10:10, samples=100, smooth, line width=2pt, blue] {sin(deg(x))/x};
             \addlegendentry{$\frac{\sin(t)}{t}$}
             \addplot[domain=-10:10, red, thick] {0};
             \node at (axis cs:0, 0) [anchor=north west] {O};

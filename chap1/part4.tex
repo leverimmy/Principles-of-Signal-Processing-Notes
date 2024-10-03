@@ -103,14 +103,14 @@
                 height = 3cm,
                 axis equal,
             ]
-            \addplot[domain=-1.2:-1, samples=100, smooth, blue] {0};
-            \addplot[smooth, blue] coordinates {(-1, 0) (-1, 1)};
-            \addplot[domain=-1:0, samples=100, smooth, blue] {1};
-            \addplot[smooth, blue] coordinates {(0, 1) (0, 0)};
-            \addplot[domain=0:1, samples=100, smooth, blue] {x};
-            \addplot[domain=1:2, samples=100, smooth, blue] {1};
-            \addplot[smooth, blue] coordinates {(2, 1) (2, 0)};
-            \addplot[domain=2:2.2, samples=100, smooth, blue] {0};
+            \addplot[domain=-1.2:-1, samples=100, smooth, line width=2pt, blue] {0};
+            \addplot[smooth, line width=2pt, blue] coordinates {(-1, 0) (-1, 1)};
+            \addplot[domain=-1:0, samples=100, smooth, line width=2pt, blue] {1};
+            \addplot[smooth, line width=2pt, blue] coordinates {(0, 1) (0, 0)};
+            \addplot[domain=0:1, samples=100, smooth, line width=2pt, blue] {x};
+            \addplot[domain=1:2, samples=100, smooth, line width=2pt, blue] {1};
+            \addplot[smooth, line width=2pt, blue] coordinates {(2, 1) (2, 0)};
+            \addplot[domain=2:2.2, samples=100, smooth, line width=2pt, blue] {0};
             \addlegendentry{$f(t)$}
             \node at (axis cs:0,0) [anchor=north west] {O};
             \end{axis}
@@ -142,14 +142,14 @@
                 height = 3cm,
                 axis equal,
             ]
-            \addplot[domain=-2.2:-2, samples=100, smooth, blue] {0};
-            \addplot[smooth, blue] coordinates {(-2, 0) (-2, 1)};
-            \addplot[domain=-2:-1, samples=100, smooth, blue] {1};
-            \addplot[smooth, blue] coordinates {(-1, 1) (-1, 0)};
-            \addplot[domain=-1:0, samples=100, smooth, blue] {1 + x};
-            \addplot[domain=0:1, samples=100, smooth, blue] {1};
-            \addplot[smooth, blue] coordinates {(1, 1) (1, 0)};
-            \addplot[domain=1:1.2, samples=100, smooth, blue] {0};
+            \addplot[domain=-2.2:-2, samples=100, smooth, line width=2pt, blue] {0};
+            \addplot[smooth, line width=2pt, blue] coordinates {(-2, 0) (-2, 1)};
+            \addplot[domain=-2:-1, samples=100, smooth, line width=2pt, blue] {1};
+            \addplot[smooth, line width=2pt, blue] coordinates {(-1, 1) (-1, 0)};
+            \addplot[domain=-1:0, samples=100, smooth, line width=2pt, blue] {1 + x};
+            \addplot[domain=0:1, samples=100, smooth, line width=2pt, blue] {1};
+            \addplot[smooth, line width=2pt, blue] coordinates {(1, 1) (1, 0)};
+            \addplot[domain=1:1.2, samples=100, smooth, line width=2pt, blue] {0};
             \node at (axis cs:0, 0) [anchor=north west] {O};
             \end{axis}
         \end{tikzpicture}
@@ -178,14 +178,14 @@
                 height = 3cm,
                 axis equal,
             ]
-            \addplot[domain=-2.2:-2, samples=100, smooth, blue] {0};
-            \addplot[smooth, blue] coordinates {(-2, 0) (-2, 1)};
-            \addplot[domain=-2:0, samples=100, smooth, blue] {1};
-            \addplot[domain=0:2, samples=100, smooth, blue] {1 - 1/2 * x};
-            \addplot[smooth, blue] coordinates {(2, 0) (2, 1)};
-            \addplot[domain=2:4, samples=100, smooth, blue] {1};
-            \addplot[smooth, blue] coordinates {(4, 1) (4, 0)};
-            \addplot[domain=4:4.2, samples=100, smooth, blue] {0};
+            \addplot[domain=-2.2:-2, samples=100, smooth, line width=2pt, blue] {0};
+            \addplot[smooth, line width=2pt, blue] coordinates {(-2, 0) (-2, 1)};
+            \addplot[domain=-2:0, samples=100, smooth, line width=2pt, blue] {1};
+            \addplot[domain=0:2, samples=100, smooth, line width=2pt, blue] {1 - 1/2 * x};
+            \addplot[smooth, line width=2pt, blue] coordinates {(2, 0) (2, 1)};
+            \addplot[domain=2:4, samples=100, smooth, line width=2pt, blue] {1};
+            \addplot[smooth, line width=2pt, blue] coordinates {(4, 1) (4, 0)};
+            \addplot[domain=4:4.2, samples=100, smooth, line width=2pt, blue] {0};
             \node at (axis cs:0, 0) [anchor=north west] {O};
             \end{axis}
         \end{tikzpicture}
@@ -214,14 +214,14 @@
                 height = 4cm,
                 axis equal,
             ]
-            \addplot[domain=-2.2:-2, samples=100, smooth, blue] {-1};
-            \addplot[smooth, blue] coordinates {(-2, -1) (-2, 2)};
-            \addplot[domain=-2:0, samples=100, smooth, blue] {2};
-            \addplot[domain=0:2, samples=100, smooth, blue] {2 - 3/2 * x};
-            \addplot[smooth, blue] coordinates {(2, -1) (2, 2)};
-            \addplot[domain=2:4, samples=100, smooth, blue] {2};
-            \addplot[smooth, blue] coordinates {(4, 2) (4, -1)};
-            \addplot[domain=4:4.2, samples=100, smooth, blue] {-1};
+            \addplot[domain=-2.2:-2, samples=100, smooth, line width=2pt, blue] {-1};
+            \addplot[smooth, line width=2pt, blue] coordinates {(-2, -1) (-2, 2)};
+            \addplot[domain=-2:0, samples=100, smooth, line width=2pt, blue] {2};
+            \addplot[domain=0:2, samples=100, smooth, line width=2pt, blue] {2 - 3/2 * x};
+            \addplot[smooth, line width=2pt, blue] coordinates {(2, -1) (2, 2)};
+            \addplot[domain=2:4, samples=100, smooth, line width=2pt, blue] {2};
+            \addplot[smooth, line width=2pt, blue] coordinates {(4, 2) (4, -1)};
+            \addplot[domain=4:4.2, samples=100, smooth, line width=2pt, blue] {-1};
             \node at (axis cs:0, 0) [anchor=north west] {O};
             \end{axis}
         \end{tikzpicture}

@@ -44,6 +44,7 @@
 \newtheorem{definition}[theorem]{定义}
 \newtheorem{example}[theorem]{例}
 \newtheorem{remark}[theorem]{注}
+\newtheorem{exercise}[theorem]{习题}
 
 % 定义证明环境
 \renewcommand{\qedsymbol}{$\blacksquare$}
@@ -73,7 +74,7 @@
 \newcommand\mathi{\mathrm{i}}
 \newcommand\D[1]{\mathrm{d}#1}
 \newcommand\sa{\mathrm{Sa}}
-\newcommand\sgn{\mathrm{sgn}}
+\newcommand\sgn[1]{\mathrm{sgn}(#1)}
 
 % 设置列表环境的行间距
 \setlist[enumerate,1]{itemsep=1pt,parsep=0pt,topsep=0pt}
