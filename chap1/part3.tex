@@ -1,6 +1,6 @@
 \subsection{信号的数学基础}
 
-\subsubsection{欧拉公式}
+\subsubsection{欧拉（Euler）公式}
 
 \begin{definition}[实值信号与复值信号]
     如果信号的取值是实数，则称为\bd{实值信号}，简称\bd{实信号}。
@@ -17,7 +17,7 @@
 \end{theorem}
 
 \begin{proof}
-    (欧拉公式的泰勒级数法证明) 分别将 $\mathe^x, \sin x, \cos x$ 进行泰勒展开，得：
+    (欧拉公式的泰勒级数法证明) 分别将 $\mathe^x, \sin x, \cos x$ 进行泰勒（Taylor）展开，得：
     \begin{align*}
         \mathe^x &= \sum_{k = 0}^{+\infty}\frac{x^k}{k!}, \\
         \sin x   &= \sum_{k = 0}^{+\infty}\frac{(-1)^kx^{2k + 1}}{(2k + 1)!}, \\
@@ -257,8 +257,18 @@
     在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上的正交函数集。
 \end{proof}
 
+\begin{definition}[完备的正交函数集]
+    如果在区间 $[t_1, t_2]$ 上，除了正交函数集 $\{\varphi_i(t)\}$ 之外，不存在函数 $x(t)$，
+    满足 $0 < \int_{t_1}^{t_2}x(t)x^*(t)\D{t} < +\infty$，使得
+    \begin{align*}
+        \int_{t_1}^{t_2}x(t)\varphi_i^*(t)\D{t} = 0, \quad \forall i,
+    \end{align*}
+    则称此正交函数集 $\{\varphi_i(t)\}$ 为区间 $[t_1, t_2]$ 上的\bd{完备的正交函数集}。
+\end{definition}
+
 \begin{remark}
-    事实上，该函数集在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上是完备的正交函数集。
+    事实上，指数函数集 $\{\mathe^{\mathi n\omega_0t} \mid n \in \set{Z}\}$ 在
+    区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上是完备的正交函数集。
 \end{remark}
 
 % \begin{proof}
@@ -274,12 +284,3 @@
 %     其中 $c_n = \frac{1}{2\pi}\int_{-\frac{\pi}{\omega_0}}^{\frac{\pi}{\omega_0}}x(t)\mathe^{-\mathi n\omega_0t}\D{t}$。
 %     因此 $\{\mathe^{\mathi n\omega_0t} \mid n \in \set{Z}\}$ 是在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上的完备的正交函数集。
 % \end{proof}
-
-\begin{definition}[完备的正交函数集]
-    如果在区间 $[t_1, t_2]$ 上，除了正交函数集 $\{\varphi_i(t)\}$ 之外，不存在函数 $x(t)$，
-    满足 $0 < \int_{t_1}^{t_2}x(t)x^*(t)\D{t} < +\infty$，使得
-    \begin{align*}
-        \int_{t_1}^{t_2}x(t)\varphi_i^*(t)\D{t} = 0, \quad \forall i,
-    \end{align*}
-    则称此正交函数集 $\{\varphi_i(t)\}$ 为区间 $[t_1, t_2]$ 上的\bd{完备的正交函数集}。
-\end{definition}

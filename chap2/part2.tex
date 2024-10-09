@@ -1,0 +1,96 @@
+\subsection{函数的正交分解}
+
+\subsubsection{标准正交函数集}
+
+\begin{definition}[平方可积函数]
+    令 $x(t)$ 为一实函数，若
+    \begin{align*}
+        \int_{-\infty}^{+\infty}x^2(t)\D{t} < +\infty,
+    \end{align*}
+    则称 $x(t)$ 为\bd{平方可积函数}，并记作 $x(t) \in L^2(\set{R})$。
+    即，$L^2(\set{R})$ 表示所有平方可积函数组成的函数空间。
+\end{definition}
+
+\begin{definition}[内积]
+    设 $f_1(t)$ 和 $f_2(t)$ 为两个函数，定义它们在区间 $[t_1, t_2]$ 上的\bd{内积}为
+    \begin{align*}
+        \ip{f_1}{f_2} = \int_{t_1}^{t_2}f_1(t)f_2^*(t)\D{t}.
+    \end{align*}
+\end{definition}
+
+\begin{remark}
+    回忆第 1 章中正交函数与正交函数集的定义，可以发现，$f_1(t)$ 和 $f_2(t)$ 在 $[t_1, t_2]$ 上正交，
+    是指它们在 $[t_1, t_2]$ 上\bd{互不含有对方的分量}。函数 $f_1$ 和 $f_2$ 在 $[t_1, t_2]$ 上正交
+    的充要条件是它们的内积为零。即，
+    \begin{align*}
+        \ip{f_1}{f_2} = 0.
+    \end{align*}
+\end{remark}
+
+\begin{definition}[标准函数集]
+    如果在区间 $[t_1, t_2]$ 上，函数集 $\{\varphi_i(t)\}$ 满足
+    \begin{align*}
+        \ip{\varphi_i}{\varphi_i} = \int_{t_1}^{t_2}\varphi_i(t)\varphi_i^*\D{t}
+            = \int_{t_1}^{t_2}\|\varphi_i(t)\|^2\D{t} = 1,
+    \end{align*}
+    则称此函数集 $\{\varphi_i(t)\}$ 为\bd{标准函数集}。
+\end{definition}
+
+\begin{definition}[标准正交函数集]
+    若正交函数集 $\{\varphi_i(t)\}$ 是一个标准函数集，则称之为\bd{标准正交函数集}。
+\end{definition}
+
+\subsubsection{函数的正交分解}
+
+\begin{definition}[函数的正交分解]
+    当函数 $f(t)$ 在 $[t_1, t_2]$ 区间具有连续的一阶导数和逐段连续的二阶导数时，
+    $f(t)$ 可以用完备的正交函数集 $\{\varphi_i(t)\}$ 来表示，即
+    \begin{align*}
+        f(t) = \sum_{i = 1}^{+\infty}c_i\varphi_i(t),
+    \end{align*}
+    其中 $c_i$ 为常数，则称此表示为函数 $f(t)$ 的\bd{正交分解}。
+
+    值得注意的事，$c_i$ 可以显式地表达为
+    \begin{align*}
+        c_i = \frac{\ip{f}{\varphi_i}}{\ip{\varphi_i}{\varphi_i}}
+            = \frac{\ip{f}{\varphi_i}}{k_i}
+            = \frac{1}{k_i}\int_{t_1}^{t_2}f(t)\varphi_i^*(t)\D{t},
+    \end{align*}
+    而 $k_i$ 为 $\varphi_i(t)$ 在区间 $[t_1, t_2]$ 上与自己的内积，即
+    \begin{align*}
+        k_i = \ip{\varphi_i}{\varphi_i} = \int_{t_1}^{t_2}\varphi_i(t)\varphi_i^*(t)\D{t}
+        = \int_{t_1}^{t_2}\|\varphi_i(t)\|^2\D{t}.
+    \end{align*}
+\end{definition}
+
+\begin{theorem}[帕斯瓦尔定理]
+    用一个正交函数集来准确地表示一个信号时，这信号的能量等于相应的正交函数各分量的能量之和。
+    即，设 $f(t)$ 为一个信号，将用正交函数集 $\{\varphi_i(t)\}$ 来表示，$c_i, k_i$ 定义如上，
+    则有
+    \begin{align*}
+        \int_{t_1}^{t_2}\|f(t)\|^2\D{t} = \sum_{i = 1}^{+\infty}\|c_i\|^2k_i.
+    \end{align*}
+    这被称为\bd{帕斯瓦尔（Parseval）定理}。
+\end{theorem}
+
+\begin{proof}
+    由于 $\{\varphi_i(t)\}$ 是一个正交函数集，故有
+    \begin{align*}
+        \ip{\varphi_i}{\varphi_j} = \begin{cases}
+            1, & i = j, \\
+            0, & i \neq j.
+        \end{cases}
+    \end{align*}
+    而 $f(t)$ 的正交分解为 $f(t) = \sum_{i = 1}^{+\infty}c_i\varphi_i(t)$，故有
+    \begin{align*}
+        \int_{t_1}^{t_2}\|f(t)\|^2\D{t} & = \int_{t_1}^{t_2}\left\|\sum_{i = 1}^{+\infty}c_i\varphi_i(t)\right\|^2\D{t} \\
+        & = \int_{t_1}^{t_2}\sum_{i = 1}^{+\infty}\|c_i\varphi_i(t)\|^2\D{t}
+            + \sum_{i, j \ge 1, i \neq j}\|c_ic_j^*\ip{\varphi_i}{\varphi_j}\| \\
+        & = \int_{t_1}^{t_2}\sum_{i = 1}^{+\infty}\|c_i\|^2\cdot \|\varphi_i(t)\|^2\D{t} + 0 \\
+        & = \sum_{i = 1}^{+\infty}\|c_i\|^2k_i.
+    \end{align*}
+\end{proof}
+
+\begin{note}
+    在推导的过程中，对于内积运算，别忘了\bd{取共轭}。例如上述证明中的 $c_j^*$。
+\end{note}

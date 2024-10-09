@@ -1,0 +1,21 @@
+\section{信号的分解}
+
+这一章主要涉及傅里叶变换。假设我们有一个信号 $y = f(t)$，
+我们希望能将其变成 $y' = F(\omega)$ 的形式。
+我们可以考虑将 $f(t)$ 展开为
+\begin{align*}
+    f(t) = \sum_{n = -\infty}^{\infty} c_n\varphi_n(t)
+\end{align*}
+的形式，找出 $\varphi_n(t) = \mathe^{\mathi n\omega_i t}$ 中的常数 $w_i$。
+这说明 $\varphi_n(t)$ 中含有关于 $w_i$ 的信息。
+这样，统计 $f(t)$ 在频率域（$\omega$）上的分布，我们就得到了 $F(\omega)$。
+
+周期信号通常可以被表示为
+\begin{align*}
+    f(t) = \sum_{n = -\infty}^{\infty} f_0(t - nT),
+\end{align*}
+其中 $f_0(t)$ 是一个周期为 $T$ 的函数。
+
+\input{chap2/part1.tex}
+\input{chap2/part2.tex}
+\input{chap2/part3.tex}

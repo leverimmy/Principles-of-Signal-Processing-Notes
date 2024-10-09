@@ -1,0 +1,31 @@
+\subsection{信号的正交变换}
+
+\subsubsection{信号的级数展开}
+
+\begin{definition}[信号的级数展开]
+    考虑使用一组函数 $\{\varphi_i(t)\}$，将信号 $x(t) \in L^2(\set{R})$ 展开成级数，即
+    \begin{align*}
+        x(t) = \sum_{i = -\infty}^{+\infty}c_i\varphi_i(t),
+    \end{align*}
+    这一形式称为信号 $x(t)$ 的\bd{级数展开}。
+
+    通常，展开系数 $c_i$ 使用信号 $x(t)$ 的某种积分形式来确定。这一积分公式（即求展开系数的公式）
+    称之为\bd{信号变换}。
+\end{definition}
+
+\subsubsection{函数的正交变换}
+
+\begin{definition}[函数的正交变换]
+    若信号级数展开的基函数 $\{\varphi_i(t)\}$ 为标准完备正交函数集，则积分变换
+    \begin{align*}
+        c_i = \int_{t_1}^{t_2}x(t)\varphi_i^*(t)\D{t}
+    \end{align*}
+    称为信号 $x(t)$ 的\bd{正交变换}，亦称为 \bd{Karhunen-Loève 变换}。
+\end{definition}
+
+\begin{note}
+    如果信号为符合狄义赫利（Dirichlet）条件的周期函数，则正交分解的系数 $c_i$ 的形式会很漂亮。
+\end{note}
+
+\subsubsection{周期函数的正交分解}
+
