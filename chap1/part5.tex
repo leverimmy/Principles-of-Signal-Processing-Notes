@@ -145,7 +145,7 @@
             1, & \abs{t} > \frac{\tau}{2}.
         \end{cases}
     \end{align*}
-    信号图像如图 \ref{fig:rectangular-pulse-signal} 所示。
+    信号图像如图 \ref{fig:rect-pulse-signal} 所示。
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}
@@ -176,7 +176,7 @@
             \end{axis}
         \end{tikzpicture}
         \caption{单位矩形脉冲信号}
-        \label{fig:rectangular-pulse-signal}
+        \label{fig:rect-pulse-signal}
     \end{figure}
     其中，\bd{脉高}是指脉冲信号的高度，\bd{脉宽}是指脉冲信号的宽度。
 \end{definition}
@@ -194,12 +194,12 @@
     其他信号的信息才被保留下来，其余范围都是零。
 
     用矩形脉冲信号和乘法运算，可以截取信号的特定区间片段。
-    所以，单位矩形脉冲信号也被称为``窗函数''。如图 \ref{fig:rectangular-pulse-signal-example} 所示。
+    所以，单位矩形脉冲信号也被称为``窗函数''。如图 \ref{fig:rect-pulse-signal-example} 所示。
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.5\textwidth]{chap1/img/rectangular-pulse-signal-example.png}
+        \includegraphics[width=0.5\textwidth]{chap1/img/rect-pulse-signal-example.png}
         \caption{窗函数的截取功能}
-        \label{fig:rectangular-pulse-signal-example}
+        \label{fig:rect-pulse-signal-example}
     \end{figure}
 \end{remark}
 
@@ -360,6 +360,85 @@
         & = f(t - t_0).
     \end{align*}
 \end{proof}
+
+\begin{exercise}
+    已知某信号 $f_0(t)$ 是一个关于纵轴对称的三角波，设它的底边长为 $2$，
+    高为 $1$。试绘出信号 $f(t)$ 的波形，其中 $f(t)$ 的定义为：
+    \begin{align*}
+        f(t) = \sum_{n = -\infty}^{+\infty}f_0(t) * \delta(t - 2n).
+    \end{align*}
+    并回答以下问题：$f(t)$ 是否为周期信号？如是，其周期为多少？
+\end{exercise}
+
+\begin{solution}
+    易知 $f_0(t)$ 的图像如图 \ref{fig:chap1-part5-exercise1} 所示。
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis lines = middle,
+                xlabel = {$t$},
+                ylabel = {$f_0(t)$},
+                ylabel style={at={(rel axis cs:0.5, 1)}, anchor=south},
+                xmin = -1.2, xmax = 1.2,
+                ymin = -0.2, ymax = 1.2,
+                xtick distance = 1,
+                ytick distance = 1,
+                grid = major,
+                grid style = dashed,
+                scale only axis,
+                width = 8cm,
+                height = 5cm,
+                axis equal,
+            ]
+            \addplot[domain=-1.2:-1, samples=100, smooth, line width=2pt, blue] {0};
+            \addplot[domain=-1:0, samples=100, smooth, line width=2pt, blue] {x + 1};
+            \addplot[domain=0:1, samples=100, smooth, line width=2pt, blue] {-x + 1};
+            \addplot[domain=1:1.2, samples=100, smooth, line width=2pt, blue] {0};
+            \node at (axis cs:0, 0) [anchor=north west] {O};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{三角波 $f_0(t)$}
+        \label{fig:chap1-part5-exercise1}
+    \end{figure}
+    而 $f(t) = \sum_{n = -\infty}^{+\infty}f_0(t) * \delta(t - 2n) 
+        = \sum_{n = -\infty}^{+\infty}f_0(t - 2n)$，
+    画出 $f(t)$ 的图像如图 \ref{fig:chap1-part5-exercise1-solution} 所示。
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis lines = middle,
+                xlabel = {$t$},
+                ylabel = {$f(t)$},
+                ylabel style={at={(rel axis cs:0.5, 1)}, anchor=south},
+                xmin = -3.2, xmax = 3.2,
+                ymin = -0.2, ymax = 1.2,
+                xtick distance = 1,
+                ytick distance = 1,
+                grid = major,
+                grid style = dashed,
+                scale only axis,
+                width = 8cm,
+                height = 5cm,
+                axis equal,
+            ]
+            \addplot[domain=-3.2:-3, samples=100, smooth, line width=2pt, blue] {0};
+            \addplot[domain=-3:-2, samples=100, smooth, line width=2pt, blue] {x + 3};
+            \addplot[domain=-2:-1, samples=100, smooth, line width=2pt, blue] {-x - 1};
+            \addplot[domain=-1:0, samples=100, smooth, line width=2pt, blue] {x + 1};
+            \addplot[domain=0:1, samples=100, smooth, line width=2pt, blue] {-x + 1};
+            \addplot[domain=1:2, samples=100, smooth, line width=2pt, blue] {x - 1};
+            \addplot[domain=2:3, samples=100, smooth, line width=2pt, blue] {-x + 3};
+            \addplot[domain=3:3.2, samples=100, smooth, line width=2pt, blue] {0};
+            \node at (axis cs:0, 0) [anchor=north west] {O};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{信号 $f(t)$}
+        \label{fig:chap1-part5-exercise1-solution}
+    \end{figure}
+    由图可知，$f(t)$ 是一个周期信号，其周期为 $2$。
+\end{solution}
 
 \begin{property}[从函数到值的映射关系]
     冲激函数能从检验函数中筛选出零点处的函数值。对于任意的函数 $f(t)$，有
