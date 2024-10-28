@@ -1,0 +1,133 @@
+\subsection{非周期信号的傅里叶变换}
+
+\subsubsection{非周期信号的傅里叶级数}
+
+我们已经掌握了周期信号的傅里叶展开，那么如何处理非周期信号的傅里叶展开呢？
+非周期信号可以看成是\bd{周期 $T_0$ 趋于无限大的周期信号}，因此我们可以将非周期信号的傅里叶展开看成是周期信号的极限情况。
+
+\begin{property}[非周期信号频谱性质]
+    非周期信号的谱线间隔趋于 $0$，变成了\bd{连续频谱}，谱线长度趋于 $0$。
+\end{property}
+
+\begin{proof}
+    当 $T_0 \to +\infty$ 时，$\omega_0 = 2\pi / T_0 \to 0$，谱线间距变密直至为 $0$。$\omega$ 变为连续域。
+    此时
+    \begin{align*}
+        F_n = \frac{1}{T_0}\int_{t_0}^{t_0 + T_0}f(t)\mathe^{-\mathi n\omega_0 t} \D{t} \to 0,
+    \end{align*}
+    谱线高度变矮直至为 $0$。
+\end{proof}
+
+\begin{remark}
+    从物理意义着手：既然是信号，那么它必定会有能量；无论怎样，能量一定是守恒的。
+    因此，频率域一定会以某种形式存在。
+
+    从数学角度思考：无限多无穷小量的和，在极限意义下，可能等于一个有限值。
+    谱线高度变矮直至为 $0$，只是说每个分量变成了无穷小量，但没有说总和（信号）为 $0$。
+\end{remark}
+
+\subsubsection{非周期信号的傅里叶变换}
+
+有没有更优的非周期信号傅里叶频谱的定义方式？有，那就是\bd{傅里叶变换}。
+
+\begin{definition}[非周期信号的傅里叶变换]
+    设 $f(t)$ 是一个非周期信号，其傅里叶变换定义为
+    \begin{equation}
+        F(\omega) = \mathcal{F}[f(t)] = \int_{-\infty}^{+\infty}f(t)\mathe^{-\mathi\omega t} \D{t}.
+    \end{equation}
+    反之，想要恢复时域信号，$f(t)$ 可以通过逆变换得到：
+    \begin{equation}
+        f(t) = \mathcal{F}^{-1}[F(\omega)] = \frac{1}{2\pi}\int_{-\infty}^{+\infty}F(\omega)\mathe^{\mathi\omega t} \D{\omega}.
+    \end{equation}
+    这里的 $\mathcal{F}$ 和 $\mathcal{F}^{-1}$ 分别称为\bd{傅里叶变换}和\bd{傅里叶逆变换}。
+\end{definition}
+
+\begin{remark}
+    傅里叶变换存在的充分条件：时域信号 $f(t)$ 绝对可积。
+\end{remark}
+
+\begin{definition}[傅里叶频谱]
+    信号的傅里叶变换一般为复值函数，写成
+    \begin{equation}
+        F(\omega) = |F(\omega)|\mathe^{\mathi\phi(\omega)}.
+    \end{equation}
+    其中，$|F(\omega)|$ 称为\bd{幅度频谱密度函数}，$\phi(\omega)$ 称为\bd{相位频谱密度函数}。
+\end{definition}
+
+\begin{example}
+    设 $F(\omega) = \int_{-\infty}^{+\infty}f(t)\mathe^{-\mathi \omega t}\D{t} = R(\omega) + \mathi X(\omega)$，
+    其中 $R(\omega)$ 和 $X(\omega)$ 分别是 $F(\omega)$ 的实部和虚部。
+    则：
+    \begin{align*}
+        R(\omega) = \int_{-\infty}^{+\infty} f(t)\cos(\omega t)\D{t}, \\
+        X(\omega) = \int_{-\infty}^{+\infty} f(t)\sin(\omega t)\D{t}.
+    \end{align*}
+
+    可以发现：
+    \begin{itemize}
+        \item $R(\omega) = R(-\omega)$，频谱实部是偶对称的。
+        \item $X(\omega) = -X(-\omega)$，频谱虚部是奇对称的。
+        \item $\varphi(\omega) = \arctan\frac{X(\omega)}{R(\omega)}$，频谱相位是奇对称的。
+    \end{itemize}
+\end{example}
+
+\begin{property}[傅里叶变换的性质]
+    傅里叶变换具有以下性质：
+    \begin{itemize}
+        \item (唯一性) 如果两个函数的傅里叶变换（或逆变换）相等，那么这两个函数必定相等。
+        \item (可逆性) $\mathcal{F}[f(t)] = F(\omega) \iff \mathcal{F}^{-1}[F(\omega)] = f(t)$。
+    \end{itemize}
+\end{property}
+
+\begin{exercise}
+    写出函数
+    \begin{align*}
+        f(t) &= \begin{cases}
+            \mathe^{-at}, & t > 0, \\
+            0, & t \leq 0,
+        \end{cases}
+    \end{align*}
+    的傅里叶变换，其中 $a > 0$。
+\end{exercise}
+
+\begin{solution}
+    \begin{align*}
+        F(\omega) & = \int_{-\infty}^{+\infty}f(t)\mathe^{-\mathi\omega t}\D{t} \\
+        & = \int_{0}^{+\infty}\mathe^{-at}\mathe^{-\mathi\omega t}\D{t} \\
+        & = \int_{0}^{+\infty}\mathe^{-(a+\mathi\omega)t}\D{t} \\
+        & = \left.\frac{\mathe^{-(a+\mathi\omega)t}}{-(a+\mathi\omega)}\right|_{0}^{+\infty} \\
+        & = 0 - \frac{1}{-(a+\mathi\omega)} \\
+        & = \frac{1}{a+\mathi\omega}.
+    \end{align*}
+    因此，$f(t)$ 的傅里叶变换为
+    \begin{align*}
+        F(\omega) = \frac{1}{a+\mathi\omega}.
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    已知
+    \begin{align*}
+        f(t) &= \begin{cases}
+            t, & 0 \le t < \tau, \\
+            \tau, & \tau \le t \le 2\tau, \\
+            0, & t < 0 \text{ 或 } t > 2\tau,
+        \end{cases}
+    \end{align*}
+    求 $f(t)$ 的傅里叶变换，其中 $\tau > 0$。
+\end{exercise}
+
+\begin{solution}
+    \begin{align*}
+        F(\omega) & = \int_{-\infty}^{+\infty}f(t)\mathe^{-\mathi\omega t}\D{t} \\
+        & = \int_{0}^{\tau}t\mathe^{-\mathi\omega t}\D{t} + \int_{\tau}^{2\tau}\tau\mathe^{-\mathi\omega t}\D{t} \\
+        & = \left.\frac{(1 +\mathi\omega t)\mathe^{-\mathi\omega t}}{\omega^2}\right|_{0}^{\tau} + \left.\frac{\tau\mathe^{-\mathi\omega t}}{-\mathi\omega}\right|_{\tau}^{2\tau} \\
+        & = \frac{1 + \mathi\omega\tau}{\omega^2}\mathe^{-\mathi\omega\tau} - \frac{1}{\omega^2} + \frac{\tau\mathe^{-2\mathi\omega\tau}}{-\mathi\omega} - \frac{\tau\mathe^{-\mathi\omega\tau}}{-\mathi\omega} \\
+        & = \frac{1 + \mathi\omega\tau}{\omega^2}\mathe^{-\mathi\omega\tau} - \frac{1}{\omega^2} + \frac{\mathi\tau}{\omega}\mathe^{-2\mathi\omega \tau} - \frac{\mathi\tau}{\omega}\mathe^{-\mathi \omega \tau} \\
+        & = \frac{\mathi\tau}{\omega}\mathe^{-2\mathi\omega\tau} + \frac{1}{\omega^2}\mathe^{-\mathi\omega\tau} - \frac{1}{\omega^2}.
+    \end{align*}
+    因此，$f(t)$ 的傅里叶变换为
+    \begin{align*}
+        F(\omega) = \frac{\mathi\tau}{\omega}\mathe^{-2\mathi\omega\tau} + \frac{1}{\omega^2}\mathe^{-\mathi\omega\tau} - \frac{1}{\omega^2}.
+    \end{align*}
+\end{solution}

@@ -305,5 +305,5 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 
-# Temp files
-temp.*
+# Homework files
+homework.*
