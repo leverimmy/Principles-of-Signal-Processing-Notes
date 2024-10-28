@@ -307,3 +307,6 @@ TSWLatexianTemp*
 
 # Homework files
 homework.*
+
+# PDF files
+*.pdf
