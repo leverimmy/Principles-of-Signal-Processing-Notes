@@ -167,7 +167,6 @@
     如图 \ref{fig:equivalent-bandwidth-and-pulse-width} 所示为
     偶双边指数信号 $f(t) = \mathe^{-a|t|}$ 及其频谱。
     图中标明了等效脉宽 $\tau$ 与等效带宽 $B_\omega$。
-    % TODO：B_f 和 B_\omega 有什么区别？
     \begin{figure}[H]
         \centering
         \includegraphics[width = 0.6\linewidth]{chap2/img/equivalent-bandwidth-and-pulse-width.png}
@@ -175,6 +174,11 @@
         \label{fig:equivalent-bandwidth-and-pulse-width}
     \end{figure}
 \end{example}
+
+\begin{note}
+    % TODO：B_f 和 B_\omega 有什么区别？
+    有时候把频率和角频率不做特别区分了，$B_f$ 与 $B_\omega$ 也不做特别区分。
+\end{note}
 
 \subsubsection{FT 的时移特性}
 
@@ -230,6 +234,11 @@
 
 \subsubsection{FT 的微分与积分特性}
 
+\begin{note}
+    % TODO：证明
+    以下特性的证明都是\bd{错误的}，还在完善中。
+\end{note}
+
 \begin{property}[微分特性]
     设 $f(t)$ 是一个信号，其 FT 为 $F(\omega)$，则有
     \begin{itemize}
@@ -242,8 +251,39 @@
                 \mathcal{F}^{-1}\left[\frac{\D}{\D{t}}F(\omega)\right] = -\mathi t f(t)
             \end{align*}
     \end{itemize}
-    % 证明
 \end{property}
+
+\begin{proof}
+    由于
+    \begin{align*}
+        f(t) = \frac{1}{2\pi}\int_{-\infty}^{+\infty}F(\omega)\mathe^{\mathi \omega t}\D{\omega},
+    \end{align*}
+    对 $f(t)$ 求导，有
+    \begin{align*}
+        \dfrac{\D}{\D{t}}f(t) & = \dfrac{\D}{\D{t}}\left[\frac{1}{2\pi}\int_{-\infty}^{+\infty}F(\omega)\mathe^{\mathi \omega t}\D{\omega}\right] \\
+        & = \mathi \omega \frac{1}{2\pi}\int_{-\infty}^{+\infty}F(\omega)\mathe^{\mathi \omega t}\D{\omega} \\
+        & = \mathi \omega f(t).
+    \end{align*}
+    因此
+    \begin{align*}
+        \mathcal{F}\left[\frac{\D}{\D{t}}f(t)\right] = \mathcal{F}[\mathi \omega f(t)] = \mathi \omega F(\omega).
+    \end{align*}
+    同理，
+    \begin{align*}
+        F(\omega) = \int_{-\infty}^{+\infty}f(t)\mathe^{-\mathi \omega t}\D{t},
+    \end{align*}
+    对 $F(\omega)$ 求导，有
+    \begin{align*}
+        \dfrac{\D}{\D{\omega}}F(\omega) & = \dfrac{\D}{\D{\omega}}\left[\int_{-\infty}^{+\infty}f(t)\mathe^{-\mathi \omega t}\D{t}\right] \\
+        & = -\mathi t \int_{-\infty}^{+\infty}f(t)\mathe^{-\mathi \omega t}\D{t} \\
+        & = -\mathi t F(\omega).
+    \end{align*}
+    因此
+    \begin{align*}
+        \mathcal{F}^{-1}\left[\frac{\D}{\D{t}}F(\omega)\right] = \mathcal{F}^{-1}[-\mathi t F(\omega)] = -\mathi t f(t).
+    \end{align*}
+    命题得证。
+\end{proof}
 
 \begin{property}[积分特性]
     设 $f(t)$ 是一个信号，其 FT 为 $F(\omega)$，则有
@@ -257,8 +297,47 @@
                 \mathcal{F}^{-1}\left[\int_{-\infty}^{\omega}F(\lambda)\D{\lambda}\right] = \frac{f(t)}{-\mathi t} + \pi f(0)\delta(t)
             \end{align*}
     \end{itemize}
-    % 证明
 \end{property}
+
+\begin{proof}
+    记 $g(t) = \int_{-\infty}^{t}f(\tau)\D{\tau} - F(0)$，由于
+    \begin{align*}
+        F(0) = \int_{-\infty}^{+\infty}f(t)\D{t},
+    \end{align*}
+    则 $\lim_{t \to +\infty}g(t) = 0$，且$\frac{\D}{\D{t}}g(t) = f(t)$。
+    由微分性质得
+    \begin{align*}
+        F(\omega) = \mathcal{F}[f(t)] = \mathcal{F}[\frac{\D}{\D{t}}g(t)] = \mathi \omega \mathcal{F}[g(t)],
+    \end{align*}
+    也就是说，
+    \begin{align*}
+        F(\omega) & = \mathi \omega \mathcal{F}\left[\int_{-\infty}^{t}f(\tau)\D{\tau} - F(0)\right] \\
+        & = \mathi \omega \left(\mathcal{F}\left[\int_{-\infty}^{t}f(\tau)\D{\tau}\right] - \mathcal{F}[F(0)]\right) \\
+        & = \mathi \omega \left(\mathcal{F}\left[\int_{-\infty}^{t}f(\tau)\D{\tau}\right] - 2\pi F(0)\delta(\omega)\right).
+    \end{align*}
+    因此
+    \begin{align*}
+        \mathcal{F}\left[\int_{-\infty}^{t}f(\tau)\D{\tau}\right] = \frac{F(\omega)}{\mathi\omega} + \pi F(0)\delta(\omega).
+    \end{align*}
+    同理，记 $G(\omega) = \int_{-\infty}^{\omega}F(\lambda)\D{\lambda} - 2\pi f(0)$，由于
+    \begin{align*}
+        f(0) = \frac{1}{2\pi}\int_{-\infty}^{+\infty}F(\omega)\D{\omega},
+    \end{align*}
+    则 $\lim_{\omega \to +\infty}G(\omega) = 0$，且$\frac{\D}{\D{\omega}}G(\omega) = F(\omega)$。由微分性质得
+    \begin{align*}
+        f(t) = \mathcal{F}^{-1}[F(\omega)] = \mathcal{F}^{-1}[\frac{\D}{\D{\omega}}G(\omega)] = -\mathi t \mathcal{F}^{-1}[G(\omega)],
+    \end{align*}
+    也就是说，
+    \begin{align*}
+        f(t) & = -\mathi t \left(\mathcal{F}^{-1}\left[\int_{-\infty}^{\omega}F(\lambda)\D{\lambda}\right] - \mathcal{F}^{-1}[2\pi f(0)]\right) \\
+        & = -\mathi t \left(\mathcal{F}^{-1}\left[\int_{-\infty}^{\omega}F(\lambda)\D{\lambda}\right] - 2\pi f(0)\delta(t)\right).
+    \end{align*}
+    因此
+    \begin{align*}
+        \mathcal{F}^{-1}\left[\int_{-\infty}^{\omega}F(\lambda)\D{\lambda}\right] = \frac{f(t)}{-\mathi t} + \pi f(0)\delta(t).
+    \end{align*}
+    命题得证。
+\end{proof}
 
 \subsubsection{FT 的卷积特性}
 
@@ -326,8 +405,8 @@
     \begin{align*}
         \mathcal{F}[f_1(t) \cdot f_2(t)] = \frac{1}{2\pi}\mathcal{F}[f_1(t)] * \mathcal{F}[f_2(t)] = \frac{1}{2\pi}\mathcal{F}[f_1(t)] * \tau\sa\left(\frac{\tau\omega}{2}\right).
     \end{align*}
-    矩形信号边缘的跳变将引起原信号的频谱会产生畸变。
-    % TODO：这个例子的意义是什么？
+    注意到这里多卷积了一项 $\tau\sa\left(\frac{\tau\omega}{2}\right)$，
+    说明矩形信号边缘的跳变，将引起原信号的频谱产生畸变。
 \end{example}
 
 \subsubsection{FT 时域上的相关性定理}

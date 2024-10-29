@@ -238,8 +238,8 @@
 \begin{solution}
     采样后的频谱相当于原信号的频谱以 $6\;\mathrm{kHz}$ 为周期进行叠加。
     在 $2\;\mathrm{kHz}$ 处的频谱为原 $2\;\mathrm{kHz}$ 处的频谱
-    与 $4\;\mathrm{kHz}$ 处的频谱的叠加。
-    % TODO：大小会变成原来的 1/6000 倍吗？
+    与 $4\;\mathrm{kHz}$ 处的频谱的混叠。
+    % TODO：大小会变成原来的 6000 倍吗？
     画出采样后的频谱如图 \ref{fig:aliasing-example-4} 所示。
     \begin{figure}[H]
         \centering
@@ -249,17 +249,26 @@
     \end{figure}
 \end{solution}
 
-\begin{remark}
-    思考：混叠对音频质量会产生什么影响？
-    % TODO：问混叠对音频质量会产生什么影响？
-\end{remark}
+\begin{note}
+    % TODO：问这两题答案
+    以下两题的答案还未完成。
+\end{note}
 
-\begin{remark}
-    思考：如何防止混叠？
-    % TODO：问如何防止混叠？
-\end{remark}
+\begin{example}
+    设模拟音频信号高频截止频率为 $10\;\mathrm{kHz}$。若抽样频率为 $16\;\mathrm{kHz}$，
+    则抽样后信号频谱与原信号频谱在 $12\;\mathrm{kHz}$ 处有什么差异？
+\end{example}
+
+\begin{example}
+    模拟信号（实信号）频率在 $850\;\mathrm{kHz}$ 到 $900\;\mathrm{kHz}$。
+    若采样频率为 $200\;\mathrm{kHz}$，则采样后信号频谱在 $20\;\mathrm{kHz}$ 处
+    与原信号有什么差异？
+    （要求：文字说明幅度的变化；如果有混叠发生，请说明混叠对应的原频谱）
+\end{example}
 
 \subsubsection{采样定理}
+
+那么如何防止混叠现象的发生呢？我们以此为出发点，引出\bd{采样定理}。
 
 要想使采样后的信号样本能完全代表原来的信号，
 就意味着要能够从 $X_p(\mathi \omega)$中不失真地分离出 $X(\mathi \omega)$。
@@ -417,42 +426,22 @@
 
 \subsubsection{采样定理的方法论思考}
 
-% TODO：PPT 的逻辑
-
-关键科学问题
-
-\bd{局部}如何选择，才能全面体现\bd{整体}的变化规律?
-
-信号处理：抽样定理对抽样频率的约束。
+采样定理的核心是如何通过对原始信号较少的\bd{采样}（选择局部），
+来还原\bd{原信号}（体现整体）的全部知识，这也是人们通过数字信号，
+进一步计算机，来表示真实世界模拟信号的方式。\bd{采样定理}就给出了
+这种情况下对\bd{采样频率}的约束。
 
 \begin{figure}[H]
     \begin{tikzpicture}
-        % Nodes
-        \node at (3,2) [text width=12cm] (title) {多媒体计算机智能处理与应用};
+        \node at (4,2) [text width=7cm] (title) {多媒体计算机智能处理与应用};
         \node at (-2,0)[text width=5cm] (analog) {模拟（连续）世界};
         \node at (4,0)[text width=5cm] (digital) {数字（离散）世界};
-        
-        % Arrows
+
         \draw[->] (-1.5,0) -- (1.5,0)
         node[midway, above] {抽样} 
         node[midway, below] {桥梁};
         
-        \draw[->] (3,0.5) -- (0,1.5)
+        \draw[->] (3,0.5) -- (3,1.5)
         node[midway, right] {提取特征、改变特征};
-        
     \end{tikzpicture}
 \end{figure}
-
-\begin{example}
-    设模拟音频信号高频截止频率为 $10\;\mathrm{kHz}$。若抽样频率为 $16\;\mathrm{kHz}$，
-    则抽样后信号频谱与原信号频谱在 $12\;\mathrm{kHz}$ 处有什么差异？
-\end{example}
-
-\begin{example}
-    模拟信号（实信号）频率在 $850\;\mathrm{kHz}$ 到 $900\;\mathrm{kHz}$。
-    若采样频率为 $200\;\mathrm{kHz}$，则采样后信号频谱在 $20\;\mathrm{kHz}$ 处
-    与原信号有什么差异？
-    （要求：文字说明幅度的变化；如果有混叠发生，请说明混叠对应的原频谱）
-\end{example}
-
-% TODO：问这两题答案
