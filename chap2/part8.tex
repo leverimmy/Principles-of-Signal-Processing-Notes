@@ -159,7 +159,7 @@
     不妨设 $f(0)$ 与 $F(0)$ 分别为各自函数的最大值，则定义信号的\bd{等效脉宽}与\bd{等效带宽}为
     \begin{align*}
         \tau & = \frac{F(0)}{f(0)}, \\
-        B_f & = \frac{f(0)}{F(0)}.
+        B_\omega & = \frac{f(0)}{F(0)}.
     \end{align*}
 \end{definition}
 
@@ -176,8 +176,7 @@
 \end{example}
 
 \begin{note}
-    % TODO：B_f 和 B_\omega 有什么区别？
-    有时候把频率和角频率不做特别区分了，$B_f$ 与 $B_\omega$ 也不做特别区分。
+    有时不特别区分频率和角频率，对 $B_f$ 与 $B_\omega$ 也不做特别区分。
 \end{note}
 
 \subsubsection{FT 的时移特性}
@@ -405,9 +404,11 @@
     \begin{align*}
         \mathcal{F}[f_1(t) \cdot f_2(t)] = \frac{1}{2\pi}\mathcal{F}[f_1(t)] * \mathcal{F}[f_2(t)] = \frac{1}{2\pi}\mathcal{F}[f_1(t)] * \tau\sa\left(\frac{\tau\omega}{2}\right).
     \end{align*}
-    注意到这里多卷积了一项 $\tau\sa\left(\frac{\tau\omega}{2}\right)$，
-    说明矩形信号边缘的跳变，将引起原信号的频谱产生畸变。
 \end{example}
+
+\begin{remark}
+    但实际情况下不存在理想的矩形信号。矩形信号边缘的跳变，将引起原信号的频谱产生畸变。
+\end{remark}
 
 \subsubsection{FT 时域上的相关性定理}
 

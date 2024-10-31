@@ -239,7 +239,7 @@
     采样后的频谱相当于原信号的频谱以 $6\;\mathrm{kHz}$ 为周期进行叠加。
     在 $2\;\mathrm{kHz}$ 处的频谱为原 $2\;\mathrm{kHz}$ 处的频谱
     与 $4\;\mathrm{kHz}$ 处的频谱的混叠。
-    % TODO：大小会变成原来的 6000 倍吗？
+    幅度大小变为原来的 $1/T_s = 6000$ 倍。
     画出采样后的频谱如图 \ref{fig:aliasing-example-4} 所示。
     \begin{figure}[H]
         \centering
@@ -250,14 +250,34 @@
 \end{solution}
 
 \begin{note}
-    % TODO：问这两题答案
-    以下两题的答案还未完成。
+    虽然图 \ref{fig:aliasing-example-4} 和图 \ref{fig:aliasing-example-3} 的
+    频谱图像极为相似，但纵轴的幅度并不一样，前者是后者的 $1/T_s = 6000$ 倍。
 \end{note}
 
 \begin{example}
-    设模拟音频信号高频截止频率为 $10\;\mathrm{kHz}$。若抽样频率为 $16\;\mathrm{kHz}$，
+    设一模拟音频信号高频截止频率为 $10\;\mathrm{kHz}$。
+    若抽样频率为 $16\;\mathrm{kHz}$，
     则抽样后信号频谱与原信号频谱在 $12\;\mathrm{kHz}$ 处有什么差异？
 \end{example}
+
+\begin{note}
+    \bd{实信号}通过傅里叶变换后得到的频谱是关于 $f = 0$ 轴对称的，
+    也就是\bd{双边频谱}。这是题目提到\bd{模拟信号/实信号}时需要
+    下意识反应到的一个点。
+\end{note}
+
+\begin{solution}
+    采样后的频谱相当于原信号的频谱以 $16\;\mathrm{kHz}$ 为周期进行叠加。
+    在 $12\;\mathrm{kHz}$ 处的频谱为原 $-4\;\mathrm{kHz}$ 处
+    （对称后，$4\;\mathrm{kHz}$ 处）的频谱。
+    幅度大小变为原来的 $1/T_s = 16000$ 倍。
+    因此
+    \begin{align*}
+        X_s(12\;\mathrm{kHz}) & = \frac{1}{T_s}X(-4\;\mathrm{kHz}) \\
+        & = 16000X(4\;\mathrm{kHz}).
+    \end{align*}
+    信号会发生混叠，但混叠对 $12\;\mathrm{kHz}$ 处的频率分量没有影响。
+\end{solution}
 
 \begin{example}
     模拟信号（实信号）频率在 $850\;\mathrm{kHz}$ 到 $900\;\mathrm{kHz}$。
@@ -265,6 +285,18 @@
     与原信号有什么差异？
     （要求：文字说明幅度的变化；如果有混叠发生，请说明混叠对应的原频谱）
 \end{example}
+
+\begin{solution}
+    由于采样频率 $\omega_s = 200\;\mathrm{kHz} > 2\Delta\omega = 100\;\mathrm{kHz}$，
+    故不会发生混叠。采样后信号频谱在 $20\;\mathrm{kHz}$ 处的幅度为原信号频谱在
+    $1020\;\mathrm{kHz}$ 处的幅度，为 $0$。
+\end{solution}
+
+\begin{remark}
+    对于一个经过调制后的信号，若想要将其完整的恢复出来，也可以对其进行采样，
+    然后过低通滤波器（其实就是解调的过程）。在这个过程中，
+    当采样频率满足特定频率的时候，不需要其很高的采样频率也能将信号复原。
+\end{remark}
 
 \subsubsection{采样定理}
 
