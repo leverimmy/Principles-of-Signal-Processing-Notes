@@ -1,0 +1,270 @@
+\subsection{习题课 2}
+
+\begin{exercise}
+    设序列 $x(n) = [2, 3, 6, 1, 0, 1]$，$x(n)$ 的 DTFT 为 $X(\omega)$，
+    求 $\int_{-\pi}^{\pi}\|X(\omega)\|^2\D{\omega}$。
+\end{exercise}
+
+\begin{solution}
+    由帕斯瓦尔定理，有
+    \begin{align*}
+        \int_{-\pi}^{\pi}\|X(\omega)\|^2\D{\omega} & = 2\pi\sum_{n = 0}^{n = 5}\|x(n)\|^2 \\
+        & = 2\pi \times (2^2 + 3^2 + 6^2 + 1^2 + 0^2 + 1^2) \\
+        & = 102\pi.
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    已知序列 $x(n) = \alpha^n u(-n-1)\cos(\omega_0 n)$，
+    其中 $|\alpha| > 1$。
+    \begin{enumerate}[label=(\arabic*)]
+        \item 求 $x(n)$ 的 DTFT $X(\omega)$。
+        \item 利用 DTFT 的帕斯瓦尔定理，计算
+            \begin{align*}
+                \int_{-\pi}^{\pi}\frac{1}{5 + 4\cos \omega}\D{\omega}.
+            \end{align*}
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 由题知 $x(n) = \alpha^nu(-n-1) \cdot \frac{1}{2}\left(\mathe^{\mathi\omega_0 n} + \mathe^{-\mathi \omega_0 n}\right)$。
+            而
+            \begin{align*}
+                \DTFT{\alpha^nu(-n-1)} & = \sum_{n = -\infty}^{+\infty}\alpha^nu(-n-1)\mathe^{-\mathi n\omega} \\
+                & = \sum_{n = -\infty}^{-1}\left(\alpha\mathe^{-\mathi\omega}\right)^n \\
+                & = \sum_{m = 1}^{+\infty}\left(\frac{1}{\alpha\mathe^{-\mathi\omega}}\right)^m \\
+                & = \frac{1}{\alpha \mathe^{-\mathi\omega} - 1},
+            \end{align*}
+            且
+            \begin{align*}
+                \DTFT{\cos(\omega_0 n)} & = \DTFT{\frac{\mathe^{\mathi\omega_0 n} + \mathe^{-\mathi\omega_0 n}}{2}} \\
+                & = \pi(\delta(\omega - \omega_0) + \delta(\omega + \omega_0)),
+            \end{align*}
+            因此
+            \begin{align*}
+                X(\omega) & = \frac{1}{2\pi}\DTFT{\alpha^nu(-n-1)} \otimes \DTFT{\cos(\omega_0 n)} \\
+                & = \frac{1}{2}\frac{1}{\alpha \mathe^{-\mathi\omega} - 1} \otimes (\delta(\omega - \omega_0) + \delta(\omega + \omega_0)) \\
+                & = \frac{1}{2}\left(\frac{1}{\alpha \mathe^{-\mathi(\omega - \omega_0)} - 1} + \frac{1}{\alpha \mathe^{-\mathi(\omega + \omega_0)} - 1}\right).
+            \end{align*}
+        \item 当 $\omega_0 = 0$ 时，$X(\omega) = 1/(\alpha\mathe^{-\mathi\omega} - 1)$。
+            \begin{align*}
+                \|X(\omega)\|^2 & = X(\omega)\cdot X^*(\omega) \\
+                & = \frac{1}{\alpha\mathe^{-\mathi\omega} - 1} \cdot \frac{1}{\alpha\mathe^{\mathi\omega} - 1} \\
+                & = \frac{1}{\alpha^2 + 1 - 2\alpha\cos\omega}.
+            \end{align*}
+            当 $\alpha = -2$ 时，
+            \begin{align*}
+                \|X(\omega)\|^2 = \frac{1}{5 + 4\cos\omega}.
+            \end{align*}
+            此时 $x(n) = (-2)^nu(-n-1)$。因此，由帕斯瓦尔定理，得
+            \begin{align*}
+                \int_{-\pi}^{\pi}\frac{1}{5 + 4\cos\omega} & = \int_{-\infty}^{+\infty}\|X(\omega)\|^2\D{\omega} \\
+                & = 2\pi\sum_{n = -\infty}^{+\infty}|x(n)|^2 \\
+                & = 2\pi\sum_{n = -\infty}^{-1}4^n \\
+                & = \frac{2\pi}{3}.
+            \end{align*}
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    设序列 $x(n)$ 的 DTFT 为 $X(\omega)$，试用 $X(\omega)$ 表示
+    序列 $y(n) = x(2n + 1)$ 的 DTFT $Y(\omega)$。
+\end{exercise}
+
+\begin{solution}
+    由题知，
+    \begin{align*}
+        Y(\omega) & = \DTFT{y(n)} \\
+        & = \sum_{n = -\infty}^{+\infty}y(n)\mathe^{-\mathi n\omega} \\
+        & = \sum_{n = -\infty}^{+\infty}x(2n + 1)\mathe^{-\mathi n\omega} \\
+        & = \sum_{k = -\infty}^{+\infty}x(k)\mathe^{-\mathi (k-1)\omega / 2} \cdot \frac{1 - (-1)^k}{2} \\
+        & = \frac{1}{2}\sum_{k = -\infty}^{+\infty}x(k)\mathe^{-\mathi (k-1)\omega / 2}
+            - \frac{1}{2}\sum_{k = -\infty}^{+\infty}x(k)\mathe^{\mathi k\pi -\mathi (k-1)\omega / 2} \\
+        & = \frac{\mathe^{\mathi\omega/2}}{2}\sum_{k = -\infty}^{+\infty}x(k)\mathe^{-\mathi k \omega / 2}
+            - \frac{\mathe^{\mathi\omega/2}}{2}\sum_{k = -\infty}^{+\infty}x(k)\mathe^{-\mathi k (\omega / 2 - \pi)} \\
+        & = \frac{\mathe^{\mathi\omega/2}}{2}X\left(\frac{\omega}{2}\right)
+            - \frac{\mathe^{\mathi\omega/2}}{2}X\left(\frac{\omega}{2} - \pi\right).
+    \end{align*}
+\end{solution}
+
+\begin{note}
+    以下是常见错误解法：
+    \begin{enumerate}
+        \item 错误解法 1：
+            \begin{align*}
+                \DTFT{x(2n + 1)} = \DTFT{x_{1/2}\left(n + \frac{1}{2}\right)} = \mathe^{\mathi\omega/2}X\left(\frac{\omega}{2}\right).
+            \end{align*} 
+            这是因为只有\bd{当 $a$ 为非零整数时}，才能使用时域扩展公式
+            \begin{align*}
+                x_{(a)}(n) = \begin{cases}
+                    x\left(\frac{n}{a}\right), & \frac{n}{a} \in \set{Z}, \\
+                    0, & \text{otherwise}.
+                \end{cases}
+            \end{align*}
+        \item 错误解法 2：
+            \begin{align*}
+                \DTFT{x(2n + 1)} = \sum_{n = -\infty}^{+\infty}x(2n + 1)\mathe^{-\mathi n\omega}
+                    = \sum_{m = -\infty}^{+\infty}x(m)\mathe^{-\mathi (m - 1)\omega / 2}
+                    = \mathe^{\mathi\omega/2}X\left(\frac{\omega}{2}\right).
+            \end{align*}
+            这是因为只有\bd{当 $m$ 为奇数时}才应当被计入和式，第二个等号不成立。
+        \item 错误解法 3：
+            \begin{align*}
+                \DTFT{x(2n + 1)} = \mathe^{-\mathi\omega(-1)}\DTFT{x(2n)}
+                    = \frac{1}{2}\mathe^{\mathi\omega}\left[X\left(\frac{\omega}{2}\right)
+                        + X\left(\frac{\omega}{2} - \pi\right)\right].
+            \end{align*}
+            这是因为时域平移公式只适用于 \bd{$n_0$ 为整数}的情况：
+            \begin{align*}
+                \DTFT{x(n - n_0)} = \mathe^{-\mathi n_0\omega}X(\omega),
+            \end{align*}
+            其中 $n_0 \in \set{Z}$。
+    \end{enumerate}
+\end{note}
+
+\begin{exercise}
+    已知序列 $x(n)$ 和 $y(n)$ 的 DTFT 分别为 $X(\omega)$ 和 $Y(\omega)$。
+    \begin{enumerate}[label=(\arabic*)]
+        \item 试用 $X(\omega)$ 表示序列 $x_1(n) = x(4n)$ d 的 DTFT $X_1(\omega)$。
+        \item 对周期函数 $X(\omega)$ 和 $Y(\omega)$，定义相关系数
+            \begin{align*}
+                R_{XY}(\omega) = \int_{-\pi}^{\pi}X(\omega' + \omega)Y^*(\omega')\D{\omega'}
+                    = \int_{-\pi}^{\pi}X(\omega')Y^*(\omega' - \omega)\D{\omega'}.
+            \end{align*}
+            记 $R_{XY}(\omega)$ 的 IDTFT 为 $r_{xy}(n)$，
+            试用 $x(n)$ 和 $y(n)$ 表示 $r_{xy}(n)$。
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 令 $h(n) = x(2n)$，则
+            \begin{align*}
+                H(\omega) & = \DTFT{h(n)} \\
+                & = \DTFT{x(2n)} \\
+                & = \frac{1}{2}\left(X\left(\frac{\omega}{2}\right) + X\left(\frac{\omega}{2} - \pi\right)\right),
+            \end{align*}
+            故
+            \begin{align*}
+                H\left(\frac{\omega}{2}\right) = \frac{1}{2}\left(X\left(\frac{\omega}{4}\right) + X\left(\frac{\omega}{4} - \pi\right)\right),
+                H\left(\frac{\omega}{2} - \pi\right) = \frac{1}{2}\left(X\left(\frac{\omega}{4} - \frac{\pi}{2}\right) + X\left(\frac{\omega}{4} - \frac{3}{2}\pi\right)\right).
+            \end{align*}
+            因此
+            \begin{align*}
+                X_1(\omega) & = \frac{1}{2}\left(H\left(\frac{\omega}{2}\right) + H\left(\frac{\omega}{2} - \pi\right)\right) \\
+                & = \frac{1}{4}\left(X\left(\frac{\omega}{4}\right) + X\left(\frac{\omega}{4} - \pi\right) + X\left(\frac{\omega}{4} - \frac{\pi}{2}\right) + X\left(\frac{\omega}{4} - \frac{3}{2}\pi\right)\right).
+            \end{align*}
+        \item 由于
+            \begin{align*}
+                R_{XY}(\omega) & = \int_{-\pi}^{\pi}X(\omega' + \omega)Y^*(\omega')\D{\omega'} \\
+                & = X(\omega) \otimes Y^*(-\omega),
+            \end{align*}
+            故
+            \begin{align*}
+                r_{xy}(n) & = \IDTFT{X(\omega) \otimes Y^*(-\omega)} \\
+                & = 2\pi \cdot \IDTFT{X(\omega)} \cdot \IDTFT{Y^*(-\omega)} \\
+                & = 2\pi x(n)y^*(n).
+            \end{align*}
+    \end{enumerate}
+\end{solution}
+
+\begin{remark}
+    在此题中，构造
+    \begin{align*}
+        C(m) = \frac{1}{4}\left(1 + \mathe^{\frac{1}{4}\mathi \cdot 2m\pi}
+            + \mathe^{\frac{2}{4}\mathi \cdot 2m\pi}
+            + \mathe^{\frac{3}{4}\mathi \cdot 2m\pi}\right)
+    \end{align*}
+    可以直接求 $\DTFT{x(4n)}$。其中 $C(m)$ 也满足
+    \begin{align*}
+        C(m) = \begin{cases}
+            1, & m \equiv 0 \pmod{4}, \\
+            0, & \text{otherwise}.
+        \end{cases}
+    \end{align*}
+\end{remark}
+
+\begin{note}
+    事实上，对于任意的 $n \in \set{Z}$，可以构造
+    \begin{align*}
+        C(m) = \begin{cases}
+            1, & m \equiv 0 \pmod{n}, \\
+            0, & \text{otherwise}.
+        \end{cases}
+    \end{align*}
+    从而可以直接求 $\DTFT{x(nm)}$。构造
+    \begin{align*}
+        C(m) & = \frac{1}{n}\sum_{k = 0}^{n-1}\mathe^{2m\pi\mathi \cdot k/n} \\
+        & = \frac{1}{n}\sum_{k = 0}^{n - 1}\left(\mathe^{2\pi\mathi \cdot m/n}\right)^k,
+    \end{align*}
+    \begin{itemize}
+        \item 当 $n \nmid m$ 时，$\mathe^{2\pi\mathi \cdot m/n} \neq 1$，
+            \bd{这是一个等比数列}，因此
+            \begin{align*}
+                C(m) & = \frac{1}{n}\cdot 1 \times \frac{1 - \mathe^{2\pi\mathi \cdot m}}{1 - \mathe^{2\pi\mathi \cdot m/n}} \\
+                & = 0.
+            \end{align*}
+        \item 当 $n \mid m$ 时，$\mathe^{2\pi\mathi \cdot m/n} = 1$，
+            \bd{这是一个常数列}，故 $C(m) = \frac{1}{n} \times n = 1$。
+    \end{itemize}
+    这样构造出的 $C(m)$ 是满足要求的。
+\end{note}
+
+\begin{exercise}
+    已知序列 $h(n) = (1/2)^nu(n)$，其中 $u(n) = \begin{cases}
+        1, & n \ge 0, \\
+        0, & n < 0.
+    \end{cases}$
+    \begin{enumerate}[label=(\arabic*)]
+        \item $x(n) = \cos(\omega_0 n)$，求 $\DTFT{h(n)x(n)}$。
+        \item 求 $y(n) = h(n) * (-1)^n$。
+        \item 利用 DTFT 的帕斯瓦尔定理，计算
+            \begin{align*}
+                \int_{-\pi}^{\pi}\frac{1}{5 - 4\cos\omega}\D{\omega}.
+            \end{align*}
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 不妨设 $h(n)$ 和 $x(n)$ 的 DTFT 分别为 $H(\omega)$ 和 $X(\omega)$。
+            则
+            \begin{align*}
+                H(\omega) & = \sum_{n = -\infty}^{+\infty}h(n)\mathe^{-\mathi n\omega} \\
+                & = \sum_{n = 0}^{+\infty}\left(\frac{1}{2}\right)^n\mathe^{-\mathi n\omega} \\
+                & = \frac{1}{1 - \frac{1}{2}\mathe^{-\mathi\omega}},
+            \end{align*}
+            且
+            \begin{align*}
+                X(\omega) & = \DTFT{\frac{\mathe^{\mathi\omega n} + \mathe^{-\mathi\omega n}}{2}} \\
+                & = \pi(\delta(\omega - \omega_0) + \delta(\omega + \omega_0)).
+            \end{align*}
+            由 DTFT 的性质，可知
+            \begin{align*}
+                \DTFT{h(n)x(n)} & = \frac{1}{2\pi}H(\omega) \oplus X(\omega) \\
+                & = \frac{1}{2\pi}\cdot\left(\frac{1}{1 - \frac{1}{2}\mathe^{-\mathi\omega}} \oplus (\delta(\omega - \omega_0) + \delta(\omega + \omega_0))\right) \\
+                & = \frac{1}{2 - \mathe^{-\mathi(\omega - \omega_0)}} + \frac{1}{2 - \mathe^{-\mathi(\omega + \omega_0)}}.
+            \end{align*}
+        \item 由卷积的定义，知
+            \begin{align*}
+                y(n) & = \sum_{m = -\infty}^{+\infty}h(m)(-1)^{n-m} \\
+                & = (-1)^n\sum_{m = 0}^{+\infty}\left(-\frac{1}{2}\right)^m \\
+                & = (-1)^n\cdot \frac{1}{1 + \frac{1}{2}} \\
+                & = \frac{2}{3}(-1)^n.
+            \end{align*}
+        \item 注意到
+            \begin{align*}
+                \|H(\omega)\| & = H(\omega) \cdot H^*(\omega) \\
+                & = \frac{1}{1 - \frac{1}{2}\mathe^{-\mathi\omega}} \cdot \frac{1}{1 - \frac{1}{2}\mathe^{\mathi\omega}} \\
+                & = \frac{4}{5 - 4\cos\omega},
+            \end{align*}
+            因此，
+            \begin{align*}
+                \int_{-\pi}^{\pi}\frac{1}{5 - 4\cos\omega}\D{\omega} & = \frac{1}{4}\int_{-\pi}^{\pi}\|H(\omega)\|^2\D{\omega} \\
+                & = \frac{1}{4}\times 2\pi\sum_{n = -\infty}^{+\infty}|h(n)|^2 \\
+                & = \frac{\pi}{2}\sum_{n = 0}^{+\infty}\left(\frac{1}{4}\right)^{n} \\
+                & = \frac{2\pi}{3}.
+            \end{align*}
+    \end{enumerate}
+\end{solution}

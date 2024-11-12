@@ -82,7 +82,7 @@
 \end{property}
 
 \begin{proof}
-    
+    % TODO
 \end{proof}
 
 \begin{property}
@@ -121,15 +121,15 @@
 \end{example}
 
 \begin{exercise}
-    现有信号 $f(t) = \mathe^{-t^2/20}$。为分析某时刻下的“局部频谱”，
+    现有信号 $f(t) = \mathe^{-t^2/20}$。为分析某时刻下的``局部频谱''，
     可选合适的窗函数 $w(t, t_0)$，并截取 $f(t)$ 在 $t_0$ 附近的信号，
     即 $f_w(t, t_0) = f(t)\cdot w(t, t_0)$。
     \begin{enumerate}[label=(\alph*)]
         \item 求信号 $f(t)$ 的 FT。
         \item 现不妨取窗函数 $w(t, t_0) = \mathe^{-(t - t_0)^2/2}$。
-            试分析 $t_0 = 0$ 时刻下对应的“局部频谱”，即求 $f_w(t, 0)$ 的 FT。
+            试分析 $t_0 = 0$ 时刻下对应的``局部频谱''，即求 $f_w(t, 0)$ 的 FT。
         \item 画出信号 $f(t)$ 的频谱图与信号 $f(t)$ 在 $t_0 = 0$ 时刻下的
-            “局部频谱”图，并进行对比。
+            ``局部频谱''图，并进行对比。
     \end{enumerate}
     （提示：若 $x, c \in \set{R}$，则 $\int_{-\infty}^{+\infty}\mathe^{-(x + \mathi c)^2}\D{x} = \sqrt{\pi}$。）
 \end{exercise}
@@ -190,7 +190,7 @@
             \end{figure}
             可以看出，这两个频率谱在 $\omega = 0$ 处均有峰值，但 $F(\omega)$ 的峰值更高，
             为 $F_w(\omega, 0)$ 的 $\sqrt{11}$ 倍。同时，$F_w(\omega, 0)$ 比 $F(\omega)$ 更加
-            “平缓”，即 $F_w(\omega, 0)$ 的峰值附近的值相对于峰值更小。
+            ``平缓''，即 $F_w(\omega, 0)$ 的峰值附近的值相对于峰值更小。
     \end{enumerate}
 \end{solution}
 
@@ -373,6 +373,184 @@
     \end{figure}
 \end{example}
 
+\subsubsection{采样定理的方法论思考}
+
+采样定理的核心是如何通过对原始信号较少的\bd{采样}（选择局部），
+来还原\bd{原信号}（体现整体）的全部知识，这也是人们通过数字信号，
+进一步计算机，来表示真实世界模拟信号的方式。\bd{采样定理}就给出了
+这种情况下对\bd{采样频率}的约束。
+
+\begin{figure}[H]
+    \begin{tikzpicture}
+        \node at (4,2) [text width=7cm] (title) {多媒体计算机智能处理与应用};
+        \node at (-2,0)[text width=5cm] (analog) {模拟（连续）世界};
+        \node at (4,0)[text width=5cm] (digital) {数字（离散）世界};
+
+        \draw[->] (-1.5,0) -- (1.5,0)
+        node[midway, above] {抽样} 
+        node[midway, below] {桥梁};
+        
+        \draw[->] (3,0.5) -- (3,1.5)
+        node[midway, right] {提取特征、改变特征};
+    \end{tikzpicture}
+\end{figure}
+
+\subsubsection{内插}
+
+\begin{definition}[理想低通滤波器]
+    \bd{理想低通滤波器}是指频域上矩形脉冲 $H(\mathi\omega)$，
+    如图 \ref{fig:ideal-low-pass-filter-magnitude} 和 \ref{fig:ideal-low-pass-filter-argument} 所示。
+    \begin{align*}
+        H(\mathi\omega) = \begin{cases}
+            \mathe^{-\mathi\omega t_0}, & |\omega| \le \omega_c, \\
+            0, & |\omega| > \omega_c.
+        \end{cases}
+    \end{align*}
+    其单位冲激响应如图 \ref{fig:ideal-low-pass-filter-impulse-response} 所示，为
+    \begin{align*}
+        h(t) = \frac{\omega_c}{\pi}\sa{\left(\omega_c(t - t_0)\right)}.
+    \end{align*}
+    理想低通滤波器的单位冲激响应 $h(t)$，即为其傅里叶逆变换。
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = middle,
+                    xlabel = {$\omega$},
+                    ylabel = {$|H(\mathi\omega)|$},
+                    ylabel style={at={(rel axis cs:0.5, 1)}, anchor=south},
+                    xmin = -2.2, xmax = 2.2,
+                    ymin = -0.2, ymax = 1.2,
+                    xtick = {-2, -1, 0, 1, 2},
+                    xticklabels = {$ $, $ $, $ $, $ $, $ $},
+                    ytick distance = 1,
+                    grid = major,
+                    grid style = dashed,
+                    scale only axis,
+                    width = 4cm,
+                    height = 2cm,
+                    axis equal,
+                ]
+                \addplot[domain=-2.2:-1.3, samples=100, smooth, line width=2pt, blue] {0};
+                \addplot[domain=-1.3:1.3, samples=100, smooth, line width=2pt, blue] {1};
+                \addplot[domain=1.3:2.2, samples=100, smooth, line width=2pt, blue] {0};
+                \addplot[smooth, line width=2pt, blue] coordinates {(-1.3, 0) (-1.3, 1)};
+                \addplot[smooth, line width=2pt, blue] coordinates {(1.3, 1) (1.3, 0)};
+                \node at (axis cs:0, 0) [anchor=north west] {O};
+                \node at (axis cs:-1.3, 0) [anchor = north] {$-\omega_c$};
+                \node at (axis cs:1.3, 0) [anchor = north] {$\omega_c$};
+                \end{axis}
+            \end{tikzpicture}
+            \caption{$|H(\mathi\omega)|$}
+            \label{fig:ideal-low-pass-filter-magnitude}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = middle,
+                    xlabel = {$\omega$},
+                    ylabel = {$\varphi(\omega)$},
+                    ylabel style={at={(rel axis cs:0.5, 1)}, anchor=south},
+                    xmin = -2.2, xmax = 2.2,
+                    ymin = -1.2, ymax = 1.2,
+                    xtick = {-2, -1, 0, 1, 2},
+                    xticklabels = {$ $, $ $, $ $, $ $, $ $},
+                    ytick distance = 1,
+                    grid = major,
+                    grid style = dashed,
+                    scale only axis,
+                    width = 4cm,
+                    height = 4cm,
+                    axis equal,
+                ]
+                \addplot[domain=-1.3:1.3, samples=100, smooth, line width=2pt, blue] {-x};
+                \addplot[dashed, red] coordinates {(-1.3, 0) (-1.3, 1.3)};
+                \addplot[dashed, red] coordinates {(1.3, -1.3) (1.3, 0)};
+                \node at (axis cs:0, 0) [anchor=north west] {O};
+                \node at (axis cs:-1.3, 0) [anchor = north] {$-\omega_c$};
+                \node at (axis cs:1.3, 0) [anchor = south] {$\omega_c$};
+                \end{axis}
+            \end{tikzpicture}
+            \caption{$\varphi(\omega)$}
+            \label{fig:ideal-low-pass-filter-argument}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = middle,
+                    xlabel = {$t$},
+                    ylabel = {$\sa(t)$},
+                    ylabel style={at={(rel axis cs:0.3, 1)}, anchor=south},
+                    xmin = -6, xmax = 14,
+                    ymin = -0.3, ymax = 1.1,
+                    xtick = {-6, -4, -2, 0, 2, 4, 6, 8, 10, 12, 14},
+                    xticklabels = {$ $, $ $, $ $, $ $, $ $, $ $, $ $, $ $, $ $, $ $, $ $},
+                    ytick = {-0.25, 0, 0.25, 0.5, 0.75, 1},
+                    yticklabels = {$ $, $ $, $ $, $ $, $ $, $\frac{\omega_c}{\pi}$},
+                    grid = major,
+                    grid style = dashed,
+                    scale only axis,
+                    width = 5cm,
+                    height = 5cm,
+                ]
+                \addplot[domain=-6:14, samples=100, smooth, line width=2pt, blue] {sin(deg(x-4))/(x-4)};
+                \addlegendentry{$\frac{\sin(t)}{t}$}
+                \addplot[dashed, red] coordinates {(0, 1) (4, 1)};
+                \addplot[dashed, red] coordinates {(4, 0) (4, 1)};
+                \node at (axis cs:0, 0) [anchor=south east] {O};
+                \node[circle, fill, inner sep=1.5pt] at (axis cs:0.86, 0) {};
+                \node at (axis cs:0.86, 0) [anchor=north] {$t_0 - \frac{\pi}{\omega_c}$};
+                \node at (axis cs:4, 0) [anchor=north] {$t_0$};
+                \end{axis}
+            \end{tikzpicture}
+            \caption{$h(t) = \frac{\omega_c}{\pi}\cdot\sa{\left(\omega_c(t - t_0)\right)}$}
+            \label{fig:ideal-low-pass-filter-impulse-response}
+        \end{subfigure}
+        \caption{理想低通滤波器}
+    \end{figure}
+\end{definition}
+
+\begin{definition}[内插]
+    \bd{内插}是指由样本值重建某一函数的过程。若原始信号是带限的，
+    即信号的频谱宽度有限，则称之为\bd{带限内插}。
+
+    如何恢复原始的时间连续信号?
+    用滤波器函数对信号抽样值进行内插来重建模拟信号，相当于滤波器的冲击响应与信号值为权重的脉冲串的卷积。
+    \begin{itemize}
+        \item (理想带限内插)
+            \bd{理想带限内插}是通过\bd{理想低通滤波器}来实现的，它使用理想低通滤波器的单位冲激响应作为内插函数。
+            这种内插方式在理论上可以完全准确地重建信号，只要信号是带限的，并且采样频率满足采样定理的条件。
+            设 $h(t)$ 为理想低通滤波器的单位冲激响应，则
+            \begin{align*}
+                x(t) & = x_p(t) * h(t) \\
+                & = \sum_{n = -\infty}^{+\infty}x(nT_s)\delta(t - nT_s) * h(t) \\
+                & = \sum_{n = -\infty}^{+\infty}x(nT_s)h(t - nT_s).
+            \end{align*}
+        \item (零阶保持内插)
+            \bd{零阶保持内插}的内插函数 $h_0(t)$ 是一个矩形脉冲。如图 \ref{fig:zero-order-interpolation} 所示。
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\textwidth]{chap2/img/zero-order-interpolation.png}
+                \caption{零阶保持内插}
+                \label{fig:zero-order-interpolation}
+            \end{figure}
+        \item (一阶保持内插（线性内插）)
+            \bd{线性内插}的内插函数 $h_1(t)$ 是一个三角脉冲。如图 \ref{fig:first-order-interpolation} 所示。
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\textwidth]{chap2/img/first-order-interpolation.png}
+                \caption{一阶保持内插（线性内插）}
+                \label{fig:first-order-interpolation}
+            \end{figure}
+    \end{itemize}
+\end{definition}
+
 \begin{property}[三角脉冲的傅里叶变换]
     设 $f(t)$ 为 $[T_0, T_0]$ 上的三角脉冲信号，如图 \ref{fig:triangular-rectangular-1} 所示。
     \begin{figure}[H]
@@ -456,24 +634,21 @@
     \end{align*}
 \end{proof}
 
-\subsubsection{采样定理的方法论思考}
+\begin{definition}[欠采样]
+    如果采样时不满足采样定理的要求，则一定会在 $x(t)$ 的频谱周期延拓时，
+    出现\bd{频谱混叠}的现象，这种现象称为\bd{欠采样}。
 
-采样定理的核心是如何通过对原始信号较少的\bd{采样}（选择局部），
-来还原\bd{原信号}（体现整体）的全部知识，这也是人们通过数字信号，
-进一步计算机，来表示真实世界模拟信号的方式。\bd{采样定理}就给出了
-这种情况下对\bd{采样频率}的约束。
-
-\begin{figure}[H]
-    \begin{tikzpicture}
-        \node at (4,2) [text width=7cm] (title) {多媒体计算机智能处理与应用};
-        \node at (-2,0)[text width=5cm] (analog) {模拟（连续）世界};
-        \node at (4,0)[text width=5cm] (digital) {数字（离散）世界};
-
-        \draw[->] (-1.5,0) -- (1.5,0)
-        node[midway, above] {抽样} 
-        node[midway, below] {桥梁};
+    \begin{enumerate}
+        \item 频谱混叠的情况下时域信号变了，但抽样点处取值不变。
         
-        \draw[->] (3,0.5) -- (3,1.5)
-        node[midway, right] {提取特征、改变特征};
-    \end{tikzpicture}
-\end{figure}
+            此时，即使通过理想内插也得不到原信号。
+            但是无论怎样，恢复所得的信号 $x(t)$ 与原信号 $x(t)$ 在采样点上
+            将具有相同的值，即 $x_r(nT) = x(nT)$。
+        \item 工程应用时，如果采样频率 $\omega_s = 2\omega_M$，则
+            不足以从样本中恢复原信号。
+
+            例如 $x(t) = \cos(\omega_0 t + \varphi)$ 在 $\omega_s = 2\pi/T = 2\omega_0$ 时条件下
+            进行采样，则 $x$
+    \end{enumerate}
+\end{definition}
+

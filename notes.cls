@@ -79,6 +79,8 @@
 \newcommand\ip[2]{\left\langle#1, #2\right\rangle}
 \newcommand\re[1]{\mathrm{Re}#1}
 \newcommand\im[1]{\mathrm{Im}#1}
+\newcommand\DTFT[1]{\mathrm{DTFT}\left[#1\right]}
+\newcommand\IDTFT[1]{\mathrm{IDTFT}\left[#1\right]}
 
 % 设置列表环境的行间距
 \setlist[enumerate,1]{itemsep=1pt,parsep=0pt,topsep=0pt}
