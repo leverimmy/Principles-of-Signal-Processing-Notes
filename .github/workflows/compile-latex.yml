@@ -26,4 +26,5 @@ jobs:
         with:
           name: Latest release for Lecture Notes
           tag_name: latest
+          make_latest: true
           files: main.pdf
