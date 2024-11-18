@@ -3,7 +3,6 @@ on: [push]
 jobs:
   build_latex:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     permissions:
           contents: write
     steps:
@@ -25,7 +24,15 @@ jobs:
       - name: Release PDF file
         uses: softprops/action-gh-release@v2.1.0
         with:
-          name: Latest PDF release
+          name: ${{github.ref_name}}
           tag_name: ${{github.ref_name}}
+          make_latest: true
+          files: main.pdf
+      
+      - name: Release PDF file to [latest]
+        uses: softprops/action-gh-release@v2.1.0
+        with:
+          name: Latest PDF release
+          tag_name: latest
           make_latest: true
           files: main.pdf
