@@ -30,7 +30,7 @@ jobs:
           tag_name: ${{github.ref_name}}
           make_latest: true
           files: main.pdf
-      
+
       - name: Release PDF file to [latest]
         uses: softprops/action-gh-release@v2.1.0
         with:
