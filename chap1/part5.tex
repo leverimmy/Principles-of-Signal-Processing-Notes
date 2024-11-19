@@ -333,7 +333,7 @@
     即单位冲激信号是信号 $f_{\tau}(t)/\tau$ 的极限。$f_{\tau}(t)$ 可以是矩形脉冲、三角脉冲等。
 \end{remark}
 
-\begin{property}[冲激函数的搬移抽样特性]
+\begin{property}[冲激函数的搬移采样特性]
     对于任意的信号 $f(t)$ 而言，都有 $f(t) * \delta(t) = f(t)$。
     更一般地，一个函数与单位冲激函数的卷积，等价于把该函数平移到
     单位冲激函数的冲激点位置，即
@@ -344,7 +344,7 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{chap1/img/impulse-signal-convolution-translation.png}
-        \caption{冲激函数的搬移抽样特性}
+        \caption{冲激函数的搬移采样特性}
         \label{fig:impulse-signal-convolution-translation}
     \end{figure}
 \end{property}
@@ -466,16 +466,16 @@
             \end{align*}
             即：$\int_{-\infty}^{t}\delta(\tau)\D{\tau} = u(t)$。
             单位冲激函数的积分是单位阶跃函数。
-        \item (抽样特性) 也称``筛选特性''，即 $\int_{-\infty}^{+\infty}f(t)\delta(t - t_0)\D{t} = f(t_0)$。
+        \item (采样特性) 也称``筛选特性''，即 $\int_{-\infty}^{+\infty}f(t)\delta(t - t_0)\D{t} = f(t_0)$。
     \end{enumerate}
 \end{property}
 
-\begin{example}[抽样信号]
+\begin{example}[采样信号]
     定义\bd{冲激串信号}为
     \begin{align*}
         \Delta_{T_s}(t) = \sum_{n = -\infty}^{+\infty}\delta(t - n T_s),
     \end{align*}
-    其中 $T_s$ 是抽样周期。冲激串信号是很多冲激信号的叠加。假设有信号 $f(t)$，则其对应的抽样信号 $f_s(t)$ 为
+    其中 $T_s$ 是采样周期。冲激串信号是很多冲激信号的叠加。假设有信号 $f(t)$，则其对应的采样信号 $f_s(t)$ 为
     \begin{align*}
         f_s(t) = f(t) \cdot \Delta_{T_s}(t) = \sum_{n = -\infty}^{+\infty}f(nT_s)\delta(t - nT_s).
     \end{align*}
@@ -519,26 +519,26 @@
             \node at (axis cs:0.2, 0) [anchor=north] {$T_s$};
             \end{axis}
         \end{tikzpicture}
-        \caption{抽样信号}
+        \caption{采样信号}
         \label{fig:sampling-signal}
     \end{figure}
 \end{example}
 
 \begin{note}
-    冲击信号、冲激串和抽样信号之间的关系如图 \ref{fig:impulse-impulse-train-sampled-signal} 所示：
+    冲击信号、冲激串和采样信号之间的关系如图 \ref{fig:impulse-impulse-train-sampled-signal} 所示：
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}
             \node (impulse) [draw, rectangle, minimum width=2cm, minimum height=1cm] at (0, 0) {冲激信号};
             \node (impulse_train) [draw, rectangle, minimum width=2cm, minimum height=1cm] at (5, 0) {冲激串};
             \node (continuous_signal) [draw, rectangle, minimum width=2cm, minimum height=1cm] at (10, 0) {连续信号};
-            \node (sampled_signal) [draw, rectangle, minimum width=2cm, minimum height=1cm] at (7.5, -2.5) {抽样信号};
+            \node (sampled_signal) [draw, rectangle, minimum width=2cm, minimum height=1cm] at (7.5, -2.5) {采样信号};
         
             \draw[->, dashed, red] (impulse) -- node[above] {加法} (impulse_train);
             \draw[-] (continuous_signal) -- (impulse_train);
             \draw[->, dashed, red] (7.5, 0) -- node[right, pos=0.5] {乘法} (sampled_signal);
         \end{tikzpicture}
-        \caption{冲击信号、冲激串和抽样信号之间的关系}
+        \caption{冲击信号、冲激串和采样信号之间的关系}
         \label{fig:impulse-impulse-train-sampled-signal}
     \end{figure}
 \end{note}

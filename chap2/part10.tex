@@ -79,10 +79,38 @@
     \begin{align*}
         P(\mathi \omega) = \frac{2\pi}{T_s}\sum_{n = -\infty}^{+\infty}\delta(\omega - \frac{2\pi}{T_s}n).
     \end{align*}
+    \label{property:impulse-sampling-frequency-1}
 \end{property}
 
 \begin{proof}
-    % TODO
+    将周期信号 $p(t)$ 按照指数形式进行傅里叶展开，有
+    \begin{align*}
+        p(t) = \sum_{n = -\infty}^{+\infty}F_n\mathe^{\mathi n\omega_s t},
+    \end{align*}
+    其中 $\omega_s = 2\pi/\omega_T$。因此 $\mathcal{F}[p(t)]$ 可以写成
+    \begin{align*}
+        \mathcal{F}[p(t)] & = \int_{-\infty}^{+\infty}p(t)\mathe^{-\mathi\omega t}\D{t} \\
+        & = \int_{-\infty}^{+\infty}\left(\sum_{n = -\infty}^{+\infty}F_n\mathe^{\mathi n\omega_s t}\right)\mathe^{-\mathi\omega t}\D{t} \\
+        & = \sum_{n = -\infty}^{+\infty}F_n\int_{-\infty}^{+\infty}\mathe^{\mathi n\omega_s t}\mathe^{-\mathi\omega t}\D{t},
+    \end{align*}
+    其中 $\int_{-\infty}^{+\infty}\mathe^{\mathi n\omega_s t}\mathe^{-\mathi\omega t}\D{t}
+        = \mathcal{F}[\mathe^{\mathi n\omega_s t}] = 2\pi\delta(\omega - n\omega_s)$。
+    所以
+    \begin{align*}
+        \mathcal{F}[p(t)] = \sum_{n = -\infty}^{+\infty}F_n2\pi\delta(\omega - n\omega_s).
+    \end{align*}
+    由傅里叶展开的定义知
+    \begin{align*}
+        F_n & = \frac{1}{T_s}\int_{-T_s/2}^{T_s/2}p(t)\mathe^{-\mathi n\omega_s t}\D{t} \\
+        & = \frac{1}{T_s}\left.\left(p(t)\mathe^{-\mathi n\omega_s t}\right)\right|_{t = 0} \\
+        & = \frac{1}{T_s}.
+    \end{align*}
+    故
+    \begin{align*}
+        P(\mathi \omega) & = \frac{1}{T_s}\sum_{n = -\infty}^{+\infty}2\pi\delta(\omega - n\omega_s) \\
+        & = \frac{2\pi}{T_s}\sum_{n = -\infty}^{+\infty}\delta(\omega - \frac{2\pi}{T_s}n).
+    \end{align*}
+    命题得证。
 \end{proof}
 
 \begin{property}
@@ -90,6 +118,7 @@
     \begin{align*}
         X_p(\mathi \omega) = \frac{1}{T_s}\sum_{k = -\infty}^{+\infty}X(\mathi(\omega - k\omega_s)).
     \end{align*}
+    \label{property:impulse-sampling-frequency-2}
 \end{property}
 
 \begin{proof}
@@ -226,7 +255,7 @@
 \begin{example}
     设如图 \ref{fig:aliasing-example-3} 所示的模拟音频信号
     高频截止频率为 $f_M = 5\;\mathrm{kHz}$，采样频率为 $6\;\mathrm{kHz}$。
-    问：抽样后信号频谱与原信号频谱在 $2\;\mathrm{kHz}$ 处有什么差异？
+    问：采样后信号频谱与原信号频谱在 $2\;\mathrm{kHz}$ 处有什么差异？
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{chap2/img/aliasing-example-3.png}
@@ -244,7 +273,7 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{chap2/img/aliasing-example-4.png}
-        \caption{抽样后信号的频谱}
+        \caption{采样后信号的频谱}
         \label{fig:aliasing-example-4}
     \end{figure}
 \end{solution}
@@ -256,8 +285,8 @@
 
 \begin{example}
     设一模拟音频信号高频截止频率为 $10\;\mathrm{kHz}$。
-    若抽样频率为 $16\;\mathrm{kHz}$，
-    则抽样后信号频谱与原信号频谱在 $12\;\mathrm{kHz}$ 处有什么差异？
+    若采样频率为 $16\;\mathrm{kHz}$，
+    则采样后信号频谱与原信号频谱在 $12\;\mathrm{kHz}$ 处有什么差异？
 \end{example}
 
 \begin{note}
@@ -387,7 +416,7 @@
         \node at (4,0)[text width=5cm] (digital) {数字（离散）世界};
 
         \draw[->] (-1.5,0) -- (1.5,0)
-        node[midway, above] {抽样} 
+        node[midway, above] {采样} 
         node[midway, below] {桥梁};
         
         \draw[->] (3,0.5) -- (3,1.5)
@@ -521,7 +550,7 @@
     即信号的频谱宽度有限，则称之为\bd{带限内插}。
 
     如何恢复原始的时间连续信号?
-    用滤波器函数对信号抽样值进行内插来重建模拟信号，相当于滤波器的冲击响应与信号值为权重的脉冲串的卷积。
+    用滤波器函数对信号采样值进行内插来重建模拟信号，相当于滤波器的冲击响应与信号值为权重的脉冲串的卷积。
     \begin{itemize}
         \item (理想带限内插)
             \bd{理想带限内插}是通过\bd{理想低通滤波器}来实现的，它使用理想低通滤波器的单位冲激响应作为内插函数。
@@ -637,9 +666,10 @@
 \begin{definition}[欠采样]
     如果采样时不满足采样定理的要求，则一定会在 $x(t)$ 的频谱周期延拓时，
     出现\bd{频谱混叠}的现象，这种现象称为\bd{欠采样}。
+    从用样本代替信号的角度出发，出现欠采样的情况是工程应用中不希望的。
 
     \begin{enumerate}
-        \item 频谱混叠的情况下时域信号变了，但抽样点处取值不变。
+        \item 频谱混叠的情况下时域信号变了，但采样点处取值不变。
         
             此时，即使通过理想内插也得不到原信号。
             但是无论怎样，恢复所得的信号 $x(t)$ 与原信号 $x(t)$ 在采样点上
@@ -648,7 +678,126 @@
             不足以从样本中恢复原信号。
 
             例如 $x(t) = \cos(\omega_0 t + \varphi)$ 在 $\omega_s = 2\pi/T = 2\omega_0$ 时条件下
-            进行采样，则 $x$
+            进行采样，则
+            \begin{align*}
+                x(nT) & = \cos(\omega_0 nT + \varphi) \\
+                & = \cos\varphi\cos(\omega_0 nT) - \sin\varphi\sin(\omega_0 nT) \\
+                & = \cos\varphi\cos n\omega_0 T.
+            \end{align*}
+            这与对 $x_1(t) = \cos\varphi\cos\omega_0 t$ 进行采样得到的结果相同，
+            所以，无法判断恢复后的信号是 $x(t)$ 还是 $x_1(t)$。        
+        \item 对信号进行二次采样，可以看做是第一次采样的到了一个离散信号，再对这个离散信号进行采样。
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.3\textwidth]{chap2/img/resampling.png}
+                \caption{二次采样}
+                \label{fig:resampling.png}
+            \end{figure}
+            如图 \ref{fig:resampling.png} 所示，$x(n)$ 中黑色和红色的信号表示第一次采样后的信号，
+            再使用 $p(n)$ 作为采样信号，再次采样后得到的信号为 $x_p(n)$，即为红色信号。
     \end{enumerate}
 \end{definition}
 
+\subsubsection{频域采样}
+
+采样的本质是把连续变量的函数离散化。因此，在频域上也可以对连续的频谱进行采样，这一过程与时域采样是完全对偶的。
+
+\begin{definition}[频域采样]
+    频域采样的数学模型如图 \ref{fig:sampling-freq-math-model} 所示，
+    其中 $p(t)$ 是采样脉冲，$P(\mathi \omega)$ 是 $p(t)$ 的傅里叶变换。
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \draw (0,0) circle (0.25);
+        
+            \draw (-0.177,-0.177) -- (0.177,0.177);
+            \draw (0.177,-0.177) -- (-0.177,0.177);
+        
+            \draw[->] (-1.5,0) -- (-0.5,0);
+            \draw[->] (0.5,0) -- (1.5,0);
+            \draw[->] (0,-1.5) -- (0,-0.5);
+        
+            \node at (-2,0) {$X(\mathi\omega)$};
+            \node at (2,0) {$X_p(\mathi\omega)$};
+            \node at (0,-2) {$P(\mathi\omega)$};
+        \end{tikzpicture}
+        \caption{频域采样的数学模型}
+        \label{fig:sampling-freq-math-model}
+    \end{figure}
+
+    \begin{itemize}
+        \item 在频域上，$X_p(\mathi \omega) = X(\mathi \omega) * P(\mathi \omega)$。
+        \item 在时域上，$x_p(t) = x(t) * p(t)$。
+    \end{itemize}
+    当采样为\bd{冲激串采样}（\bd{理想采样}）时，
+    \begin{align*}
+        P(\mathi\omega) & = \sum_{n = -\infty}^{+\infty}\delta(\omega - n\omega_s), \\
+        X_p(\mathi\omega) & = X(\mathi\omega)P(\mathi\omega) = \sum_{n = -\infty}^{+\infty}X(n\omega_s)\delta(\omega - n\omega_0),
+    \end{align*}
+    其中 $\omega_s$ 为采样间隔。
+\end{definition}
+
+\begin{example}
+    如图 \ref{fig:impulse-sampling-freq} 所示，
+    为利用冲激串进行采样的信号 $X(\mathi\omega)$ 与 $X_p(\mathi\omega)$，
+    其中采样间隔 $\omega_s = \omega_0$。
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.45\textwidth]{chap2/img/impulse-sampling-freq.png}
+        \caption{冲激串采样的信号 $X(\mathi\omega)$ 与 $X_p(\mathi\omega)$}
+        \label{fig:impulse-sampling-freq}
+    \end{figure}
+\end{example}
+
+\begin{property}
+    冲激串信号 $P(\mathi\omega)$ 的逆傅里叶变换 $\mathcal{F}^{-1}[P(\mathi\omega)] = p(t)$ 为
+    \begin{align*}
+        p(t) = \frac{1}{\omega_s}\sum_{n = -\infty}^{+\infty}\delta(t - \frac{2\pi}{\omega_s}n).
+    \end{align*}
+\end{property}
+
+\begin{proof}
+    证明略。过程类似于 \ref{property:impulse-sampling-frequency-1} 的证明。
+\end{proof}
+
+\begin{property}
+    冲激串采样后的信号 $X_p(\mathi\omega)$ 的逆傅里叶变换 $\mathcal{F}^{-1}[X_p(\mathi\omega)] = x_p(t)$ 为
+    \begin{align*}
+        x_p(t) = \frac{1}{\omega_s}\sum_{n = -\infty}^{+\infty}x(t - \frac{2\pi}{\omega_s}n).
+    \end{align*}
+\end{property}
+
+\begin{proof}
+    证明略。过程类似于 \ref{property:impulse-sampling-frequency-2} 的证明。
+\end{proof}
+
+\begin{remark}
+    由此可见，在频域对连续频谱进行理想采样，
+    就相当于在时域将信号\bd{以 $2\pi/\omega_s$ 为周期进行延拓}。
+\end{remark}
+
+\begin{definition}[时限内插]
+    在频域上，从频域的样本重建连续频谱的过程称为\bd{时限内插}。
+    时限内插是以矩形窗函数的频谱作为内插函数实现的。
+
+    矩形窗函数 $w(t) = \begin{cases}
+        \omega_s, & |t| \le \pi/\omega_s, \\
+        0, & |t| > \pi/\omega_s.
+    \end{cases}$ 的频谱为
+    \begin{align*}
+        W(\mathi\omega) = 2\pi \sa{\left(\frac{\omega}{\omega_s}\right)}.
+    \end{align*}
+
+    \bd{理想时限内插}重建得到的信号 $X(\mathi\omega)$ 为
+    \begin{align*}
+        X(\mathi\omega) & = \frac{1}{2\pi}X_p(\mathi\omega) * W(\mathi\omega) \\
+        & = \frac{1}{2\pi} \sum_{n = -\infty}^{+\infty}X(n\omega_s)\delta(\omega - n\omega_s) * 2\pi\sa{\left(\frac{\omega}{\omega_s}\right)} \\
+        & = \sum_{n = -\infty}^{+\infty}X(n\omega_s)\sa{\left(\frac{\omega - n\omega_s}{\omega_s}\right)}.
+    \end{align*}
+\end{definition}
+
+\begin{note}
+    带限和时限\bd{没有必然的逻辑联系}。请注意时域采样定理应用条件中的{带限要求}，
+    频域采样定理应用条件中的\bd{时限要求}。因此，对带限信号在频域采样时，如果时域没有说明是时限，
+    则不能保证频谱的样本可以恢复原信号。
+\end{note}
