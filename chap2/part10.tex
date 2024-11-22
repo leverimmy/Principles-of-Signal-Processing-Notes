@@ -673,16 +673,44 @@
         
             此时，即使通过理想内插也得不到原信号。
             但是无论怎样，恢复所得的信号 $x(t)$ 与原信号 $x(t)$ 在采样点上
-            将具有相同的值，即 $x_r(nT) = x(nT)$。
+            将具有相同的值，即 $x_r(nT_s) = x(nT_s)$。
+
+            例如对信号 $x(t) = \cos\omega_0 t$ 进行欠采样。$x(t)$ 的频谱 $X(\mathi\omega)$ 为
+            \begin{align*}
+                X(\mathi\omega) & = \mathcal{F}[x(t)] \\
+                & = \mathcal{F}[\cos\omega_0 t] \\
+                & = \mathcal{F}\left[\frac{\mathe^{\mathi\omega_0 t} + \mathe^{-\mathi\omega_0 t}}{2}\right] \\
+                & = \pi(\delta(\omega - \omega_0) + \delta(\omega + \omega_0)).
+            \end{align*}
+            当 $\omega_0 < \omega_s < 2\omega_0$ 时，产生频谱混叠。此时，
+            如图 \ref{fig:undersampling} 所示，
+            恢复的信号为
+            \begin{align*}
+                x_r(t) = \cos(\omega_s - \omega_0) t.
+            \end{align*}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.6\textwidth]{chap2/img/undersampling.png}
+                \caption{欠采样}
+                \label{fig:undersampling}
+            \end{figure}
+            当 $t = nT_s$ 时，有
+            \begin{align*}
+                x_r(nT_s) & = \cos(\omega_s - \omega_0) nT_s \\
+                & = \cos(\omega_s n T_s - \omega_0nT_s) \\
+                & = \cos(2n\pi - \omega_0 n T_s) \\
+                & = \cos\omega_0 n T_s \\
+                & = x(nT_s).
+            \end{align*}
         \item 工程应用时，如果采样频率 $\omega_s = 2\omega_M$，则
             不足以从样本中恢复原信号。
 
-            例如 $x(t) = \cos(\omega_0 t + \varphi)$ 在 $\omega_s = 2\pi/T = 2\omega_0$ 时条件下
+            例如对信号 $x(t) = \cos(\omega_0 t + \varphi)$ 在 $\omega_s = 2\pi/T_s = 2\omega_0$ 条件下
             进行采样，则
             \begin{align*}
-                x(nT) & = \cos(\omega_0 nT + \varphi) \\
-                & = \cos\varphi\cos(\omega_0 nT) - \sin\varphi\sin(\omega_0 nT) \\
-                & = \cos\varphi\cos n\omega_0 T.
+                x(nT) & = \cos(\omega_0 nT_s + \varphi) \\
+                & = \cos\varphi\cos(\omega_0 nT_s) - \sin\varphi\sin(\omega_0 nT_s) \\
+                & = \cos\varphi\cos n\omega_0 T_s.
             \end{align*}
             这与对 $x_1(t) = \cos\varphi\cos\omega_0 t$ 进行采样得到的结果相同，
             所以，无法判断恢复后的信号是 $x(t)$ 还是 $x_1(t)$。        
@@ -697,6 +725,42 @@
             再使用 $p(n)$ 作为采样信号，再次采样后得到的信号为 $x_p(n)$，即为红色信号。
     \end{enumerate}
 \end{definition}
+
+
+\begin{exercise}
+    试证明：当对信号 $x(t) = \cos(\omega_0 t + \varphi)$ 欠采样时，
+    恢复的信号不仅频率降低，而且相位相反。其中，$\omega_0 < \omega_s < 2\omega_0$，
+    且理想低通滤波器的截止频率 $\omega_c \in (\omega_s - \omega_0, \omega_0)$。
+\end{exercise}
+
+\begin{proof}
+    展开 $x(t)$ 可得
+    \begin{align*}
+        x(t) = \cos(\omega_0 t + \varphi) = \cos\varphi\cos\omega_0 t- \sin\varphi \sin\omega_0 t.
+    \end{align*}
+    因此，
+    \begin{align*}
+        X(\mathi\omega) & = \mathcal{F}[x(t)] \\
+        & = \cos\varphi\cdot \pi[\delta(\omega - \omega_0) + \delta(\omega + \omega_0)]
+            - \sin\varphi\cdot \mathi\pi[\delta(\omega - \omega_0) - \delta(\omega + \omega_0)] \\
+        & = (\cos\varphi - \sin\varphi)\pi\delta(\omega - \omega_0)
+            + (\cos\varphi+ \sin\varphi)\pi\delta(\omega + \omega_0).
+    \end{align*}
+    类似 \ref{fig:undersampling}，当 $\omega_s < 2\omega_0$ 时，产生频谱混叠。此时，
+    \begin{align*}
+        X_r(\mathi\omega) = (\cos\varphi - \sin\varphi)\pi\delta(\omega - \omega_0 + \omega_s)
+            + (\cos\varphi + \sin\varphi)\pi\delta(\omega + \omega_0 - \omega_s).
+    \end{align*}
+    因此
+    \begin{align*}
+        x_r(t) = \mathcal{F}^{-1}[X_r(\mathi\omega)] & = \cos\varphi\cos((\omega_0 - \omega_s)t)
+            - \sin\varphi\sin((\omega_0 - \omega_s)t) \\
+        & = \cos((\omega_0 - \omega_s)t + \varphi) \\
+        & = \cos((\omega_s - \omega_0)t - \varphi).
+    \end{align*}
+    由于 $\omega_s < 2\omega_0$，故 $\omega_s - \omega_0 < \omega_0$，即 $\omega_s - \omega_0$ 为正频率。
+    因此，恢复的信号不仅频率降低，而且相位相反。命题得证。
+\end{proof}
 
 \subsubsection{频域采样}
 
