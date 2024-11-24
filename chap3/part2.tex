@@ -1,39 +1,59 @@
 \subsection{离散时间傅里叶变换}
 
-\subsubsection{离散时间傅里叶变换的定义}
+\subsubsection{采样信号与采样频谱}
 
-\begin{definition}
+对于采样信号
+\begin{align*}
+    \hat{f}(t) = \sum_{n = -\infty}^{+\infty}f(nT_s)\delta(t - nT_s),
+\end{align*}
+以及其频谱函数
+\begin{align*}
+    \hat{F}(\omega) = \frac{1}{T_s}\sum_{k = -\infty}^{+\infty}F(\omega - k\omega_s),
+\end{align*}
+而言，如果采样过程满足采样定理的要求，则在奈奎斯特区间内，以下等式成立：
+\begin{align*}
+    T\hat{F}(\omega) = F(\omega), \quad \omega \in \left[-\frac{\omega_s}{2}, \frac{\omega_s}{2}\right].
+\end{align*}
+如果采样过程不满足采样定理的要求，则会发生混叠，在 $[-\omega_s/2, \omega_s/2]$ 这个
+区间内混有其他部分``扩展''过来的密度分布。此时
+\begin{align*}
+    T\hat{F}(\omega) = F(\omega) + F(\omega - \omega_s) + F(\omega + \omega_s) + \cdots,
+\end{align*}
+我们可以认为，$F(\omega) \approx T\hat{F}(\omega)$。
+
+\begin{theorem}
     对于连续时间信号 $f(t)$ 进行以 $T_s$ 为时间间隔的采样，得到序列 $f(nT_s)$，
-    其中 $n \in \set{Z}$。那么，$f(nT_s)$ 的\bd{离散时间傅里叶变换}（DTFT）
-    定义为
+    其中 $n \in \set{Z}$。那么，
     \begin{align*}
         \hat{F}(\omega) = \sum_{n = -\infty}^{+\infty}f(nT_s)\mathe^{-\mathi\omega nT_s}.
     \end{align*}
     这说明仅使用采样值 $f(nT_s)$ 即可计算出理想采样信号的频谱密度函数。
     注意，此时的频谱密度函数 $\hat{F}(\omega)$ 是连续的，且为周期函数。
-\end{definition}
+\end{theorem}
 
-\begin{definition}
+\begin{theorem}
     若将 DTFT 看做是对 $\hat{F}(\omega)$ 的傅里叶展开，则 $f(nT_s)$ 即为
     $\hat{F}(\omega)$ 的傅里叶系数。因此，
     \begin{align*}
         f(nT_s) = \frac{1}{\omega_s}\int_{-\omega_s/2}^{\omega_s/2}\hat{F}(\omega)\mathe^{\mathi\omega nT_s}\D{\omega}.
     \end{align*}
-    此即为\bd{逆离散时间傅里叶变换}（IDTFT）。
-\end{definition}
+\end{theorem}
 
 \subsubsection{数字信号与数字频谱}
 
-由于采样间隔为固定的值，因此，不妨设 $T_s = 1$。这就是在
+由于采样间隔为固定的值，因此不妨设 $T_s = 1$，这就是在对 DTFT 进行
+频率归一化（采样间隔归一化等价于频率归一化，因为二者是互为倒数的）。
+这样，具体的物理时间被抽象为了数字信号中一个无量纲的``单位时间''。
 
-% TODO
-
-\begin{definition}
+\begin{definition}[离散时间傅里叶变换]
     我们称时间间隔归一的离散信号序列为\bd{数字信号}，
     称其 DTFT 频谱函数为\bd{数字频谱}。
-    设 $x(n)$ 为数字信号，其 DTFT 为 $X(\omega)$，则
+    设 $x(n)$ 为数字信号，其\bd{离散时间傅里叶变换}（DTFT）为 $X(\omega)$，则
     \begin{align*}
-        X(\omega) & = \DTFT{x(n)} = \sum_{n = -\infty}^{+\infty}x(n)\mathe^{-\mathi\omega n} \\
+        X(\omega) & = \DTFT{x(n)} = \sum_{n = -\infty}^{+\infty}x(n)\mathe^{-\mathi\omega n}.
+    \end{align*}
+    反之，若已知 $X(\omega)$，则可以通过\bd{逆离散时间傅里叶变换}（IDTFT）求得 $x(n)$：
+    \begin{align*}
         x(n) & = \IDTFT{X(\omega)} = \frac{1}{2\pi}\int_{-\pi}^{\pi}X(\omega)\mathe^{\mathi\omega n}\D{\omega}.
     \end{align*}
 \end{definition}
@@ -142,7 +162,7 @@
 
 \begin{solution}
     \begin{enumerate}[label=(\arabic*)]
-        \item $\DTFT{x(n) * x^*(-n)} = \DTFT{x(n)} * \DTFT{x^*(-n)}
+        \item $\DTFT{x(n) * x^*(-n)} = \DTFT{x(n)} \cdot \DTFT{x^*(-n)}
             = X(\omega) \cdot X^*(\omega)$
         \item $\DTFT{x(n) - x(n + 2)} = \DTFT{x(n)} - \DTFT{x(n + 2)}
             = X(\omega) - \mathe^{2\mathi\omega}X(\omega)
