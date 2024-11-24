@@ -153,7 +153,7 @@
     现有信号 $f(t) = \mathe^{-t^2/20}$。为分析某时刻下的``局部频谱''，
     可选合适的窗函数 $w(t, t_0)$，并截取 $f(t)$ 在 $t_0$ 附近的信号，
     即 $f_w(t, t_0) = f(t)\cdot w(t, t_0)$。
-    \begin{enumerate}[label=(\alph*)]
+    \begin{enumerate}[label=(\arabic*)]
         \item 求信号 $f(t)$ 的 FT。
         \item 现不妨取窗函数 $w(t, t_0) = \mathe^{-(t - t_0)^2/2}$。
             试分析 $t_0 = 0$ 时刻下对应的``局部频谱''，即求 $f_w(t, 0)$ 的 FT。
@@ -164,7 +164,7 @@
 \end{exercise}
 
 \begin{solution}
-    \begin{enumerate}[label=(\alph*)]
+    \begin{enumerate}[label=(\arabic*)]
         \item 不妨记 $f(t)$ 的 FT 为 $F(\omega)$。由傅里叶变换的定义知
             \begin{align*}
                 F(\omega) & = \mathcal{F}[f(t)] = \int_{-\infty}^{+\infty} f(t)\mathe^{-\mathi\omega t}\D{t} \\

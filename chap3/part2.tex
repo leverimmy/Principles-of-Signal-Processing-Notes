@@ -1,7 +1,73 @@
 \subsection{离散时间傅里叶变换}
 
+\subsubsection{离散时间傅里叶变换的定义}
+
+\begin{definition}
+    对于连续时间信号 $f(t)$ 进行以 $T_s$ 为时间间隔的采样，得到序列 $f(nT_s)$，
+    其中 $n \in \set{Z}$。那么，$f(nT_s)$ 的\bd{离散时间傅里叶变换}（DTFT）
+    定义为
+    \begin{align*}
+        \hat{F}(\omega) = \sum_{n = -\infty}^{+\infty}f(nT_s)\mathe^{-\mathi\omega nT_s}.
+    \end{align*}
+    这说明仅使用采样值 $f(nT_s)$ 即可计算出理想采样信号的频谱密度函数。
+    注意，此时的频谱密度函数 $\hat{F}(\omega)$ 是连续的，且为周期函数。
+\end{definition}
+
+\begin{definition}
+    若将 DTFT 看做是对 $\hat{F}(\omega)$ 的傅里叶展开，则 $f(nT_s)$ 即为
+    $\hat{F}(\omega)$ 的傅里叶系数。因此，
+    \begin{align*}
+        f(nT_s) = \frac{1}{\omega_s}\int_{-\omega_s/2}^{\omega_s/2}\hat{F}(\omega)\mathe^{\mathi\omega nT_s}\D{\omega}.
+    \end{align*}
+    此即为\bd{逆离散时间傅里叶变换}（IDTFT）。
+\end{definition}
+
 \subsubsection{数字信号与数字频谱}
 
+由于采样间隔为固定的值，因此，不妨设 $T_s = 1$。这就是在
+
+% TODO
+
+\begin{definition}
+    我们称时间间隔归一的离散信号序列为\bd{数字信号}，
+    称其 DTFT 频谱函数为\bd{数字频谱}。
+    设 $x(n)$ 为数字信号，其 DTFT 为 $X(\omega)$，则
+    \begin{align*}
+        X(\omega) & = \DTFT{x(n)} = \sum_{n = -\infty}^{+\infty}x(n)\mathe^{-\mathi\omega n} \\
+        x(n) & = \IDTFT{X(\omega)} = \frac{1}{2\pi}\int_{-\pi}^{\pi}X(\omega)\mathe^{\mathi\omega n}\D{\omega}.
+    \end{align*}
+\end{definition}
+
+\begin{remark}
+    对于实际信号（模拟信号）而言，CTFT 中得到的是模拟频率 $\Omega$。
+    在 DTFT 引入归一化时间后，变换结果是数字频率 $\omega$。
+    模拟频率的奈奎斯特区间是
+    \begin{align*}
+        \left[-\frac{\Omega_s}{2}, \frac{\Omega_s}{2}\right],
+    \end{align*}
+    其中 $\Omega_s = 2\pi/T_s$，而数字频率的奈奎斯特区间是 $[-\pi, \pi]$。
+
+    数字频率和模拟频率之间的关系是
+    \begin{align*}
+        \omega = \Omega \cdot \frac{2\pi}{\Omega_s} = \Omega \cdot T_s = \frac{\Omega}{f_s}.
+    \end{align*}
+    即数字频率是模拟频率的 $1/f_s$ 倍。这可以看做是将 $\Omega$ 的取值范围
+    从 $[-\Omega_s/2, \Omega_s/2]$ 缩放到 $[-\pi, \pi]$。
+\end{remark}
+
+\begin{remark}
+    进行频率归一化有以下好处：
+    \begin{enumerate}[label=(\arabic*)]
+        \item 频谱函数主周期内的形状，如果不考虑高低变化的话，
+            则形状与采样间隔无关。
+        \item 采样频率归一化使频谱重复间隔也会统一成 $2\pi$。
+            考虑到离散信号频谱总是周期的函数，所以研究时可以对
+            采样信号的实际频谱的周期进行抽象化的处理。抽象为 $2\pi$ 是很方便的。
+        \item 在计算机程序中，计算过程可以只考虑数值表示，而不用考虑信号样本间的
+            真实时间间隔。从算法效果上看，这不仅不会影响结果的正确性，
+            反而还会提高算法应用的方便性。
+    \end{enumerate}
+\end{remark}
 
 \begin{exercise}
     已知 $f(t)$ 的频谱函数为 $F(\omega)$，试证明：
@@ -35,7 +101,150 @@
 
 \subsubsection{离散时间傅里叶变换的性质}
 
+\begin{property}[DTFT 的周期性]
+    设 $x(n)$ 的 DTFT 为 $X(\omega)$，则有
+    \begin{align*}
+        X(\omega + 2\pi) = X(\omega).
+    \end{align*}
+\end{property}
 
+\begin{property}[DTFT 是线性变换]
+    设有 $k$ 个信号 $x_1(n), x_2(n), \ldots, x_k(n)$，则有
+    \begin{align*}
+        \DTFT{\sum_{i = 1}^{k}a_i x_i(n)} = \sum_{i = 1}^{k}a_i \DTFT{x_i(n)}.
+    \end{align*}
+    也就是说，信号线性组合的 DTFT，等于各信号的 DTFT 的线性组合。
+\end{property}
+
+\begin{property}[DTFT 的时移、频移性质]
+    设 $x(n)$ 的 DTFT 为 $X(\omega)$，则有
+    \begin{align*}
+        \DTFT{x(n - n_0)} & = \mathe^{-\mathi\omega n_0}X(\omega), \\
+        \DTFT{\mathe^{\mathi\omega_0 n}x(n)} & = X(\omega - \omega_0).
+    \end{align*}
+\end{property}
+
+\begin{property}[DTFT 的反褶、共轭性质]
+    设 $x(n)$ 的 DTFT 为 $X(\omega)$，则有
+    \begin{align*}
+        \DTFT{x(-n)} = X(-\omega), \quad \DTFT{x^*(n)} = X^*(-\omega).
+    \end{align*}
+\end{property}
+
+\begin{exercise}
+    已知 $x(n)$ 的 DTFT 为 $X(\omega)$，试求下列各序列的 DTFT：
+    \begin{enumerate}[label=(\arabic*)]
+        \item $x(n) * x^*(-n)$
+        \item $x(n) - x(n + 2)$
+        \item $x(n) * x(n + 1)$
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\DTFT{x(n) * x^*(-n)} = \DTFT{x(n)} * \DTFT{x^*(-n)}
+            = X(\omega) \cdot X^*(\omega)$
+        \item $\DTFT{x(n) - x(n + 2)} = \DTFT{x(n)} - \DTFT{x(n + 2)}
+            = X(\omega) - \mathe^{2\mathi\omega}X(\omega)
+            = (1 - \mathe^{2\mathi\omega})X(\omega)$
+        \item $\DTFT{x(n) * x(n + 1)} = \DTFT{x(n)} \cdot \DTFT{x(n + 1)}
+            = X(\omega) \cdot \mathe^{\mathi\omega}X(\omega)
+            = \mathe^{\mathi\omega}(X(\omega))^2$
+    \end{enumerate}
+\end{solution}
+
+\begin{property}[DTFT 的时域扩展性质]
+    设 $x(n)$ 的 DTFT 为 $X(\omega)$，则有
+    \begin{align*}
+        x_{(a)}(n) = \begin{cases}
+            x(n/a), & n/a \in \set{Z}, \\
+            0, & \text{otherwise},
+        \end{cases}
+    \end{align*}
+    其中 $a \in \set{Z}$ 且 $a \neq 0$。对应地，有
+    \begin{align*}
+        \DTFT{x_{(a)}(n)} = X(a\omega).
+    \end{align*}
+\end{property}
+
+\begin{exercise}
+    证明：若 $X(\omega)$ 是 $x(n)$ 的 DTFT，则
+    \begin{align*}
+        y(n) = \begin{cases}
+            x(n / L), & n = 0, \pm L, \pm 2L, \ldots, \\
+            0, & \text{otherwise},
+        \end{cases}
+    \end{align*}
+    的 DTFT $Y(\omega)$ 满足 $Y(\omega) = X(L \omega)$。
+\end{exercise}
+
+\begin{proof}
+    由题知，对于 $k \in \set{Z}$，都有 $y(kL) = x(k)$。因此，
+    \begin{align*}
+        Y(\omega) & = \sum_{n = -\infty}^{+\infty}y(n)\mathe^{-\mathi\omega n} \\
+        & = \sum_{k = -\infty}^{+\infty}y(k L)\mathe^{-\mathi\omega kL} \\
+        & = \sum_{k = -\infty}^{+\infty}x(k)\mathe^{-\mathi\omega kL} \\
+        & = X(L\omega).
+    \end{align*}
+    命题得证。
+\end{proof}
+
+\begin{property}[DTFT 的频域微分性质]
+    设 $x(n)$ 的 DTFT 为 $X(\omega)$，则有
+    \begin{align*}
+        \DTFT{n x(n)} = \mathi\frac{\D{X(\omega)}}{\D{\omega}}.
+    \end{align*}
+\end{property}
+
+\begin{property}[DTFT 的时域卷积定理]
+    设 $x_1(n)$ 和 $x_2(n)$ 的 DTFT 分别为 $X_1(\omega)$ 和 $X_2(\omega)$，则有
+    \begin{align*}
+        \DTFT{x_1(n) * x_2(n)} = X_1(\omega)X_2(\omega).
+    \end{align*}
+\end{property}
+
+\begin{property}[DTFT 的频域卷积定理]
+    设 $x_1(n)$ 和 $x_2(n)$ 的 DTFT 分别为 $X_1(\omega)$ 和 $X_2(\omega)$，则有
+    \begin{align*}
+        \DTFT{x_1(n)x_2(n)} & = \frac{1}{2\pi}X_1(\omega) \otimes X_2(\omega) \\
+        & = \frac{1}{2\pi}\int_{-\pi}^{\pi}X_1(\omega')X_2(\omega - \omega')\D{\omega'}.
+    \end{align*}
+\end{property}
+
+\begin{definition}[圆卷积]
+    对于周期信号而言，在全体定义域上进行卷积是不现实的。
+    因此，我们考虑在一个周期内进行卷积，即\bd{圆卷积}。
+    圆卷积的定义如下：
+    \begin{enumerate}
+        \item 对于时域离散周期信号 $x(n)$ 和 $y(n)$，它们的圆卷积为
+            \begin{align*}
+                x(n) \otimes y(n) = \sum_{m = 0}^{N-1}x(m)y(n - m),
+            \end{align*}
+            其中 $N$ 是信号的周期。
+        \item 对于时域连续周期信号 $x(t)$ 和 $y(t)$，它们的圆卷积为
+            \begin{align*}
+                x(t) \otimes y(t) = \int_{T}x(\tau)y(t - \tau)\D{\tau},
+            \end{align*}
+            其中 $T$ 是信号的周期。
+        \item 对于频域连续周期信号 $X(\omega)$ 和 $Y(\omega)$，它们的圆卷积为
+            \begin{align*}
+                X(\omega) \otimes Y(\omega) = \frac{1}{2\pi}\int_{-\pi}^{\pi}X(\omega')Y(\omega - \omega')\D{\omega'}.
+            \end{align*}
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    圆卷积的``圆''指的是周期性信号的周期性质。积分区间 $[-\pi, \pi]$ 就像是一个``圆'，
+    $[0, N-1]$ 也是一个周期。由于信号是周期的，所以可以想象 $y(n)$ 至 $y(n - m)$ 是
+    在一个圆上进行逆时针旋转，然后求和。
+\end{remark}
+
+\begin{property}[DTFT 的帕斯瓦尔定理]
+    设 $x(n)$ 的 DTFT 为 $X(\omega)$，则有
+    \begin{align*}
+        \sum_{n = -\infty}^{+\infty}\|x(n)\|^2 = \frac{1}{2\pi}\int_{-\pi}^{\pi}\|X(\omega)\|^2\D{\omega}.
+    \end{align*}
+\end{property}
 
 \subsubsection{有限长离散时间傅里叶变换}
 
