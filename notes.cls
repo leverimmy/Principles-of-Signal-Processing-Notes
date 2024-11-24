@@ -81,6 +81,10 @@
 \newcommand\im[1]{\mathrm{Im}#1}
 \newcommand\DTFT[1]{\mathrm{DTFT}\left[#1\right]}
 \newcommand\IDTFT[1]{\mathrm{IDTFT}\left[#1\right]}
+\newcommand\DFT[1]{\mathrm{DFT}\left[#1\right]}
+\newcommand\IDFT[1]{\mathrm{IDFT}\left[#1\right]}
+\newcommand\rev[1]{\widetilde{#1}}
+\newcommand\vct[1]{\bm{#1}}
 
 % 设置列表环境的行间距
 \setlist[enumerate,1]{itemsep=1pt,parsep=0pt,topsep=0pt}

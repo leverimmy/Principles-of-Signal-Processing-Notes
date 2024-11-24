@@ -1,4 +1,58 @@
 \subsection{快速傅里叶变换}
 
+% TODO
+
 \subsubsection{}
 
+\begin{exercise}
+    本课介绍了 DFT 的快速算法 FFT。相应地，可将 $N$ 点 IDFT 运算递归地分解
+    为 $N/2$ 点，$N/4$ 点，……，$2$ 点 IDFT 运算，从而实现 IDFT 的快速运算。
+
+    设序列 $X(k)$ 的长度为 $N$，$N$ 为
+    偶数，$X(k)$ 的 $N$ 点 IDFT 为 $x(n)$。$G(k)$ 是 $X(k)$ 中
+    下标为偶数的元素组成的子序列，$H(k)$ 是 $X(k)$ 中下标为奇数的元素
+    组成的子序列，它们的长度是 $N/2$，对应的 $N/2$ 点 IDFT 分别
+    是 $g(n)$ 和 $h(n)$。试用 $g(n)$ 和 $h(n)$ 表示 $x(n)$。
+\end{exercise}
+\begin{solution}
+    IDFT 的定义为
+    \begin{align*}
+        x(n) = \frac{1}{N}\sum_{k = 0}^{N - 1}X(k)W_N^{-kn},
+    \end{align*}
+    可以将其分为两组，
+    \begin{align*}
+        x(n) & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k)W_N^{-2kn}
+            + \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k + 1)W_N^{-(2k + 1)n} \\
+        & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}G(k)W_{N/2}^{-kn}
+            + \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/2 - 1}H(k)W_{N/2}^{-kn}.
+    \end{align*}
+    由于 $G(k) = X(2k), H(k) = X(2k + 1)$，其中 $k = 0, 1, \cdots, N / 2 - 1$，故
+    \begin{align*}
+        \begin{cases}
+            \sum_{k = 0}^{N/2 - 1}X(2k)W_{N/2}^{-kn}
+                = \sum_{k = 0}^{N/2 - 1}G(r)W_{N/2}^{-kn} = Ng(n), \\
+            \sum_{k = 0}^{N/2 - 1}X(2k + 1)W_{N/2}^{-kn}
+                = \sum_{k = 0}^{N/2 - 1}H(r)W_{N/2}^{-kn} = Nh(n),
+        \end{cases}
+    \end{align*}
+    其中 $n = 0, 1, \cdots, N/2 - 1$。因此
+    \begin{align*}
+        x(n) = g(n) + W_N^{-n}h(n), \quad n = 0, 1, \cdots, N / 2 - 1.
+    \end{align*}
+    
+    再考虑后半部分，
+    \begin{align*}
+        x\left(\frac{N}{2} + n\right) & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k)W_{N/2}^{-k\left(\frac{N}{2} + n\right)}
+            + \frac{W_N^{-\left(\frac{N}{2} + n\right)}}{N}\sum_{k = 0}^{N/2 - 1}X(2k + 1)W_{N/2}^{-k\left(\frac{N}{2} + n\right)} \\
+        & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k)W_{N/2}^{-kn}
+            - \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/2 - 1}X(2k + 1)W_{N/2}^{-kn} \\
+        & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}G(k)W_{N/2}^{-kn}
+            - \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/2 - 1}H(k)W_{N/2}^{-kn} \\
+        & = g(n) - W_N^{-n}h(n), \quad n = 0, 1, \cdots, N / 2 - 1.
+    \end{align*}
+    综上所述，
+    \begin{align*}
+        x(n) = g(n) + W_N^{-n}h(n), \quad x\left(\frac{N}{2} + n\right) = g(n) - W_N^{-n}h(n),
+    \end{align*}
+    其中 $n = 0, 1, \cdots, N / 2 - 1$。
+\end{solution}
