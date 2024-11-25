@@ -407,7 +407,7 @@
 \end{proof}
 
 \begin{property}[DFT 的时域卷积特性]
-    设长度为 $L$ 的序列 $x_1(n)$ 和 $x_2(n)$ 的 DFT 分别为 $X_1(k)$ 和 $X_2(k)$，
+    设序列 $x_1(n)$ 和 $x_2(n)$ 的 DFT 分别为 $X_1(k)$ 和 $X_2(k)$，
     则
     \begin{align*}
         \DFT{x_1(n) * x_2(n)} = X_1(k)X_2(k),
@@ -415,7 +415,51 @@
     其中 $x_1(n) * x_2(n) = \sum_{m = -\infty}^{+\infty}x_1(m)x_2(n - m)$。
 \end{property}
 
-% TODO
+\begin{property}[DFT 的频域卷积特性]
+    设序列 $x_1(n)$ 和 $x_2(n)$ 的 DFT 分别为 $X_1(k)$ 和 $X_2(k)$，
+    则
+    \begin{align*}
+        \DFT{x_1(n)x_2(n)} = \frac{1}{N}X_1(k) \otimes X_2(k),
+    \end{align*}
+\end{property}
+
+\begin{property}[IDFT 的频域卷积特性]
+    设长度为 $L$ 的序列 $x(n)$ 和 $y(n)$ 的 DFT 分别为长度为 $N$ 的序列 $X(k)$ 和 $Y(k)$，
+    当 $N = L$ 时，有
+    \begin{align*}
+        \IDFT{X(k)Y(k)} = \rev{x(n) * y(n)}
+        = \sum_{m = 0}^{N - 1}x(m)\rev{y}(n - m)
+        = \sum_{m = 0}^{N - 1}x(m)y(n - m)_N = x(n) \otimes y(n).
+    \end{align*}
+\end{property}
+
+\begin{proof}
+    由于 $\IDFT{Z(k)} = \rev{z}(n)$，因此
+    \begin{align*}
+        \IDFT{X(k)Y(k)} = \rev{x(n) * y(n)}.
+    \end{align*}
+    将 IDFT 的定义代入，即可得到
+    \begin{align*}
+        \IDFT{X(k)Y(k)} & = \frac{1}{N}\sum_{k = 0}^{N - 1}X(k)Y(k)W_N^{-nk} \\
+        & = \frac{1}{N}\sum_{k = 0}^{N - 1}\sum_{m = 0}^{N - 1}x(m)W_N^{mk}Y(k)W_N^{-nk} \\
+        & = \sum_{m = 0}^{N - 1}x(m)\left(\frac{1}{N}\sum_{k = 0}^{N - 1}Y(k)W_N^{mk}W_N^{-nk}\right) \\
+        & = \sum_{m = 0}^{N - 1}x(m)\IDFT{Y(k)W_N^{mk}} \\
+        & = \sum_{m = 0}^{N - 1}x(m)\rev{y}(n - m).
+    \end{align*}
+    考虑到回绕一个移位序列相当于循环移位，所以 $\rev{y}(n - m) = y(n - m)_N$，故
+    \begin{align*}
+        \IDFT{X(k)Y(k)} = \sum_{m = 0}^{N - 1}x(m)y(n - m)_N = x(n) \otimes y(n).
+    \end{align*}
+    命题得证。
+\end{proof}
+
+\begin{remark}
+    计算的过程为：反褶、循环移位、相乘、相加。
+
+    $\otimes$ 也是一种卷积，为了突出新卷积与旧卷积的不同，
+    同时也为了突出它们之间的相同, 称过去传统的卷积为\bd{线卷积}，
+    而称此新卷积为序列的圆周卷积，简称\bd{圆卷积}。
+\end{remark}
 
 \subsubsection{总结：FT、DTFT、DFT 的性质}
 
