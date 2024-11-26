@@ -105,14 +105,14 @@
     \begin{align*}
         \begin{cases}
             \sum_{k = 0}^{N/2 - 1}X(2k)W_{N/2}^{-kn}
-                = \sum_{k = 0}^{N/2 - 1}G(r)W_{N/2}^{-kn} = Ng(n), \\
+                = \sum_{k = 0}^{N/2 - 1}G(r)W_{N/2}^{-kn} = \frac{N}{2}g(n), \\
             \sum_{k = 0}^{N/2 - 1}X(2k + 1)W_{N/2}^{-kn}
-                = \sum_{k = 0}^{N/2 - 1}H(r)W_{N/2}^{-kn} = Nh(n),
+                = \sum_{k = 0}^{N/2 - 1}H(r)W_{N/2}^{-kn} = \frac{N}{2}h(n),
         \end{cases}
     \end{align*}
     其中 $n = 0, 1, \cdots, N/2 - 1$。因此
     \begin{align*}
-        x(n) = g(n) + W_N^{-n}h(n), \quad n = 0, 1, \cdots, N / 2 - 1.
+        x(n) = \frac{1}{2}\left(g(n) + W_N^{-n}h(n)\right), \quad n = 0, 1, \cdots, N / 2 - 1.
     \end{align*}
     再考虑后半部分，
     \begin{align*}
@@ -122,11 +122,12 @@
             - \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/2 - 1}X(2k + 1)W_{N/2}^{-kn} \\
         & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}G(k)W_{N/2}^{-kn}
             - \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/2 - 1}H(k)W_{N/2}^{-kn} \\
-        & = g(n) - W_N^{-n}h(n), \quad n = 0, 1, \cdots, N / 2 - 1.
+        & = \frac{1}{2}\left(g(n) - W_N^{-n}h(n)\right), \quad n = 0, 1, \cdots, N / 2 - 1.
     \end{align*}
     综上所述，
     \begin{align*}
-        x(n) = g(n) + W_N^{-n}h(n), \quad x\left(\frac{N}{2} + n\right) = g(n) - W_N^{-n}h(n),
+        x(n) = \frac{1}{2}\left(g(n) + W_N^{-n}h(n)\right),
+            \quad x\left(\frac{N}{2} + n\right) = \frac{1}{2}\left(g(n) - W_N^{-n}h(n)\right),
     \end{align*}
     其中 $n = 0, 1, \cdots, N / 2 - 1$。
 \end{solution}

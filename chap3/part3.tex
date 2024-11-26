@@ -46,19 +46,23 @@
         X(k) & = \sum_{n = 0}^{N - 1} x(n)W_N^{kn} \\
         & = \sum_{n = 0}^{N - 1} \sin\left(\frac{2\pi}{N}mn\right)W_N^{kn} \\
         & = \frac{\mathi}{2}\sum_{n = 0}^{N - 1}\left(W_N^{mn} - W_N^{-mn}\right)W_N^{kn} \\
-        & = \frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k + m)n} - \frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k - m)n} \\
-        & = \frac{\mathi}{2} \cdot \frac{1 - W_N^{(k + m)N}}{1 - W_N^{k + m}} - \frac{\mathi}{2}\sum_{n = 0}^{N - 1}\left(W_N^{k - m}\right)^n \\
-        & = 0 - \frac{\mathi}{2}\sum_{n = 0}^{N - 1}\left(W_N^{k - m}\right)^n \\
-        & = -\frac{\mathi}{2}\sum_{n = 0}^{N - 1}\left(W_N^{k - m}\right)^n.
+        & = \frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k + m)n} - \frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k - m)n}.
     \end{align*}
-    当 $k = m$ 时，$X(k) = -\mathi N/2$；当 $k \ne m$ 时，$X(k)$ 为等比数列求和，故
+    当 $k + m = N$ 时，$\frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k + m)n} = \mathi N / 2$。
+    当 $k + m \neq N$ 时，$\frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k + m)n}$ 为等比数列求和，故
     \begin{align*}
-        X(k) & = \frac{\mathi}{2} \cdot \frac{1 - \left(W_N^{k - m}\right)^N}{1 - W_N^{k - m}} \\
+        \frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k + m)n} & = \frac{\mathi}{2}\frac{1 - \left(W_N^{k + mN}\right)^N}{1 - W_N^{k + m}} \\
+        & = 0.
+    \end{align*}
+    当 $k = m$ 时，$\frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k - m)n} = \mathi N / 2$。
+    当 $k \ne m$ 时，$\frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k - m)n}$ 为等比数列求和，故
+    \begin{align*}
+        \frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k - m)n} & = \frac{\mathi}{2} \cdot \frac{1 - \left(W_N^{k - m}\right)^N}{1 - W_N^{k - m}} \\
         & = 0.
     \end{align*}
     综上所述，
     \begin{align*}
-        X(k) = -\frac{\mathi N}{2}\delta(k - m).
+        X(k) = \frac{\mathi N}{2}(\delta(k + m - N) - \delta(k - m)).
     \end{align*}
 \end{solution}
 
