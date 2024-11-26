@@ -1,0 +1,92 @@
+\subsection{习题课 3}
+
+\begin{exercise}
+    计算题。
+    \begin{enumerate}[label=(\arabic*)]
+        \item 已知序列 $x_1 = [1, 6, 5, 3], x_2 = [2, 7, 5, 4, 0, 1]$，
+            求它们的线卷积和 $6$ 点圆卷积。
+        \item 设序列 $x(n) = [1, 2, 6, 3]$，$x(n)$ 的 $4$ 点离散傅里叶
+            变换 DFT 为 $X(k)$，求 $X^2(k)$ 的 $4$ 点离散傅里叶逆变换 IDFT。
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}
+    设序列 $x_1(n), x_2(n)$ 的长度分别为 $L_1, L_2$，$N$ 点离散傅里叶
+    变换 DFT 分别为 $X_1(k), X_2(k)$。
+    \begin{enumerate}[label=(\arabic*)]
+        \item 记 $x_1(n)$ 和 $x_2(n)$ 的 $N$ 点圆卷积为 $y(n)$，求证：
+            \begin{align*}
+                \sum_{n = 0}^{N - 1}y(n) = \left(\sum_{n = 0}^{L_1 - 1}x_1(n)\right)\left(\sum_{n = 0}^{L_2 - 1}x_2(n)\right).
+            \end{align*}
+        \item 当 $L_1 = 6, N = 5$ 时，若 $x_1(n) = [2, 5, 1, 0, 3, -2]$，
+            求 $X_1^2(k)$ 的 $5$ 点离散傅里叶逆变换 IDFT。
+        \item 当 $L_2 = 4, N = 5$ 时，若 $x_2(0) = 2, x_2(2) = \mathi$，
+            且 $X_2(k)$ 是实序列，求 $X_2(k)$ 的 $5$ 点离散傅里叶变换 DFT。
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}
+    本课程介绍了``基 $2$ 的 IFFT 算法''，即将 $N$ 点 IDFT 运算递归地
+    分解为 $N/2$ 点，$N/4$ 点，……，$2$ 点 IDFT 运算。事实上，也可以将 $N$ 点 IDFT 运算
+    递归地分解为 $N/3$ 点，$N/9$ 点，……，$3$ 点 IDFT 运算，实现 ``基 $3$ 的 IFFT 算法''。
+
+    设序列 $X(k)$ 的长度为 $N$，$X(k)$ 的 $N$ 点 IDFT 为 $x(n)$，$N$ 是 $3$ 的倍数。
+    将序列 $X(k)$ 分解为 $3$ 个长度为 $N/3$ 的子序列：
+    \begin{align*}
+        X_0(k) = X(3k), \quad X_1(k) = X(3k + 1), \quad X_2(k) = X(3k + 2), \quad 0 \le k < N/3.
+    \end{align*}
+    设序列 $X_0(k), X_1(k), X_2(k)$ 的 $N/3$ 点 IDFT 分别
+    为 $x_0(n), x_1(n), x_2(n)$，试用 $x_0(n), x_1(n), x_2(n)$ 表示 $x(n)$。
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}
+    本课程介绍了 DFT 的快速算法 FFT。相应地，可将 $N$ 点 IDFT 运算递归地分解
+    为 $N/2$ 点，$N/4$ 点，……，$2$ 点 IDFT 运算，从而实现 IDFT 的快速计算。
+    \begin{enumerate}[label=(\arabic*)]
+        \item 设序列 $X(k)$ 的长度为 $N$，$N$ 为偶数，$X(k)$ 的 $N$ 点 IDFT 为 $x(n)$。$G(k)$ 是 $X(k)$ 中
+            下标为偶数的元素组成的子序列，$H(k)$ 是 $X(k)$ 中下标为奇数的元素组成的子序列。
+            它们的长度均为 $N/2$，对应的 $N/2$ 点 IDFT 分别为 $g(n)$ 和 $h(n)$。
+            试用 $g(n)$ 和 $h(n)$ 表示 $x(n)$。        
+        \item 规定 $X(k)$ 的 $m$ 点子序列 $[X(k_1), X(k_2), \cdots, X(k_m)]$ 的 $m$ 点 IDFT 可
+            表示为 $x_{k_1, k_2, \cdots, k_m}(n)$。当 $n = 8$ 时，试利用 (1) 中的结果，
+            用若干组 $X(k)$ 的 $2$ 点子序列的 $2$ 点 IDFT 表示 $x(3)$。
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}
+    带限周期信号 $f(t)$ 的截止频率为 $700\;\mathrm{Hz}$，周期为 $0.01\;\mathrm{s}$，
+    对 $f(t)$ 进行采样。
+    \begin{enumerate}[label=(\arabic*)]
+        \item 若采样频率为 $1200\;\mathrm{Hz}$，试用原信号频谱 $F(\omega)$ 表示出
+            采样信号频谱 $\hat{F}(\omega)$ 在 $450\;\mathrm{Hz} \sim 550\;\mathrm{Hz}$ 处
+            的取值。
+        \item 若以 $1500\;\mathrm{Hz}, 3000\;\mathrm{Hz}$ 为采样频率分别对 $f(t)$ 进行
+            采样，采样时长分别为 $0.02\;\mathrm{s}, 0.01\;\mathrm{s}$。两个采样序列
+            的离散傅里叶变换 DFT 分别为 $X_1(k), X_2(k)$，其中 DFT 点数与序列长度相同。
+            请从以下两个任务中选择一个完成：
+            \begin{enumerate}[label=(\alph*)]
+                \item 用 $X_1(k)$ 表示 $X_2(k)$。
+                \item 用 $X_2(k)$ 表示 $X_1(k)$。
+            \end{enumerate}
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
