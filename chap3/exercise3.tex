@@ -1,7 +1,7 @@
 \subsection{习题课 3}
 
 \begin{exercise}
-    计算题。
+    计算：
     \begin{enumerate}[label=(\arabic*)]
         \item 已知序列 $x_1 = [1, 6, 5, 3], x_2 = [2, 7, 5, 4, 0, 1]$，
             求它们的线卷积和 $6$ 点圆卷积。
@@ -11,8 +11,76 @@
 \end{exercise}
 
 \begin{solution}
-
+    \begin{enumerate}[label=(\arabic*)]
+        \item 线卷积公式为 $y(n) = \sum_{m = -\infty}^{+\infty}x_1(m)x_2(n - m)$，即
+            \begin{figure}[H]
+                \centering
+                \begin{tabular}{c c c c c c c c c c}
+                    & & & & 1 & 0 & 4 & 5 & 7 & 2 \\
+                    $\times$ & & & & & & 3 & 5 & 6 & 1 \\
+                    \hline
+                    & & & & 1 & 0 & 4 & 5 & 7 & 2 \\
+                    & & & 6 & 0 & 24 & 30 & 42 & 12 \\
+                    & & 5 & 0 & 20 & 25 & 35 & 10 \\
+                    $+$ & 3 & 0 & 12 & 15 & 21 \\
+                    \hline
+                    & 3 & 5 & 18 & 36 & 70 & 75 & 57 & 19 & 2
+                \end{tabular}
+            \end{figure}
+            因此，线卷积为 $y(n) = [2, 19, 57, 75, 70, 36, 18, 5, 3]$。
+            
+            而 $6$ 点圆卷积为线卷积的回绕，即
+            \begin{align*}
+                z(n) = x_1(n) \otimes x_2(n) = \rev{x_1(n) * x_2(n)}.
+            \end{align*}
+            \begin{figure}[H]
+                \centering
+                \begin{tabular}{c c c c c c c}
+                    & 36 & 70 & 75 & 57 & 19 & 2 \\
+                    $+$ & & & & 3 & 5 & 18 \\
+                    \hline
+                    & 36 & 70 & 75 & 60 & 24 & 20
+                \end{tabular}
+            \end{figure}
+            因此，$6$ 点圆卷积为 $z(n) = [20, 24, 60, 75, 70, 36]$。
+        \item 由 IDFT 的卷积定理，有 $\IDFT{X^2(k)} = x(n) \otimes x(n)$，故
+            只需要计算 $x(n)$ 与自己圆卷积即可。
+            先计算 $x(n)$ 与自己的线卷积：
+            \begin{figure}[H]
+                \centering
+                \begin{tabular}{c c c c c c c c}
+                    & & & & 3 & 6 & 2 & 1 \\
+                    $\times$ & & & & 3 & 6 & 2 & 1 \\
+                    \hline
+                    & & & & 3 & 6 & 2 & 1 \\
+                    & & & 6 & 12 & 4 & 2 \\
+                    & & 18 & 36 & 12 & 6 \\
+                    $+$ & 9 & 18 & 6 & 3 \\
+                    \hline
+                    & 9 & 36 & 48 & 30 & 16 & 4 & 1
+                \end{tabular}
+            \end{figure}
+            然后计算 $x(n)$ 与自己的圆卷积：
+            \begin{figure}[H]
+                \centering
+                \begin{tabular}{c c c c c}
+                    & 30 & 16 & 4 & 1 \\
+                    $+$ & & 9 & 36 & 48 \\
+                    \hline
+                    & 30 & 25 & 40 & 49
+                \end{tabular}
+            \end{figure}
+            因此，$X^2(k)$ 的 $4$ 点离散傅里叶逆变换 IDFT 为 $[49, 40, 25, 30]$。
+    \end{enumerate}
 \end{solution}
+
+\begin{note}
+    在进行竖式计算的时候，一定\bd{不要进位}！这是在计算卷积，
+    而不是在进行竖式乘法！
+
+    还有一点要注意的是，进行竖式计算时，序列是按照从低位到高位的顺序填入的，
+    最终的结果也是按照从低位到高位的顺序排列的。所以最后要将结果\bd{逆序排列}。
+\end{note}
 
 \begin{exercise}
     设序列 $x_1(n), x_2(n)$ 的长度分别为 $L_1, L_2$，$N$ 点离散傅里叶
@@ -30,6 +98,7 @@
 \end{exercise}
 
 \begin{solution}
+    
 
 \end{solution}
 
@@ -48,7 +117,31 @@
 \end{exercise}
 
 \begin{solution}
-
+    将
+    \begin{align*}
+        x(n) = \frac{1}{N}\sum_{k = 0}^{N - 1}X(k)W_N^{-kn}
+    \end{align*}
+    分为三部分，即
+    \begin{align*}
+        x(n) & = \frac{1}{N}\sum_{k = 0}^{N/3 - 1}X(3k)W_N^{-3kn}
+            + \frac{1}{N}\sum_{k = 0}^{N/3 - 1}X(3k + 1)W_N^{-(3k + 1)n}
+            + \frac{1}{N}\sum_{k = 0}^{N/3 - 1}X(3k + 2)W_N^{-(3k + 2)n} \\
+            & = \frac{1}{N}\sum_{k = 0}^{N/3 - 1}X_0(k)W_{N/3}^{-kn}
+            + \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/3 - 1}X_1(k)W_{N/3}^{-kn}
+            + \frac{W_N^{-2n}}{N}\sum_{k = 0}^{N/3 - 1}X_2(k)W_{N/3}^{-kn} \\
+            & = \frac{1}{N}\cdot\frac{N}{3}x_0(n)
+            + \frac{W_N^{-n}}{N}\cdot\frac{N}{3}x_1(n)
+            + \frac{W_N^{-2n}}{N}\cdot\frac{N}{3}x_2(n) \\
+            & = \frac{1}{3}\left(x_0(n) + W_N^{-n}x_1(n) + W_N^{-2n}x_2(n)\right),
+    \end{align*}
+    其中 $n = 0, 1, \cdots, N / 3 - 1$。
+    类似于 FFT 的推导过程，可以得到
+    \begin{align*}
+        x(n) & = \frac{1}{3}\left(x_0(n) + W_N^{-n}x_1(n) + W_N^{-2n}x_2(n)\right), \\
+        x\left(n + \frac{N}{3}\right) & = \frac{1}{3}\left(x_0(n) + W_N^{-(n + N/3)}x_1(n) + W_N^{-2(n + N/3)}x_2(n)\right), \\
+        x\left(n + \frac{2N}{3}\right) & = \frac{1}{3}\left(x_0(n) + W_N^{-(n + 2N/3)}x_1(n) + W_N^{-2(n + 2N/3)}x_2(n)\right),
+    \end{align*}
+    其中 $n = 0, 1, \cdots, N / 3 - 1$。
 \end{solution}
 
 \begin{exercise}
@@ -66,7 +159,65 @@
 \end{exercise}
 
 \begin{solution}
-
+    \begin{enumerate}[label=(\arabic*)]
+        \item IDFT 的定义为
+            \begin{align*}
+                x(n) = \frac{1}{N}\sum_{k = 0}^{N - 1}X(k)W_N^{-kn},
+            \end{align*}
+            可以将其分为两组，
+            \begin{align*}
+                x(n) & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k)W_N^{-2kn}
+                    + \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k + 1)W_N^{-(2k + 1)n} \\
+                & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}G(k)W_{N/2}^{-kn}
+                    + \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/2 - 1}H(k)W_{N/2}^{-kn}.
+            \end{align*}
+            由于 $G(k) = X(2k), H(k) = X(2k + 1)$，其中 $k = 0, 1, \cdots, N / 2 - 1$，故
+            \begin{align*}
+                \begin{cases}
+                    \sum_{k = 0}^{N/2 - 1}X(2k)W_{N/2}^{-kn}
+                        = \sum_{k = 0}^{N/2 - 1}G(r)W_{N/2}^{-kn} = \frac{N}{2}g(n), \\
+                    \sum_{k = 0}^{N/2 - 1}X(2k + 1)W_{N/2}^{-kn}
+                        = \sum_{k = 0}^{N/2 - 1}H(r)W_{N/2}^{-kn} = \frac{N}{2}h(n),
+                \end{cases}
+            \end{align*}
+            其中 $n = 0, 1, \cdots, N/2 - 1$。因此
+            \begin{align*}
+                x(n) = \frac{1}{2}\left(g(n) + W_N^{-n}h(n)\right), \quad n = 0, 1, \cdots, N / 2 - 1.
+            \end{align*}
+            再考虑后半部分，
+            \begin{align*}
+                x\left(\frac{N}{2} + n\right) & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k)W_{N/2}^{-k\left(\frac{N}{2} + n\right)}
+                    + \frac{W_N^{-\left(\frac{N}{2} + n\right)}}{N}\sum_{k = 0}^{N/2 - 1}X(2k + 1)W_{N/2}^{-k\left(\frac{N}{2} + n\right)} \\
+                & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k)W_{N/2}^{-kn}
+                    - \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/2 - 1}X(2k + 1)W_{N/2}^{-kn} \\
+                & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}G(k)W_{N/2}^{-kn}
+                    - \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/2 - 1}H(k)W_{N/2}^{-kn} \\
+                & = \frac{1}{2}\left(g(n) - W_N^{-n}h(n)\right), \quad n = 0, 1, \cdots, N / 2 - 1.
+            \end{align*}
+            综上所述，
+            \begin{align*}
+                x(n) = \frac{1}{2}\left(g(n) + W_N^{-n}h(n)\right),
+                    \quad x\left(\frac{N}{2} + n\right) = \frac{1}{2}\left(g(n) - W_N^{-n}h(n)\right),
+            \end{align*}
+            其中 $n = 0, 1, \cdots, N / 2 - 1$。
+        \item 由 (1) 知
+            \begin{align*}
+                x_{0, 1, \cdots, 7}(3) & = x(3) \\
+                & = \frac{1}{2}\left(g(3) + W_8^{-3}h(3)\right) \\
+                & = \frac{1}{2}\left(x_{0, 2, 4, 6}(3) + W_8^{-3}x_{1, 3, 5, 7}(3)\right).
+            \end{align*}
+            由于 $3 > N' / 2 = 2$，故
+            \begin{align*}
+                x_{0, 2, 4, 6}(3) = \frac{1}{2}\left(x_{0, 4}(1) - W_{4}^{-3}x_{2, 6}(1)\right), \\
+                x_{1, 3, 5, 7}(3) = \frac{1}{2}\left(x_{1, 5}(1) - W_{4}^{-3}x_{3, 7}(1)\right).
+            \end{align*}
+            因此，
+            \begin{align*}
+                x(3) & = \frac{1}{2}\left(\frac{1}{2}\left(x_{0, 4}(1) - W_{4}^{-3}x_{2, 6}(1)\right)
+                    + W_8^{-3}\cdot \frac{1}{2}\left(x_{1, 5}(1) - W_{4}^{-3}x_{3, 7}(1)\right)\right) \\
+                & = \frac{1}{4}x_{0, 4}(1) - \frac{W_{4}^{-3}}{4}x_{2, 6}(1) + \frac{W_8^{-3}}{4}x_{1, 5}(1) - \frac{W_8^{-3}W_{4}^{-3}}{4}x_{3, 7}(1).
+            \end{align*}
+    \end{enumerate}
 \end{solution}
 
 \begin{exercise}
