@@ -43,9 +43,8 @@
                 \end{tabular}
             \end{figure}
             因此，$6$ 点圆卷积为 $z(n) = [20, 24, 60, 75, 70, 36]$。
-        \item 由 IDFT 的卷积定理，有 $\IDFT{X^2(k)} = x(n) \otimes x(n)$，故
-            只需要计算 $x(n)$ 与自己圆卷积即可。
-            先计算 $x(n)$ 与自己的线卷积：
+        \item 由 IDFT 的卷积定理，有 $\IDFT{X^2(k)} = x(n) \otimes x(n)$，
+            故只需要计算 $x(n)$ 与自己圆卷积即可。先计算 $x(n)$ 与自己的线卷积：
             \begin{figure}[H]
                 \centering
                 \begin{tabular}{c c c c c c c c}
@@ -98,9 +97,82 @@
 \end{exercise}
 
 \begin{solution}
-    
-
+    \begin{enumerate}[label=(\arabic*)]
+        \item 先对 $x_1(n)$ 和 $x_2(n)$ 进行补零或回绕得到长度为 $N$ 的
+            序列 $\rev{x_1}(n)$ 和 $\rev{x_2}(n)$。由 DFT 的性质知，
+            \begin{align*}
+                X_1(k) = \DFT{x_1(n)} = \DFT{\rev{x_1}(n)}, \\
+                X_2(k) = \DFT{x_2(n)} = \DFT{\rev{x_2}(n)}.
+            \end{align*}
+            设 $y(n)$ 的 $N$ 点 DFT 为 $Y(k)$，则
+            \begin{align*}
+                Y(k) & = \DFT{y(n)} \\
+                & = \DFT{x_1(n) \otimes x_2(n)} \\
+                & = X_1(k) \cdot X_2(k) \\
+                & = \DFT{\rev{x_1}(n)} \cdot \DFT{\rev{x_2}(n)} \\
+                & = \DFT{x_1(n)} \cdot \DFT{x_2(n)}
+            \end{align*}
+            因此，按照 DFT 的定义进行展开，有
+            \begin{align*}
+                \sum_{n = 0}^{N - 1}y(n)W_N^{kn}
+                    = \left(\sum_{n = 0}^{L_1 - 1}x_1(n)W_{L_1}^{kn}\right)
+                    \left(\sum_{n = 0}^{L_2 - 1}x_2(n)W_{L_2}^{kn}\right).
+            \end{align*}
+            取 $k = 0$，即得
+            \begin{align*}
+                \sum_{n = 0}^{N - 1}y(n) = \left(\sum_{n = 0}^{L_1 - 1}x_1(n)\right)\left(\sum_{n = 0}^{L_2 - 1}x_2(n)\right).
+            \end{align*}
+            命题得证。
+        \item 由 IDFT 的卷积定理，有 $\IDFT{X_1^2(k)} = x_1(n) \otimes x_1(n)$，
+            故只需要计算 $x(n)$ 与自己圆卷积即可。先计算 $x(n)$ 与自己的线卷积：
+            \begin{figure}[H]
+                \centering
+                \begin{tabular}{c c c c c c c c c c c c}
+                    & & & & & & -2 & 3 & 0 & 1 & 5 & 2 \\
+                    $\times$ & & &  & & & -2 & 3 & 0 & 1 & 5 & 2 \\
+                    \hline
+                    & & & & & & -4 & 6 & 0 & 2 & 10 & 4 \\
+                    & & & & & -10 & 15 & 0 & 5 & 25 & 10 \\
+                    & & & & -2 & 3 & 0 & 1 & 5 & 2 \\
+                    & & -6 & 9 & 0 & 3 & 15 & 6 \\
+                    $+$ & 4 & -6 & 0 & -2 & -10 & -4 \\
+                    \hline
+                    & 4 & -12 & 9 & -4 & -14 & 22 & 13 & 10 & 29 & 20 & 4
+                \end{tabular}
+            \end{figure}
+            然后计算 $x(n)$ 与自己的圆卷积：
+            \begin{figure}[H]
+                \centering
+                \begin{tabular}{c c c c c c}
+                    & 13 & 10 & 29 & 20 & 4 \\
+                    & -12 & 9 & -4 & -14 & 22 \\
+                    $+$ & & & & & 4 \\
+                    \hline
+                    & 1 & 19 & 25 & 6 & 30
+                \end{tabular}
+            \end{figure}
+            因此，$X_1^2(k)$ 的 $5$ 点离散傅里叶逆变换 IDFT 为 $[30, 6, 25, 19, 1]$。
+        \item 设 $x_2(n) = [2, a, \mathi, b]$，其中 $a, b \in \set{C}$。
+            由于 $L_2 < N$，故在 $x_2(n)$ 末尾补零，即 $x_2(n) = [2, a, \mathi, b, 0]$。
+            由 DFT 的对称性，
+            \begin{align*}
+                \DFT{X_2(k)} = N\rev{x_2}(-n) = [10, 0, 5b, 5\mathi, 5a].
+            \end{align*}
+            由于 $X_2(k)$ 为实序列，故其 DFT 共轭对称，即
+            \begin{align*}
+                \DFT{X_2(k)} = [10, 0, 5b, 5\mathi, 5a] = [10, 5a^*, -5\mathi, 5b^*, 0].
+            \end{align*}
+            因此 $a = 0, b = -\mathi$，$X_2(k) = [10, 0, -5\mathi, 5\mathi, 0]$。
+    \end{enumerate}
 \end{solution}
+
+\begin{note}
+    在处理 DFT 相关问题的时候，如果序列长度不相等，一定要进行补零或回绕。
+    这一步是平凡的，因为进行补零或回绕不会影响 DFT 的结果。
+
+    其次要注意的点是，$\rev{x}(-n)$ 相当于是 $x(0)$ 不变，其余的元素逆序排列；
+    共轭对称的时候，$X(0)$ 也是不变的，其余的元素逆序排列对应。
+\end{note}
 
 \begin{exercise}
     本课程介绍了``基 $2$ 的 IFFT 算法''，即将 $N$ 点 IDFT 运算递归地
@@ -239,5 +311,66 @@
 \end{exercise}
 
 \begin{solution}
-
+    \begin{enumerate}[label=(\arabic*)]
+        \item 由于 $\omega_s = 1200\;\mathrm{Hz} < 2\omega_M = 1400\;\mathrm{Hz}$，故会发生混叠。
+            发生混叠的部分在 $[500\;\mathrm{Hz}, 700\;\mathrm{Hz}]$ 区域，因此
+            \begin{align*}
+                \hat{F}(\omega) = \begin{cases}
+                    \frac{1}{T_s}F(\omega), & 450\;\mathrm{Hz} \le \omega < 500\;\mathrm{Hz}, \\
+                    \frac{1}{T_s}\left(F(\omega) + F(\omega - 1200)\right), & 500\;\mathrm{Hz} \le \omega \le 550\;\mathrm{Hz},
+                \end{cases}
+            \end{align*}
+            其中 $T_s = 1 / \omega_s = 1 / 1200\;\mathrm{s}$，因此
+            \begin{align*}
+                \hat{F}(\omega) = \begin{cases}
+                    1200F(\omega), & 450\;\mathrm{Hz} \le \omega < 500\;\mathrm{Hz}, \\
+                    1200\left(F(\omega) + F(\omega - 1200)\right), & 500\;\mathrm{Hz} \le \omega \le 550\;\mathrm{Hz}.
+                \end{cases}
+            \end{align*}
+        \item 由题知
+            \begin{align*}
+                L_1 = 1500\;\mathrm{Hz} \cdot 0.02\;\mathrm{s} = 30, \quad
+                L_2 = 3000\;\mathrm{Hz} \cdot 0.01\;\mathrm{s} = 30.
+            \end{align*}
+            因此 $N = L_1 = L_2 = 30$。设 $T_1 = 0.02\;\mathrm{s} = 2T_2$。
+            由于 $f(t)$ 的周期为 $0.01\;\mathrm{s}$，故
+            \begin{align*}
+                x_1(n) & = [f(0), f(T_1), \cdots, f(14T_1), f(0), f(T_1), \cdots, f(14T_1)], \\
+                x_2(n) & = [f(0), f(T_2), \cdots, f(14T_2), f(15T_2), f(16T_2), \cdots, f(29T_2)].
+            \end{align*}
+            因此
+            \begin{align*}
+                X_2(k) = \sum_{n = 0}^{N - 1}f(nT_2)W_N^{nk}.
+            \end{align*}
+            对于 $X_1(k)$，有
+            \begin{align*}
+                X_1(k) & = \sum_{n = 0}^{N - 1}f(nT_1)W_N^{nk} \\
+                & = \sum_{n = 0}^{N/2 - 1}f(nT_1)\left(W_N^{nk} + W_N^{(n+N/2)k}\right) \\
+                & = [1 + (-1)^k]\sum_{n = 0}^{N/2 - 1}f(2nT_2)W_N^{nk}.
+            \end{align*}
+            考虑将其扩展为 $N$ 项，有
+            \begin{align*}
+                X_1(k) & = [1 + (-1)^k]\sum_{n = 0}^{N/2 - 1}f(2nT_2)W_N^{kn} \\
+                & = [1 + (-1)^k]\sum_{n = 0}^{N - 1}\left[f(nT_2)W_N^{kn/2} \cdot \frac{1 + (-1)^n}{2}\right] \\
+                & = [1 + (-1)^k]\left[\frac{1}{2}\sum_{n = 0}^{N - 1}f(nT_2)W_N^{kn/2}
+                    + \frac{1}{2}\sum_{n = 0}^{N - 1}f(nT_2)W_N^{(N+k)n/2}\right] \\
+                & = \frac{1 + (-1)^k}{2}\left[X_2\left(\frac{k}{2}\right) + X_2\left(\frac{k + N}{2}\right)\right].
+            \end{align*}
+    \end{enumerate}
 \end{solution}
+
+\begin{remark}
+    更进一步地，由于采样频率 $\omega_{s2} = 3000\;\mathrm{Hz}$，
+    而 $f(t)$ 的截止频率 $\omega_M = 700\;\mathrm{Hz}$，
+    故 $(700\;\mathrm{Hz}, 2300\;\mathrm{Hz})$ 区间内的频谱为 $0$。
+    
+    由于 $\Omega_s = 1/T_{s2} = 100\;\mathrm{Hz}$，
+    这意味着，当 $k \in [8, 22]$ 时，$X_2(k) = 0$。因此，$X_1(k)$ 能被化简为
+    \begin{align*}
+        X_1(k) = \begin{cases}
+            X_2(k/2), & k = 0, 2, \cdots, 14, \\
+            X_2(k/2 + 15), & k = 16, 18, \cdots, 28, \\
+            0, & k = 1, 3, \cdots, 15, 17, \cdots, 29.
+        \end{cases}
+    \end{align*}
+\end{remark}
