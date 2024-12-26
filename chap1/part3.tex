@@ -187,13 +187,13 @@
     \end{itemize}
 \end{note}
 
-\begin{example}[三角函数集]
+\begin{example}
     设 $\omega_0 > 0$，则
     \begin{align*}
         \{1, \cos(\omega_0t + \varphi_1), \cos(2\omega_0t + \varphi_2),
             \cdots, \cos(n\omega_0 t + \varphi_n)\}
     \end{align*}
-    是在 $[0, \frac{2\pi}{\omega_0}]$ 区间上的正交函数集。
+    是在 $[0, \frac{2\pi}{\omega_0}]$ 区间上的正交函数集，其中 $\varphi_i$ 为常数。
 \end{example}
 
 \begin{proof}
@@ -228,6 +228,13 @@
     因此，$\{1, \cos(\omega_0t + \varphi_1), \cos(2\omega_0t + \varphi_2), \cdots, \cos(n\omega_0 t + \varphi_n))\}$
     是在 $[0, \frac{2\pi}{\omega_0}]$ 区间上的正交函数集。
 \end{proof}
+
+\begin{note}
+    事实上，上述函数集并不完备。一个完备的\bd{三角函数集}是
+    \begin{align*}
+        \{1, \cos(\omega_0t), \sin(\omega_0t), \cos(2\omega_0t), \sin(2\omega_0t), \cdots\}.
+    \end{align*}
+\end{note}
 
 \begin{example}[指数函数集]
     设 $\omega_0 > 0$，则

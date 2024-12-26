@@ -20,22 +20,23 @@
     则称 $f(t)$ 满足\bd{狄义赫利条件}。
 \end{definition}
 
-\begin{property}
+\begin{theorem}
     满足狄义赫利条件的\bd{周期函数}
-    都可以在\bd{一组完备的正交基函数}上展开成为\bd{无穷级数}。
-\end{property}
+    都可以在一组\bd{完备的正交基函数}上展开成为\bd{无穷级数}。
+\end{theorem}
 
 \begin{definition}[傅里叶级数展开]
     如果完备的正交函数集是三角函数集或指数函数集，
     则周期函数展成的级数就是\bd{傅里叶级数}。
-    相应的级数通常被称为\bd{三角形式傅里叶级数}和{指数形式傅里叶级数}。
+    相应的级数通常被称为\bd{三角形式傅里叶级数}和\bd{指数形式傅里叶级数}。
 \end{definition}
 
 \begin{note}
     回忆三角函数集和指数函数集的定义：
     \begin{itemize}
-        \item 三角函数集：$\{1, \cos(\omega_0t + \varphi_1), \cos(2\omega_0t + \varphi_2), \cdots, \cos(n\omega_0 t + \varphi_n)\}$，
+        \item 三角函数集（不完备）：$\{1, \cos(\omega_0t + \varphi_1), \cos(2\omega_0t + \varphi_2), \cdots, \cos(n\omega_0 t + \varphi_n)\}$，
             即 $\{1, \cos(n\omega_0t), \sin(n\omega_0t)\}$，其中 $n$ 取遍 $\set{N}^{+}$。
+        \item 三角函数集（完备）：$\{1, \cos(n\omega_0 t), \sin(n\omega_0 t)\}$，其中 $n$ 取遍 $\set{N}^{+}$。
         \item 指数函数集：$\{\mathe^{\mathi n\omega_0t} \mid n \in \set{Z}\}$。
     \end{itemize}
     请注意，三角函数集中的 $n$ 是\bd{正整数}，而指数函数集中的 $n$ 是\bd{整数}。
@@ -46,7 +47,7 @@
     函数集 $\{1, \cos(n\omega_0 t), \sin(n\omega_0 t)\}$ 是一组完备的正交函数集，
     其中 $n$ 取遍 $\set{N}^{+}$。则 $f(t)$ 可以被展开成三角函数的无穷级数形式：
     \begin{align*}
-        f(t) = a_0 + \sum_{n = 1}^{+\infty}a_n\cos(n\omega_0 t) + b_n\sin(n\omega_0 t),
+        f(t) = a_0 + \sum_{n = 1}^{+\infty}(a_n\cos(n\omega_0 t) + b_n\sin(n\omega_0 t)),
     \end{align*}
     系数 $a_n$ 和 $b_n$ 统称为\bd{三角形式的傅里叶级数系数}，简称为\bd{傅里叶系数}。
 \end{definition}
@@ -316,15 +317,11 @@
                 grid style = dashed,
             ]
             \addplot[dashed, domain=-10:10, samples=100, smooth, line width=2pt, blue] {sin(deg(x))/x};
-            \draw[-stealth, smooth, red] (axis cs:-16.7552, 0) -- (axis cs:-16.7552, -0.0517);
-            \draw[-stealth, smooth, red] (axis cs:-12.5664, 0) -- (axis cs:-12.5664, 0);
-            \draw[-stealth, smooth, red] (axis cs:-8.3776, 0) -- (axis cs:-8.3776, 0.1034);
-            \draw[-stealth, smooth, red] (axis cs:-4.1888, 0) -- (axis cs:-4.1888, -0.2067);
-            \draw[-stealth, smooth, red] (axis cs:0, 0) -- (axis cs:0, 1);
-            \draw[-stealth, smooth, red] (axis cs:4.1888, 0) -- (axis cs:4.1888, -0.2067);
-            \draw[-stealth, smooth, red] (axis cs:8.3776, 0) -- (axis cs:8.3776, 0.1034);
-            \draw[-stealth, smooth, red] (axis cs:12.5664, 0) -- (axis cs:12.5664, 0);
-            \draw[-stealth, smooth, red] (axis cs:16.7552, 0) -- (axis cs:16.7552, -0.0517);
+            \draw[-stealth, smooth, line width=1pt, red] (axis cs:-8.3776, 0) -- (axis cs:-8.3776, 0.1034);
+            \draw[-stealth, smooth, line width=1pt, red] (axis cs:-4.1888, 0) -- (axis cs:-4.1888, -0.2067);
+            \draw[-stealth, smooth, line width=1pt, red] (axis cs:0, 0) -- (axis cs:0, 1);
+            \draw[-stealth, smooth, line width=1pt, red] (axis cs:4.1888, 0) -- (axis cs:4.1888, -0.2067);
+            \draw[-stealth, smooth, line width=1pt, red] (axis cs:8.3776, 0) -- (axis cs:8.3776, 0.1034);
             
             \node at (axis cs:0, 0) [anchor=north west] {O};
             \node at (axis cs:3.1416, 0) [anchor=north] {$\dfrac{2\pi}{\tau}$};

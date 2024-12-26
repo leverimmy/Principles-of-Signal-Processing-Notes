@@ -42,6 +42,7 @@
     f(t) & = \frac{1}{2\pi} \int_{-\infty}^{+\infty} F(\omega)\mathe^{\mathi\omega t}\D{\omega}.
 \end{align*}
 所以，我们可以尝试从这个切入点入手，来研究 FT 和 IFT 之间的关系。
+FT 和 IFT 的变换核之间是共轭对称的。因此，IFT 可以由 FT 来完成。
 
 \begin{lemma}[FT 和 IFT 的变换核之间的关系]
     FT 与 IFT 的变换核函数是共轭对称的，即
@@ -59,8 +60,6 @@
     \end{align*}
     命题得证。
 \end{proof}
-
-这说明，FT 和 IFT 的变换核之间是共轭对称的。因此，IFT 可以由 FT 来完成：
 
 \begin{theorem}
     设 $f(t)$ 是一个信号，其 FT 为 $F(\omega)$，则有
@@ -219,10 +218,10 @@
     因为 $f(at - t_0)$ 可以看做是 $f(t)$ 先向右平移 $t_0 / a$ 个单位，再压扩 $a$ 倍得到的。
 \end{property}
 
-\begin{remark}
+\begin{example}
     人耳通过相位信息差异，可以判定声音的远近变化。
     但声音信号的相位变化不影响内容上的理解。
-\end{remark}
+\end{example}
 
 \subsubsection{FT 的频移特性}
 
