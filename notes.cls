@@ -12,6 +12,7 @@
 \RequirePackage{enumitem}
 \pgfplotsset{compat=1.18}
 \usepackage{subcaption}
+\usetikzlibrary{shapes,snakes}
 
 % 页面布局
 \RequirePackage[a4paper,left=1.5cm,right=1.5cm,top=3cm,bottom=3cm]{geometry}

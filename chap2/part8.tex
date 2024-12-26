@@ -96,11 +96,35 @@
 \begin{proof}
     由傅里叶逆变换的定义，有
     \begin{align*}
-        f(t) & = \frac{1}{2\pi}\int_{-\infty}^{+\infty} F(\omega)\mathe^{\mathi\omega t}\D{\omega},
+        f(t) = \frac{1}{2\pi}\int_{-\infty}^{+\infty} F(\omega)\mathe^{\mathi\omega t}\D{\omega},
     \end{align*}
-    令 $t = -\omega$，且把积分哑元换为 $t$，则有
+    把 $\omega$ 和 $t$ 地位交换，有
+    \begin{align*}
+        f(\omega) = \frac{1}{2\pi}\int_{-\infty}^{+\infty} F(t)\mathe^{\mathi\omega t}\D{t}.
+    \end{align*}
+    令自变量为 $-\omega$，则
     \begin{align*}
         f(-\omega) = \frac{1}{2\pi}\int_{-\infty}^{+\infty} F(t)\mathe^{-\mathi\omega t}\D{t} = \frac{\mathcal{F}[F(t)]}{2\pi}.
+    \end{align*}
+    命题得证。
+\end{proof}
+
+\begin{property}
+    设 $f(t)$ 是一个信号，其 FT 为 $F(\omega)$，则有
+    \begin{align*}
+        \mathcal{F}^{-1}[f(\omega)] = \frac{F(-t)}{2\pi}.
+    \end{align*}
+    注意，这里的 $f(\omega)$ 的自变量为 $\omega$，而 $F(-t)$ 的自变量为 $t$。
+\end{property}
+
+\begin{proof}
+    由于 $\mathcal{F}[F(t)] = 2\pi f(-\omega)$，因此
+    \begin{align*}
+        \frac{1}{2\pi}F(t) = \mathcal{F}^{-1}[f(-\omega)],
+    \end{align*}
+    此即
+    \begin{align*}
+        \mathcal{F}^{-1}[f(\omega)] = \frac{F(-t)}{2\pi}.
     \end{align*}
     命题得证。
 \end{proof}

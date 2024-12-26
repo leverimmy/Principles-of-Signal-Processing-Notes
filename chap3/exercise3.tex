@@ -316,8 +316,8 @@
             发生混叠的部分在 $[500\;\mathrm{Hz}, 700\;\mathrm{Hz}]$ 区域，因此
             \begin{align*}
                 \hat{F}(\omega) = \begin{cases}
-                    \frac{1}{T_s}F(\omega), & 450\;\mathrm{Hz} \le \omega < 500\;\mathrm{Hz}, \\
-                    \frac{1}{T_s}\left(F(\omega) + F(\omega - 1200)\right), & 500\;\mathrm{Hz} \le \omega \le 550\;\mathrm{Hz},
+                    F(\omega)/T_s, & 450\;\mathrm{Hz} \le \omega < 500\;\mathrm{Hz}, \\
+                    \left(F(\omega) + F(\omega - 1200)\right)/T_s, & 500\;\mathrm{Hz} \le \omega \le 550\;\mathrm{Hz},
                 \end{cases}
             \end{align*}
             其中 $T_s = 1 / \omega_s = 1 / 1200\;\mathrm{s}$，因此
