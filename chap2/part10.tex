@@ -85,7 +85,7 @@
     \begin{align*}
         p(t) = \sum_{n = -\infty}^{+\infty}F_n\mathe^{\mathi n\omega_s t},
     \end{align*}
-    其中 $\omega_s = 2\pi/\omega_T$。因此 $\mathcal{F}[p(t)]$ 可以写成
+    其中 $\omega_s = 2\pi/T_s$。因此 $\mathcal{F}[p(t)]$ 可以写成
     \begin{align*}
         \mathcal{F}[p(t)] & = \int_{-\infty}^{+\infty}p(t)\mathe^{-\mathi\omega t}\D{t} \\
         & = \int_{-\infty}^{+\infty}\left(\sum_{n = -\infty}^{+\infty}F_n\mathe^{\mathi n\omega_s t}\right)\mathe^{-\mathi\omega t}\D{t} \\
@@ -98,6 +98,11 @@
         \mathcal{F}[p(t)] = \sum_{n = -\infty}^{+\infty}F_n2\pi\delta(\omega - n\omega_s).
     \end{align*}
     由傅里叶展开的定义知
+    \begin{align*}
+        F_n & = \frac{1}{T_s}\int_{-T_s/2}^{T_s/2}p(t)\mathe^{-\mathi n\omega_s t}\D{t} \\
+        & = \frac{1}{T_s}\int_{-T_s/2}^{T_s/2}\sum_{n = -\infty}^{+\infty}\delta(t - nT_s)\mathe^{-\mathi n\omega_s t}\D{t}.
+    \end{align*}
+    在积分区间 $[-T_s/2, T_s/2]$ 内，只有 $t = 0$ 满足 $t$ 可以被写成 $t = nT_s$ 的形式，所以
     \begin{align*}
         F_n & = \frac{1}{T_s}\int_{-T_s/2}^{T_s/2}p(t)\mathe^{-\mathi n\omega_s t}\D{t} \\
         & = \frac{1}{T_s}\left.\left(p(t)\mathe^{-\mathi n\omega_s t}\right)\right|_{t = 0} \\
@@ -579,7 +584,7 @@
 \end{definition}
 
 \begin{property}[三角脉冲的傅里叶变换]
-    设 $f(t)$ 为 $[T_0, T_0]$ 上的三角脉冲信号，如图 \ref{fig:triangular-rectangular-1} 所示。
+    设 $f(t)$ 为 $[-T_0/2, T_0/2]$ 上的三角脉冲信号，如图 \ref{fig:triangular-rectangular-1} 所示。
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}
