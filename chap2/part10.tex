@@ -584,14 +584,14 @@
 \end{definition}
 
 \begin{property}[三角脉冲的傅里叶变换]
-    设 $f(t)$ 为 $[-T_0/2, T_0/2]$ 上的三角脉冲信号，如图 \ref{fig:triangular-rectangular-1} 所示。
+    设 $h(t)$ 为 $[-T_0/2, T_0/2]$ 上的三角脉冲信号，如图 \ref{fig:triangular-rectangular-1} 所示。
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}
             \begin{axis}[
                 axis lines = middle,
                 xlabel = {$t$},
-                ylabel = {$f(t)$},
+                ylabel = {$h(t)$},
                 ylabel style={at={(rel axis cs:0.5, 1)}, anchor=south},
                 xmin = -1.2, xmax = 1.2,
                 ymin = -0.2, ymax = 1.2,
@@ -612,7 +612,7 @@
             \node at (axis cs:0, 0) [anchor=north west] {O};
             \end{axis}
         \end{tikzpicture}
-        \caption{三角信号 $f(t)$}
+        \caption{三角信号 $h(t)$}
         \label{fig:triangular-rectangular-1}
     \end{figure}
     则其傅里叶变换为
@@ -658,7 +658,7 @@
         \caption{矩形脉冲信号 $g(t)$}
         \label{fig:triangular-rectangular-2}
     \end{figure}
-    因此，$f(t) = g(t) * g(t)$。由卷积定理知
+    因此，$h(t) = g(t) * g(t)$。由卷积定理知
     \begin{align*}
         H(\mathi\omega) & = G(\mathi\omega) \cdot G(\mathi\omega) \\
         & = \left(E\tau\sa\left(\frac{\omega\tau}{2}\right)\right)^2 \\
@@ -793,7 +793,7 @@
     \end{figure}
 
     \begin{itemize}
-        \item 在频域上，$X_p(\mathi \omega) = X(\mathi \omega) * P(\mathi \omega)$。
+        \item 在频域上，$X_p(\mathi \omega) = X(\mathi \omega) P(\mathi \omega)$。
         \item 在时域上，$x_p(t) = x(t) * p(t)$。
     \end{itemize}
     当采样为\bd{冲激串采样}（\bd{理想采样}）时，
@@ -852,14 +852,14 @@
         0, & |t| > \pi/\omega_s.
     \end{cases}$ 的频谱为
     \begin{align*}
-        W(\mathi\omega) = 2\pi \sa{\left(\frac{\omega}{\omega_s}\right)}.
+        W(\mathi\omega) = 2\pi \sa{\left(\frac{\pi\omega}{\omega_s}\right)}.
     \end{align*}
 
     \bd{理想时限内插}重建得到的信号 $X(\mathi\omega)$ 为
     \begin{align*}
         X(\mathi\omega) & = \frac{1}{2\pi}X_p(\mathi\omega) * W(\mathi\omega) \\
-        & = \frac{1}{2\pi} \sum_{n = -\infty}^{+\infty}X(n\omega_s)\delta(\omega - n\omega_s) * 2\pi\sa{\left(\frac{\omega}{\omega_s}\right)} \\
-        & = \sum_{n = -\infty}^{+\infty}X(n\omega_s)\sa{\left(\frac{\omega - n\omega_s}{\omega_s}\right)}.
+        & = \frac{1}{2\pi} \sum_{n = -\infty}^{+\infty}X(n\omega_s)\delta(\omega - n\omega_s) * 2\pi\sa{\left(\frac{\pi\omega}{\omega_s}\right)} \\
+        & = \sum_{n = -\infty}^{+\infty}X(n\omega_s)\sa{\left(\frac{\pi(\omega - n\omega_s)}{\omega_s}\right)}.
     \end{align*}
 \end{definition}
 
