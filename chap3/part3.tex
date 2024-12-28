@@ -29,7 +29,7 @@
 \begin{exercise}
     利用 DFT 的公式计算
     \begin{align*}
-        x(n) = \sin(\frac{2\pi}{N}mn)
+        x(n) = \sin\left(\frac{2\pi}{N}mn\right)
     \end{align*}
     的 $N$ 点 DFT，其中 $0 \le n \le N - 1, 0 < m < N$ 且 $m \in \set{Z}$。
 \end{exercise}
@@ -92,7 +92,7 @@
 \subsubsection{$N$ 与 $L$ 的关系}
 
 从理论上讲，DFT 中的 $N$ 与 $L$ 之间是相互独立的。$L$ 是数据记录中
-时域样本的数目，它可能是无限的；而 $N$ 则是对 DTFT 进行抽样时的频率点的数目。
+时域样本的数目，它可能是无限的；而 $N$ 则是对 DTFT 进行采样时的频率点的数目。
 通常，在讨论和使用 DFT（特别是编程实现）时常常取 $N = L$。
 既然 $L$ 与 $N$ 没有什么必然的联系，那么，为什么要设它们相等？
 这是出于什么考虑呢？
@@ -183,7 +183,7 @@
 \begin{proof}
     (方法二)
     由 DFT 的定义可知 $X(k) = \sum_{n = 0}^{L - 1}x(n)W_N^{nk}$。不妨设 $N \mid L$，
-    因为如果 $N \nmid L$，则可以将 $x(n)$ 补 $N - L$ 个 $0$，使得 $N \mid L$。
+    因为如果 $N \nmid L$，则可以将 $x(n)$ 补 $N - L$ 个 $0$，使得 $N' \mid L$。
     由于 $N \mid L$，故 $L = Nq$，其中 $q$ 为正整数。则
     \begin{align*}
         \rev{X}(k) & = \sum_{n = 0}^{N - 1}\rev{x}(n)W_N^{nk} \\
@@ -246,9 +246,20 @@
 \begin{property}[DFT 的共轭对称性]
     设 $x(n)$ 为实序列，则
     \begin{align*}
-        X^*(N - k) = X(k), \quad k = 0, 1, \cdots, N - 1.
+        X^*(N - k) = X(k), \quad k = 1, \cdots, N - 1.
     \end{align*}
 \end{property}
+
+\begin{note}
+    这里 $k$ 的取值范围是 $[1, N-1]$，这是因为定义域要求
+    \begin{align*}
+        \begin{cases}
+            0 \le N - k \le N - 1, \\
+            0 \le k \le N - 1.
+        \end{cases}
+    \end{align*}
+    解得 $1 \le k \le N - 1$。
+\end{note}
 
 \begin{proof}
     由于 $W_N = \mathe^{-2\pi\mathi/N}$，因此
@@ -296,13 +307,13 @@
             \begin{itemize}
                 \item 实偶序列的 DFT 是实偶序列，实奇序列的 DFT 是虚奇序列。
                 \item 实序列的 DFT 的实部是偶序列，虚部是奇序列。
-                \item 实序列的模长序列是偶序列，相位序列是奇序列。
+                \item 实序列的 DFT 的模长序列是偶序列，相位序列是奇序列。
             \end{itemize}
         \item 虚序列：
             \begin{itemize}
                 \item 虚偶序列的 DFT 是虚偶序列，虚奇序列的 DFT 是实奇序列。
                 \item 虚序列的 DFT 的实部是奇序列，虚部是偶序列。
-                \item 虚序列的模长序列是偶序列，相位序列是奇序列。
+                \item 虚序列的 DFT 的模长序列是偶序列，相位序列是奇序列。
             \end{itemize}
     \end{enumerate}
 \end{property}
@@ -321,7 +332,7 @@
     \end{figure}
 \end{property}
 
-\begin{property}[DFT 的频域平移特性]
+\begin{property}[DFT 的频移特性]
     设长度为 $L$ 的序列 $x(n)$ 的 DFT 为长度为 $N$ 的频谱 $X(k)$，
     当 $L = N$ 时，有
     \begin{align*}
@@ -373,7 +384,7 @@
 \begin{proof}
     (方法一)
     DTFT 的时移特性为 $\DTFT{x(n - m)} = \mathe^{-\mathi\omega m}X(\omega)$。
-    由于 DFT 可以看做是 DTFT 在离散点上的抽样，故
+    由于 DFT 可以看做是 DTFT 在离散点上的采样，故
     \begin{align*}
         \DFT{x(n - m)} & = \left.\left(\mathe^{-\mathi\omega m}X(\omega)\right)\right|_{\omega = \omega_k} \\
         & = \mathe^{-\mathi\omega_k m}X(\omega_k) \\
@@ -541,7 +552,7 @@
             由于 $W_N^{-n(N - k)} = W_N^{nk} = \left(W_N^{-nk}\right)^*$，故
             \begin{align*}
                 \IDFT{X_{ep}(k)} & = \frac{1}{2}x(n) + \frac{1}{2N}\sum_{k = 0}^{N - 1}X^*(k)\left(W_N^{-nk}\right)^* \\
-                & = \frac{1}{2}x(n) + \frac{1}{2N}\left(\sum_{k = 0}^{N - 1}X(k)W_N^{-nk}\right) \\
+                & = \frac{1}{2}x(n) + \frac{1}{2N}\left(\sum_{k = 0}^{N - 1}X(k)W_N^{-nk}\right)^* \\
                 & = \frac{1}{2}x(n) + \frac{1}{2}x^*(n) \\
                 & = x_r(n).
             \end{align*}
@@ -559,7 +570,7 @@
             由于 $W_N^{-n(N - k)} = W_N^{nk} = \left(W_N^{-nk}\right)^*$，故
             \begin{align*}
                 \IDFT{X_{op}(k)} & = \frac{1}{2}x(n) - \frac{1}{2N}\sum_{k = 0}^{N - 1}X^*(k)\left(W_N^{-nk}\right)^* \\
-                & = \frac{1}{2}x(n) - \frac{1}{2N}\left(\sum_{k = 0}^{N - 1}X(k)W_N^{-nk}\right) \\
+                & = \frac{1}{2}x(n) - \frac{1}{2N}\left(\sum_{k = 0}^{N - 1}X(k)W_N^{-nk}\right)^* \\
                 & = \frac{1}{2}x(n) - \frac{1}{2}x^*(n) \\
                 & = \mathi x_i(n).
             \end{align*}

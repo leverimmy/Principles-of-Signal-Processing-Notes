@@ -92,7 +92,7 @@
 \begin{exercise}
     已知 $f(t)$ 的频谱函数为 $F(\omega)$，试证明：
     \begin{align*}
-        T \cdot \sum_{n = -\infty}^{+\infty}f(nT_s) = \sum_{k = -\infty}^{+\infty}F(k\omega_s),
+        T \sum_{n = -\infty}^{+\infty}f(nT_s) = \sum_{k = -\infty}^{+\infty}F(k\omega_s),
     \end{align*}
     其中 $\omega_s = 2\pi / T_s$。
 \end{exercise}
@@ -151,28 +151,6 @@
     \end{align*}
 \end{property}
 
-\begin{exercise}
-    已知 $x(n)$ 的 DTFT 为 $X(\omega)$，试求下列各序列的 DTFT：
-    \begin{enumerate}[label=(\arabic*)]
-        \item $x(n) * x^*(-n)$
-        \item $x(n) - x(n + 2)$
-        \item $x(n) * x(n + 1)$
-    \end{enumerate}
-\end{exercise}
-
-\begin{solution}
-    \begin{enumerate}[label=(\arabic*)]
-        \item $\DTFT{x(n) * x^*(-n)} = \DTFT{x(n)} \cdot \DTFT{x^*(-n)}
-            = X(\omega) \cdot X^*(\omega)$
-        \item $\DTFT{x(n) - x(n + 2)} = \DTFT{x(n)} - \DTFT{x(n + 2)}
-            = X(\omega) - \mathe^{2\mathi\omega}X(\omega)
-            = (1 - \mathe^{2\mathi\omega})X(\omega)$
-        \item $\DTFT{x(n) * x(n + 1)} = \DTFT{x(n)} \cdot \DTFT{x(n + 1)}
-            = X(\omega) \cdot \mathe^{\mathi\omega}X(\omega)
-            = \mathe^{\mathi\omega}(X(\omega))^2$
-    \end{enumerate}
-\end{solution}
-
 \begin{property}[DTFT 的时域扩展性质]
     设 $x(n)$ 的 DTFT 为 $X(\omega)$，则有
     \begin{align*}
@@ -222,6 +200,28 @@
         \DTFT{x_1(n) * x_2(n)} = X_1(\omega)X_2(\omega).
     \end{align*}
 \end{property}
+
+\begin{exercise}
+    已知 $x(n)$ 的 DTFT 为 $X(\omega)$，试求下列各序列的 DTFT：
+    \begin{enumerate}[label=(\arabic*)]
+        \item $x(n) * x^*(-n)$
+        \item $x(n) - x(n + 2)$
+        \item $x(n) * x(n + 1)$
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\DTFT{x(n) * x^*(-n)} = \DTFT{x(n)} \cdot \DTFT{x^*(-n)}
+            = X(\omega) \cdot X^*(\omega)$
+        \item $\DTFT{x(n) - x(n + 2)} = \DTFT{x(n)} - \DTFT{x(n + 2)}
+            = X(\omega) - \mathe^{2\mathi\omega}X(\omega)
+            = (1 - \mathe^{2\mathi\omega})X(\omega)$
+        \item $\DTFT{x(n) * x(n + 1)} = \DTFT{x(n)} \cdot \DTFT{x(n + 1)}
+            = X(\omega) \cdot \mathe^{\mathi\omega}X(\omega)
+            = \mathe^{\mathi\omega}(X(\omega))^2$
+    \end{enumerate}
+\end{solution}
 
 \begin{property}[DTFT 的频域卷积定理]
     设 $x_1(n)$ 和 $x_2(n)$ 的 DTFT 分别为 $X_1(\omega)$ 和 $X_2(\omega)$，则有
@@ -316,7 +316,7 @@
         & = \frac{1 - \mathe^{-\mathi\omega L}}{1 - \mathe^{-\mathi\omega}} \\
         & = \frac{\sin(\omega L/2)}{\sin(\omega/2)}\mathe^{-\mathi\omega(L-1)/2}.
     \end{align*}
-    因此，画出它的频谱如 \ref{fig:DTFT_window.png} 所示。
+    因此，画出它的幅度谱如 \ref{fig:DTFT_window.png} 所示，图像以 $2\pi$ 为周期。
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{chap3/img/DTFT_window.png}
