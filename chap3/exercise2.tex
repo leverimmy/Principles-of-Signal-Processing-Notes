@@ -98,7 +98,7 @@
             这是因为只有\bd{当 $a$ 为非零整数时}，才能使用时域扩展公式
             \begin{align*}
                 x_{(a)}(n) = \begin{cases}
-                    x\left(\frac{n}{a}\right), & \frac{n}{a} \in \set{Z}, \\
+                    x(n/a), & n/a \in \set{Z}, \\
                     0, & \text{otherwise}.
                 \end{cases}
             \end{align*}
@@ -115,11 +115,11 @@
                     = \frac{1}{2}\mathe^{\mathi\omega}\left[X\left(\frac{\omega}{2}\right)
                         + X\left(\frac{\omega}{2} - \pi\right)\right].
             \end{align*}
-            这是因为时域平移公式只适用于 \bd{$n_0$ 为整数}的情况：
+            这是因为时域平移公式只适用于 \bd{$n$ 的系数为 $1$} 的情况：
             \begin{align*}
                 \DTFT{x(n - n_0)} = \mathe^{-\mathi n_0\omega}X(\omega),
             \end{align*}
-            其中 $n_0 \in \set{Z}$。
+            或者说，在 $n$ 的系数归一化后，$n_0$ 需要为整数。
     \end{enumerate}
 \end{note}
 
@@ -148,12 +148,12 @@
             故
             \begin{align*}
                 H\left(\frac{\omega}{2}\right) = \frac{1}{2}\left(X\left(\frac{\omega}{4}\right) + X\left(\frac{\omega}{4} - \pi\right)\right),
-                H\left(\frac{\omega}{2} - \pi\right) = \frac{1}{2}\left(X\left(\frac{\omega}{4} - \frac{\pi}{2}\right) + X\left(\frac{\omega}{4} - \frac{3}{2}\pi\right)\right).
+                H\left(\frac{\omega}{2} - \pi\right) = \frac{1}{2}\left(X\left(\frac{\omega}{4} - \frac{\pi}{2}\right) + X\left(\frac{\omega}{4} - \frac{3\pi}{2}\right)\right).
             \end{align*}
             因此
             \begin{align*}
                 X_1(\omega) & = \frac{1}{2}\left(H\left(\frac{\omega}{2}\right) + H\left(\frac{\omega}{2} - \pi\right)\right) \\
-                & = \frac{1}{4}\left(X\left(\frac{\omega}{4}\right) + X\left(\frac{\omega}{4} - \pi\right) + X\left(\frac{\omega}{4} - \frac{\pi}{2}\right) + X\left(\frac{\omega}{4} - \frac{3}{2}\pi\right)\right).
+                & = \frac{1}{4}\left(X\left(\frac{\omega}{4}\right) + X\left(\frac{\omega}{4} - \pi\right) + X\left(\frac{\omega}{4} - \frac{\pi}{2}\right) + X\left(\frac{\omega}{4} - \frac{3\pi}{2}\right)\right).
             \end{align*}
         \item 由于
             \begin{align*}
@@ -242,8 +242,8 @@
             \end{align*}
             由 DTFT 的性质，可知
             \begin{align*}
-                \DTFT{h(n)x(n)} & = \frac{1}{2\pi}H(\omega) \oplus X(\omega) \\
-                & = \frac{1}{2\pi}\cdot\left(\frac{1}{1 - \frac{1}{2}\mathe^{-\mathi\omega}} \oplus (\delta(\omega - \omega_0) + \delta(\omega + \omega_0))\right) \\
+                \DTFT{h(n)x(n)} & = \frac{1}{2\pi}H(\omega) \otimes X(\omega) \\
+                & = \frac{1}{2\pi}\cdot\left(\frac{1}{1 - \frac{1}{2}\mathe^{-\mathi\omega}} \otimes (\delta(\omega - \omega_0) + \delta(\omega + \omega_0))\right) \\
                 & = \frac{1}{2 - \mathe^{-\mathi(\omega - \omega_0)}} + \frac{1}{2 - \mathe^{-\mathi(\omega + \omega_0)}}.
             \end{align*}
         \item 由卷积的定义，知
