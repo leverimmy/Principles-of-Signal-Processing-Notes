@@ -186,29 +186,25 @@
 \end{remark}
 
 \begin{note}
-    事实上，对于任意的 $n \in \set{Z}$，可以构造
+    事实上，对于任意的 $n, m \in \set{Z}$，有
     \begin{align*}
-        C(m) = \begin{cases}
+        C(n, m) & = \frac{1}{n}\sum_{k = 0}^{n-1}\mathe^{2\pi\mathi km/n} \\
+        & = \frac{1}{n}\sum_{k = 0}^{n-1}\left(\mathe^{2\pi\mathi m/n}\right)^k \\
+        & = \begin{cases}
             1, & m \equiv 0 \pmod{n}, \\
             0, & \text{otherwise}.
         \end{cases}
     \end{align*}
-    从而可以直接求 $\DTFT{x(nm)}$。构造
+    这是因为当 $m$ 是 $n$ 的倍数的时候，该数列不是等比数列；否则，该数列是一个等比数列。
+
+    由此可知，对于任意 $q \in \set{Z}, r \in [0, q)$，有
     \begin{align*}
-        C(m) & = \frac{1}{n}\sum_{k = 0}^{n-1}\mathe^{2m\pi\mathi \cdot k/n} \\
-        & = \frac{1}{n}\sum_{k = 0}^{n - 1}\left(\mathe^{2\pi\mathi \cdot m/n}\right)^k,
+        \DTFT{x(qn + r)} & = \sum_{n = -\infty}^{+\infty}x(qn + r)\mathe^{-\mathi n\omega} \\
+        & = \sum_{k = -\infty}^{+\infty}x(k)\mathe^{-\mathi\omega (k-r)/q}C(q, k-r) \\
+        & = \sum_{k = -\infty}^{+\infty}x(k)\mathe^{-\mathi\omega (k-r)/q}\cdot \frac{1}{q}\sum_{t = 0}^{q - 1}\mathe^{2\pi\mathi (k-r)t/q} \\
+        & = \frac{1}{q}\sum_{t = 0}^{q - 1}\mathe^{\mathi r(\omega - 2\pi t)/q}\sum_{k = -\infty}^{+\infty}x(k)\mathe^{-\mathi k (\omega - 2\pi t)/q} \\
+        & = \frac{1}{q}\sum_{t = 0}^{q - 1}\mathe^{\mathi r(\omega - 2\pi t)/q}X\left(\frac{\omega - 2\pi t}{q}\right).
     \end{align*}
-    \begin{itemize}
-        \item 当 $n \nmid m$ 时，$\mathe^{2\pi\mathi \cdot m/n} \neq 1$，
-            \bd{这是一个等比数列}，因此
-            \begin{align*}
-                C(m) & = \frac{1}{n}\cdot 1 \times \frac{1 - \mathe^{2\pi\mathi \cdot m}}{1 - \mathe^{2\pi\mathi \cdot m/n}} \\
-                & = 0.
-            \end{align*}
-        \item 当 $n \mid m$ 时，$\mathe^{2\pi\mathi \cdot m/n} = 1$，
-            \bd{这是一个常数列}，故 $C(m) = \frac{1}{n} \times n = 1$。
-    \end{itemize}
-    这样构造出的 $C(m)$ 是满足要求的。
 \end{note}
 
 \begin{exercise}
