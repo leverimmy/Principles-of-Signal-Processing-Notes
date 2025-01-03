@@ -465,22 +465,33 @@
     可以看出，$f_1$ 和 $f_2^*$ 在乘法运算时有一个相对平移量 $t$。
 \end{definition}
 
+\begin{property}
+    信号的相关运算与顺序有关。考虑 $R_{f_2, f_1}(t)$：
+    \begin{align*}
+        R_{f_2, f_1}(t) = R(f_2(t), f_1(t)) = \int_{-\infty}^{+\infty}f_2(\tau)f_1^*(\tau - t)\D{\tau}.
+    \end{align*}
+    对比 $R_{f_1, f_2}(t)$，可以发现
+    \begin{align*}
+        R_{f_2, f_1}(t) & = \int_{-\infty}^{+\infty}f_1(a)f_2^*(a - t)\D{a} \\
+        & = \left[\int_{-\infty}^{+\infty}f_1^*(a)f_2(a - t)\D{a}\right]^* \\
+        & = R_{f_1, f_2}^*(-t).
+    \end{align*}
+\end{property}
+
 \begin{remark}
     相关运算和卷积运算有一定的联系：$R_{f_1, f_2}(t) = f_1(t) * f_2^*(-t)$，
     但也有一定的区别：相关运算中的第二个信号\bd{不需要反褶}，但\bd{需要取共轭}。
 \end{remark}
 
 \begin{property}
-    信号的相关运算与顺序有关。考虑 $R_{f_2, f_2}(t)$：
+    用卷积表示相关运算: $R_{f_1, f_2}(t)=f_1(t)*f_2^*(-t)$.
     \begin{align*}
-        R_{f_2, f_1}(t) = R(f_2(t), f_1(t)) = \int_{-\infty}^{+\infty}f_2(\tau)f_1^*(\tau - t)\D{\tau}.
+        R_{f_1,f_2}(t)&=\int_{-\infty}^\infty f_1(\tau+t)f_2^*(\tau)\D \tau\\
+        &=\int_{-\infty}^\infty f_1(\tau)f_2^*(\tau-t)\D \tau\\
+        f_1(t)*f_2^*(-t)&=\int_{-\infty}^{\infty}f_1(\tau)f_2^*(-(t-\tau))\D \tau\\
+        &=\int_{-\infty}^{\infty}f_1(\tau)f_2^*(\tau-t)\D \tau
     \end{align*}
-    对比 $R_{f_1, f_2}(t)$，可以发现
-    \begin{align*}
-        R_{f_2, f_1}(t) & = \int_{-\infty}^{+\infty}f_2(a)f_1^*(a - t)\D{a} \\
-        & = \left[\int_{-\infty}^{+\infty}f_1(a - t)f_2^*(a)\D{a}\right]^* \\
-        & = R_{f_1, f_2}^*(-t).
-    \end{align*}
+    故两式相等. 在后续的 DTFT 等变换中, $X_2^*(-\omega)\leftrightarrow x_2^*(n)$, 且频域卷积对应时域乘积，由此，上述性质将有大用, 见习题 \ref{ex: relate}.
 \end{property}
 
 \begin{note}
@@ -492,8 +503,12 @@
     一个比较容易的方法，是记 $g(t) = f_1(-t)$，
     这样 $g(t) * f_2(t) = \int_{-\infty}^{+\infty}g(t - a)f_2(a)\D{a} = \int_{-\infty}^{+\infty}f_1(a - t)f_2(a)\D{a}$，
     就不会记错了。
-\end{note}
 
+    更通用地，此处给出一般形式:
+    \begin{align*}
+        f_1(p(t)) * f_2(q(t)) & = \int_{-\infty}^{+\infty}f_1(p(\tau))f_2(q(t-\tau))\D{\tau}
+    \end{align*}
+\end{note}
 \begin{example}[自相关运算]
     自相关运算是指函数自己与自己求相关。用自相关函数可以检测准周期信号的准周期，
     如图 \ref{fig:self-relation} 所示。
