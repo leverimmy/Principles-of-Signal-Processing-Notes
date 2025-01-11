@@ -256,11 +256,6 @@ FT 和 IFT 的变换核之间是共轭对称的。因此，IFT 可以由 FT 来�
 
 \subsubsection{FT 的微分与积分特性}
 
-\begin{note}
-    % TODO：证明
-    以下特性的证明都是\bd{错误的}，还在完善中。
-\end{note}
-
 \begin{property}[微分特性]
     设 $f(t)$ 是一个信号，其 FT 为 $F(\omega)$，则有
     \begin{itemize}
@@ -322,41 +317,70 @@ FT 和 IFT 的变换核之间是共轭对称的。因此，IFT 可以由 FT 来�
 \end{property}
 
 \begin{proof}
-    记 $g(t) = \int_{-\infty}^{t}f(\tau)\D{\tau} - F(0)$，由于
+    记 $g(t) = \int_{-\infty}^{t}f(\tau)\D{\tau} - F(0)u(t)$，由于
     \begin{align*}
         F(0) = \int_{-\infty}^{+\infty}f(t)\D{t},
     \end{align*}
-    则 $\lim_{t \to +\infty}g(t) = 0$，且$\frac{\D}{\D{t}}g(t) = f(t)$。
+    则 $\lim_{t \to -\infty}g(t) = \lim_{t \to +\infty}g(t) = 0$。
+    对 $g(t)$ 的定义式求微分，有
+    \begin{align*}
+        \frac{\D}{\D{t}}g(t) = f(t) - F(0)\delta(t).
+    \end{align*}
+    由于 FT 是线性运算，则
+    \begin{align*}
+        \mathcal{F}[g(t)] = \mathcal{F}\left[\int_{-\infty}^{t}f(\tau)\D{\tau}\right] - F(0)\mathcal{F}[u(t)].
+    \end{align*}
+    同时，
+    \begin{align*}
+        \mathcal{F}[\frac{\D}{\D{t}}g(t)] = F(\omega) - F(0)\mathcal{F}[\delta(t)].
+    \end{align*}
     由微分性质得
     \begin{align*}
-        F(\omega) = \mathcal{F}[f(t)] = \mathcal{F}[\frac{\D}{\D{t}}g(t)] = \mathi \omega \mathcal{F}[g(t)],
+        \mathcal{F}[\frac{\D}{\D{t}}g(t)] = \mathi \omega \mathcal{F}[g(t)].
     \end{align*}
-    也就是说，
+    在 \ref{thm:unit-step-function-ft} 中我们已经证明了
     \begin{align*}
-        F(\omega) & = \mathi \omega \mathcal{F}\left[\int_{-\infty}^{t}f(\tau)\D{\tau} - F(0)\right] \\
-        & = \mathi \omega \left(\mathcal{F}\left[\int_{-\infty}^{t}f(\tau)\D{\tau}\right] - \mathcal{F}[F(0)]\right) \\
-        & = \mathi \omega \left(\mathcal{F}\left[\int_{-\infty}^{t}f(\tau)\D{\tau}\right] - 2\pi F(0)\delta(\omega)\right).
+        \mathcal{F}[u(t)] = \frac{1}{\mathi\omega} + \pi\delta(\omega).
     \end{align*}
-    因此
+    结合上述结论，我们有
     \begin{align*}
-        \mathcal{F}\left[\int_{-\infty}^{t}f(\tau)\D{\tau}\right] = \frac{F(\omega)}{\mathi\omega} + \pi F(0)\delta(\omega).
+        \mathcal{F}\left[\int_{-\infty}^{t}f(\tau)\D{\tau}\right] & = \mathcal{F}[g(t)] + F(0)\mathcal{F}[u(t)] \\
+        & = \frac{\mathcal{F}[\frac{\D}{\D{t}}g(t)]}{\mathi\omega} + F(0)\mathcal{F}[u(t)] \\
+        & = \frac{F(\omega) - F(0)\mathcal{F}[\delta(t)]}{\mathi\omega} + F(0)\mathcal{F}[u(t)] \\
+        & = \frac{F(\omega) - F(0)}{\mathi\omega} + F(0)\left(\frac{1}{\mathi\omega} + \pi\delta(\omega)\right) \\
+        & = \frac{F(\omega)}{\mathi\omega} + \pi F(0)\delta(\omega).
     \end{align*}
-    同理，记 $G(\omega) = \int_{-\infty}^{\omega}F(\lambda)\D{\lambda} - 2\pi f(0)$，由于
+    同理，记 $G(\omega) = \int_{-\infty}^{\omega}F(\lambda)\D{\lambda} - 2\pi f(0)u(\omega)$，由于
     \begin{align*}
         f(0) = \frac{1}{2\pi}\int_{-\infty}^{+\infty}F(\omega)\D{\omega},
     \end{align*}
-    则 $\lim_{\omega \to +\infty}G(\omega) = 0$，且$\frac{\D}{\D{\omega}}G(\omega) = F(\omega)$。由微分性质得
+    则 $\lim_{\omega \to -\infty}G(\omega) = \lim_{\omega \to +\infty}G(\omega) = 0$。
+    对 $G(\omega)$ 的定义式求微分，有
     \begin{align*}
-        f(t) = \mathcal{F}^{-1}[F(\omega)] = \mathcal{F}^{-1}[\frac{\D}{\D{\omega}}G(\omega)] = -\mathi t \mathcal{F}^{-1}[G(\omega)],
+        \frac{\D}{\D{\omega}}G(\omega) = F(\omega) - 2\pi f(0)\delta(\omega).
     \end{align*}
-    也就是说，
+    由于 IFT 也是线性运算，则
     \begin{align*}
-        f(t) & = -\mathi t \left(\mathcal{F}^{-1}\left[\int_{-\infty}^{\omega}F(\lambda)\D{\lambda}\right] - \mathcal{F}^{-1}[2\pi f(0)]\right) \\
-        & = -\mathi t \left(\mathcal{F}^{-1}\left[\int_{-\infty}^{\omega}F(\lambda)\D{\lambda}\right] - 2\pi f(0)\delta(t)\right).
+        \mathcal{F}^{-1}[G(\omega)] = \mathcal{F}^{-1}\left[\int_{-\infty}^{\omega}F(\lambda)\D{\lambda}\right] - 2\pi f(0)\mathcal{F}^{-1}[u(\omega)].
     \end{align*}
-    因此
+    同时，
     \begin{align*}
-        \mathcal{F}^{-1}\left[\int_{-\infty}^{\omega}F(\lambda)\D{\lambda}\right] = \frac{f(t)}{-\mathi t} + \pi f(0)\delta(t).
+        \mathcal{F}^{-1}[\frac{\D}{\D{\omega}}G(\omega)] = f(t) - f(0).
+    \end{align*}
+    由微分性质得
+    \begin{align*}
+        \mathcal{F}^{-1}[\frac{\D}{\D{\omega}}G(\omega)] = -\mathi t \mathcal{F}^{-1}[G(\omega)].
+    \end{align*}
+    由 FT 的对称性，我们有
+    \begin{align*}
+        \mathcal{F}^{-1}[u(\omega)] = -\frac{1}{2\pi \mathi t} + \frac{\delta(t)}{2}.
+    \end{align*}
+    结合上述结论，我们有
+    \begin{align*}
+        \mathcal{F}^{-1}\left[\int_{-\infty}^{\omega}F(\lambda)\D{\lambda}\right] & = \mathcal{F}^{-1}[G(\omega)] + 2\pi f(0)\mathcal{F}^{-1}[u(\omega)] \\
+        & = \frac{\mathcal{F}^{-1}[\frac{\D}{\D{\omega}}G(\omega)]}{-\mathi t} + 2\pi f(0)\mathcal{F}^{-1}[u(\omega)] \\
+        & = \frac{f(t) - f(0)}{-\mathi t} + 2\pi f(0)\left(-\frac{1}{2\pi \mathi t} + \frac{\delta(t)}{2}\right) \\
+        & = \frac{f(t)}{-\mathi t} + \pi f(0)\delta(t).
     \end{align*}
     命题得证。
 \end{proof}

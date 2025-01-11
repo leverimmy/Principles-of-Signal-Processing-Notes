@@ -168,3 +168,76 @@
     \end{align*}
     命题得证。
 \end{proof}
+
+\subsubsection{符号函数}
+
+\begin{note}
+    此节属于自己额外整理的内容，不在课程范围内。
+\end{note}
+
+\begin{theorem}
+    设有一个符号函数 $f(t) = \sgn{t}$，则其傅里叶变换为
+    \begin{align*}
+        F(\omega) = \mathcal{F}[\sgn{t}] = \frac{2}{\mathi\omega}.
+    \end{align*}
+\end{theorem}
+
+\begin{note}
+    如果我们用傅里叶变换的定义来计算 $\sgn{t}$ 的傅里叶变换，我们会发现
+    \begin{align*}
+        F(\omega) & = \int_{-\infty}^{+\infty}\sgn{t}\mathe^{-\mathi\omega t}\D{t} \\
+        & = - \int_{-\infty}^{0}\mathe^{-\mathi\omega t}\D{t} + \int_{0}^{+\infty}\mathe^{-\mathi\omega t}\D{t} \\
+    \end{align*}
+    这两个积分是不收敛的，因此我们需要用其他方法来计算 $\sgn{t}$ 的傅里叶变换。
+\end{note}
+
+\begin{proof}
+    考虑使用指数函数信号来逼近符号函数，即
+    \begin{align*}
+        f_a(t) = \begin{cases}
+            \mathe^{-at}, & t \ge 0, \\
+            -\mathe^{at}, & t < 0,
+        \end{cases}
+        \quad a > 0.
+    \end{align*}
+    则符号函数可以表示为
+    \begin{align*}
+        \sgn{t} = \lim_{a \to 0^+}f_a(t).
+    \end{align*}
+    我们首先计算 $f_a(t)$ 的傅里叶变换：
+    \begin{align*}
+        F_a(\omega) & = \int_{-\infty}^{+\infty}f_a(t)\mathe^{-\mathi\omega t}\D{t} \\
+        & = \int_{0}^{+\infty}\mathe^{-at}\mathe^{-\mathi\omega t}\D{t} + \int_{-\infty}^{0}-\mathe^{at}\mathe^{-\mathi\omega t}\D{t} \\
+        & = \int_{0}^{+\infty}\mathe^{-(a + \mathi\omega)t}\D{t} - \int_{-\infty}^{0}\mathe^{(a - \mathi\omega)t}\D{t} \\
+        & = \left.\frac{\mathe^{-(a + \mathi\omega)t}}{-(a + \mathi\omega)}\right|_{0}^{+\infty} - \left.\frac{\mathe^{(a - \mathi\omega)t}}{a - \mathi\omega}\right|_{-\infty}^{0} \\
+        & = \frac{1}{a + \mathi\omega} - \frac{1}{a - \mathi\omega} \\
+        & = -\frac{2\mathi\omega}{a^2 + \omega^2}.
+    \end{align*}
+    因此，有
+    \begin{align*}
+        F(\omega) = \lim_{a \to 0^+}F_a(\omega) = \lim_{a \to 0^+}\left(-\frac{2\mathi\omega}{a^2 + \omega^2}\right) = \frac{2}{\mathi\omega}.
+    \end{align*}
+    命题得证。
+\end{proof}
+
+\subsubsection{单位阶跃函数}
+
+\begin{theorem}
+    \label{thm:unit-step-function-ft}
+    设有一个单位阶跃函数 $f(t) = u(t)$，则其傅里叶变换为
+    \begin{align*}
+        F(\omega) = \mathcal{F}[u(t)] = \frac{1}{\mathi\omega} + \pi\delta(\omega).
+    \end{align*}
+\end{theorem}
+
+\begin{proof}
+    由于
+    \begin{align*}
+        u(t) = \frac{1 + \sgn{t}}{2},
+    \end{align*}
+    故由傅里叶变换的线性性质，有
+    \begin{align*}
+        F(\omega) = \frac{1}{2}\mathcal{F}[1] + \frac{1}{2}\mathcal{F}[\sgn{t}] = \frac{1}{2}\cdot 2\pi\delta(\omega) + \frac{1}{2}\cdot \frac{2}{\mathi\omega} = \frac{1}{\mathi\omega} + \pi\delta(\omega).
+    \end{align*}
+    命题得证。
+\end{proof}
