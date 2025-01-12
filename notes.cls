@@ -4,14 +4,15 @@
 % 继承 ctexart 类
 \LoadClass[UTF8]{ctexart}
 
-% 包含的包
-\RequirePackage{amsthm,amsmath,amsfonts,amssymb}
-\RequirePackage{indentfirst,hyperref,mdframed}
-\RequirePackage{floatrow,graphicx}
-\RequirePackage{tikz,pgfplots,bm}
-\RequirePackage{enumitem}
+% 数学、表格、图形、排版与超链接相关包
+\RequirePackage{amsthm,amsmath,amsfonts,amssymb,bm} % 数学相关
+\RequirePackage{array,makecell,mdframed,floatrow}   % 表格与内容框
+\RequirePackage{graphicx,tikz,pgfplots}             % 图形相关
+\RequirePackage{indentfirst,enumitem,hyperref}      % 排版与超链接
+\usepackage{subcaption}                             % 子图支持
+
+% TikZ 和 PGFPlots 设置
 \pgfplotsset{compat=1.18}
-\usepackage{subcaption}
 \usetikzlibrary{shapes,snakes}
 
 % 页面布局
