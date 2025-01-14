@@ -55,52 +55,52 @@
     \begin{enumerate}[label=(\arabic*)]
         \item 该系统的脉冲响应类型为无限脉冲响应。
         \item 该系统的直接 I 型信号流图如图 \ref{fig:signal_flow_diagram} 所示。
-            \begin{figure}[H]
-                \centering
-                \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
-                \tikzstyle{circ} = [draw, fill, circle, inner sep=1.5pt]
-                \tikzstyle{sum} = [draw, circle]
-                \tikzstyle{line} = [draw, -latex]
-                \tikzstyle{no-arrow-line} = [draw, -]
-                \tikzstyle{gain} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
-                \begin{tikzpicture}
-
-                    \node [name=input] (input) {$x(n)$};
-                    \node [circ, right of=input, xshift=1cm] (circ1) {};
-                    \node [sum, right of=circ1, xshift=4cm] (sum) {$+$};
-                    \node [block, below of=circ1, yshift=-2cm] (d1) {$Z^{-1}$};
-                    \node [block, below of=d1, yshift=-2cm] (d2) {$Z^{-1}$};
-                    \node [block, below of=d2, yshift=-2cm] (d3) {$Z^{-1}$};
-                    \node [circ, right of=sum, xshift=4cm] (circ2) {};
-                    \node [name=output, right of=circ2, xshift=1cm] (output) {$y(n)$};
-                    \node [block, below of=circ2, yshift=-2cm] (d4) {$Z^{-1}$};
-                    \node [block, below of=d4, yshift=-2cm] (d5) {$Z^{-1}$};
-                    \node [circ, below of=d4, yshift=-0.5cm] (circ3) {};
-                    \node [gain, below of=d4, xshift=-2cm, yshift=-0.5cm] (g1) {$0.7$};
-                    \node [gain, below of=d5, xshift=-2cm, yshift=-0.5cm] (g2) {$0.6$};
-
-                    \path [no-arrow-line] (input) -- (circ1);
-                    \path [line] (circ1) -- (sum);
-
-                    \path [line] (circ1) -- (d1);
-                    \path [line] (d1) -- (d2);
-                    \path [line] (d2) -- (d3);
-                    \path [line] (d3.east) -- (sum);
-
-                    \path [no-arrow-line] (sum) -- (circ2);
-                    \path [line] (circ2) -- (output);
-
-                    \path [line] (circ2) -- (d4);
-                    \path [no-arrow-line] (d4) -- (circ3);
-                    \path [line] (circ3) -- (g1);
-                    \path [line] (circ3) -- (d5);
-                    \path [line] (d5) |- (g2);
-
-                    \path [line] (g1.west) -- (sum);
-                    \path [line] (g2.west) -- (sum);
-                \end{tikzpicture}
-                \caption{信号流图}
-                \label{fig:signal_flow_diagram}
-            \end{figure}
+        \begin{figure}[H]
+            \centering
+            \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
+            \tikzstyle{circ} = [draw, fill, circle, inner sep=1.5pt]
+            \tikzstyle{no-circ} = [draw, circle, inner sep=0pt]
+            \tikzstyle{sum} = [draw, circle]
+            \tikzstyle{line} = [draw, -latex]
+            \tikzstyle{no-arrow-line} = [draw, -]
+            \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
+            \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
+            \begin{tikzpicture}
+                \node [name=input] (input) {$x(n)$};
+                \node [circ, right of=input, xshift=1cm] (circx) {};
+                \path [no-arrow-line] (input) -- (circx);
+                \node [sum, right of=circx, xshift=4cm] (sum) {$+$};
+                \node [circ, right of=sum, xshift=4cm] (circy) {};
+                \path [no-arrow-line] (sum) -- (circy);
+                \node [name=output, right of=circy, xshift=1cm] (output) {$y(n)$};
+                \path [line] (circy) -- (output);
+        
+                \node [block, below of=circx, yshift=-1cm] (zx1) {$Z^{-1}$};
+                \path [line] (circx) -- (zx1);
+                \node [block, below of=zx1, yshift=-2cm] (zx2) {$Z^{-1}$};
+                \path [line] (zx1) -- (zx2);
+                \node [block, below of=zx2, yshift=-2cm] (zx3) {$Z^{-1}$};
+                \path [line] (zx2) -- (zx3);
+        
+                \node [block, below of=circy, yshift=-1cm] (zy1) {$Z^{-1}$};
+                \path [line] (circy) -- (zy1);
+                \node [block, below of=zy1, yshift=-2cm] (zy2) {$Z^{-1}$};
+                \path [line] (zy1) -- (zy2);
+        
+                \path [line] (circx) -- (sum);
+                \coordinate (zgx3) at ([xshift=2cm, yshift=-1cm] zx3);
+                \path [no-arrow-line] (zx3) |- (zgx3);
+                \path [line] (zgx3) -- (sum);
+                \node [gainy, below of=zy1, xshift=-2cm, yshift=-0.5cm] (zgy1) {$0.7$};
+                \node [circ, below of=zy1, yshift=-0.5cm] (circy1) {};
+                \path [line] (circy1) -- (zgy1);
+                \path [line] (zgy1.west) -- (sum);
+                \node [gainy, below of=zy2, xshift=-2cm, yshift=-0.5cm] (zgy2) {$0.6$};
+                \path [line] (zy2) |- (zgy2);
+                \path [line] (zgy2.west) -- (sum);
+            \end{tikzpicture}
+            \caption{信号流图}
+            \label{fig:signal_flow_diagram}
+        \end{figure}
     \end{enumerate}
 \end{solution}
