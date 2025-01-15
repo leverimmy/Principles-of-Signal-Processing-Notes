@@ -193,36 +193,36 @@
         \{1, \cos(\omega_0t + \varphi_1), \cos(2\omega_0t + \varphi_2),
             \cdots, \cos(n\omega_0 t + \varphi_n)\}
     \end{align*}
-    是在 $[0, \frac{2\pi}{\omega_0}]$ 区间上的正交函数集，其中 $\varphi_i$ 为常数。
+    是在 $[0, 2\pi/\omega_0]$ 区间上的正交函数集，其中 $\varphi_i$ 为常数。
 \end{example}
 
 \begin{proof}
     整个证明分为四部分：
     首先，$1$ 与 $\cos(k\omega_0t + \varphi_k), \quad k = 1, 2, \cdots, n$ 正交。
     \begin{align*}
-        \int_{0}^{\frac{2\pi}{\omega_0}}1\cos(k\omega_0t + \varphi_k)\D{t}
-        = \int_{0}^{\frac{2\pi}{\omega_0}}\cos(k\omega_0t + \varphi_k)\D{t}
+        \int_{0}^{2\pi/\omega_0}1\cos(k\omega_0t + \varphi_k)\D{t}
+        = \int_{0}^{2\pi/\omega_0}\cos(k\omega_0t + \varphi_k)\D{t}
         = 0.
     \end{align*}
     其次，$\cos(k_1\omega_0t + \varphi_{k_1})$ 与 $\cos(k_2\omega_0t + \varphi_{k_2})$, 在 $k_1 \ne k_2$ 的条件下正交。
     \begin{align*}
-        & \quad \int_{0}^{\frac{2\pi}{\omega_0}}\cos(k_1\omega_0t + \varphi_{k_1})\cos(k_2\omega_0t + \varphi_{k_2})\D{t} \\
-        & = \int_{0}^{\frac{2\pi}{\omega_0}}\frac{1}{2}(\cos((k_1\omega_0t + \varphi_{k_1}) + (k_2\omega_0t + \varphi_{k_2})) + \cos((k_1\omega_0t + \varphi_{k_1}) - (k_2\omega_0t + \varphi_{k_2}))) \\
-        & = \int_{0}^{\frac{2\pi}{\omega_0}}\frac{1}{2}(\cos((k_1 + k_2)\omega_0t + \varphi_{k_1} + \varphi_{k_2}) + \cos((k_1 - k_2)\omega_0t + \varphi_{k_1} - \varphi_{k_2}))\D{t} \\
+        & \quad \int_{0}^{2\pi/\omega_0}\cos(k_1\omega_0t + \varphi_{k_1})\cos(k_2\omega_0t + \varphi_{k_2})\D{t} \\
+        & = \int_{0}^{2\pi/\omega_0}\frac{1}{2}(\cos((k_1\omega_0t + \varphi_{k_1}) + (k_2\omega_0t + \varphi_{k_2})) + \cos((k_1\omega_0t + \varphi_{k_1}) - (k_2\omega_0t + \varphi_{k_2}))) \\
+        & = \int_{0}^{2\pi/\omega_0}\frac{1}{2}(\cos((k_1 + k_2)\omega_0t + \varphi_{k_1} + \varphi_{k_2}) + \cos((k_1 - k_2)\omega_0t + \varphi_{k_1} - \varphi_{k_2}))\D{t} \\
         & = \left(\frac{1}{2(k_1 + k_2)\omega_0}\sin((k_1 + k_2)\omega_0t + \varphi_{k_1} + \varphi_{k_2})
-            + \frac{1}{2(k_1 - k_2)}\sin((k_1 - k_2)\omega_0t + \varphi_{k_1} - \varphi_{k_2})\right)\Big|_{0}^{\frac{2\pi}{\omega_0}} \\
+            + \frac{1}{2(k_1 - k_2)}\sin((k_1 - k_2)\omega_0t + \varphi_{k_1} - \varphi_{k_2})\right)\Big|_{0}^{2\pi/\omega_0} \\
         & = 0.
     \end{align*}
     再次，$1$ 与自身不正交。
     \begin{align*}
-        \int_{0}^{\frac{2\pi}{\omega_0}}1\cdot 1\D{t}
+        \int_{0}^{2\pi/\omega_0}1\cdot 1\D{t}
         = \frac{2\pi}{\omega_0} \ne 0.
     \end{align*}
     最后，$\cos(k\omega_0t + \varphi_k)$ 与自身不正交。
     \begin{align*}
-        & \quad \int_{0}^{\frac{2\pi}{\omega_0}}\cos^2(k\omega_0t + \varphi_k)\D{t} \\
-        & = \int_{0}^{\frac{2\pi}{\omega_0}}\frac{1 + \cos(2k\omega_0t + 2\varphi_k)}{2}\D{t} \\
-        & = \frac{\pi}{\omega_0} + \frac{1}{2}\cdot\frac{1}{2k\omega_0}\sin(2k\omega_0t + 2\varphi_k)\Big|_{0}^{\frac{2\pi}{\omega_0}} \\
+        & \quad \int_{0}^{2\pi/\omega_0}\cos^2(k\omega_0t + \varphi_k)\D{t} \\
+        & = \int_{0}^{2\pi/\omega_0}\frac{1 + \cos(2k\omega_0t + 2\varphi_k)}{2}\D{t} \\
+        & = \frac{\pi}{\omega_0} + \frac{1}{2}\cdot\frac{1}{2k\omega_0}\sin(2k\omega_0t + 2\varphi_k)\Big|_{0}^{2\pi/\omega_0} \\
         & = \frac{\pi}{\omega_0} \ne 0.
     \end{align*}
     因此，$\{1, \cos(\omega_0t + \varphi_1), \cos(2\omega_0t + \varphi_2), \cdots, \cos(n\omega_0 t + \varphi_n))\}$
