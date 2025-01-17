@@ -1,1 +1,76 @@
 \subsection{Z 变换}
+
+Z 变换是离散时间信号与系统的理论研究中的一种重要的数学工具。
+它把离散的数学模型（差分方程）转换为简单的代数方程，
+使其求解过程得以简化。
+
+\subsubsection{Z 变换的定义}
+
+\begin{definition}[Z 变换的定义]
+    设 $x(n)$ 是一个离散时间信号，其\bd{单边 Z 变换}的定义为
+    \begin{align*}
+        X(z) = \sum_{n = 0}^{+\infty} x(n) z^{-n},
+    \end{align*}
+    \bd{双边 Z 变换}的定义为
+    \begin{align*}
+        X(z) = \sum_{n=-\infty}^{+\infty} x(n) z^{-n},
+    \end{align*}
+    记作 $X(z) = \mathcal{Z}[x(n)]$。
+\end{definition}
+
+\begin{remark}[Z 变换和 DTFT 之间的关系]
+    回忆 DTFT 的定义，我们有
+    \begin{align*}
+        X(\omega) = \sum_{n=-\infty}^{+\infty} x(n) \mathe^{-\mathi\omega n},
+    \end{align*}
+    注意到 $\mathe^{-\mathi\omega n} = \left(\mathe^{\mathi\omega}\right)^{-n}$，
+    因此，DTFT 也可以写为
+    \begin{align*}
+        X(\omega) = \sum_{n=-\infty}^{+\infty} x(n) \left(\mathe^{\mathi\omega}\right)^{-n},
+    \end{align*}
+    这具有类似于 Z 变换的形式。DTFT 的变换核是 $\mathe^{-\mathi\omega n}$，
+    将其换成 $z^{-n}$，可以看做是变换核对应的取值从单位圆上的点（$\mathe^{\mathi\omega}$）
+    变成了整个复平面上的点（$z$）。
+\end{remark}
+
+\subsubsection{Z 变换的收敛域}
+
+\begin{definition}[Z 变换的收敛域]
+    考虑 Z 变换
+    \begin{align*}
+        X(z) = \mathcal{Z}[x(n)] = \sum_{n=-\infty}^{+\infty} x(n) z^{-n},
+    \end{align*}
+    它具有幂级数求和的形式。显然当 $z$ 固定时，它不一定对所有的序列 $x(n)$ 都收敛；
+    当序列 $x(n)$ 固定时，它不一定对所有的 $z$ 都收敛。
+
+    但如果给定了序列 $x(n)$，则可以求出使得 $X(z)$ 收敛的 $z$ 的取值范围。
+    我们称使 $X(z)$ 收敛的 $z$ 的取值范围为 $X(z)$ 的\bd{收敛域}，简记为 ROC。
+\end{definition}
+
+\begin{property}[Z 变换的 ROC 的性质]
+    Z 变换的 ROC 一般具有以下性质：
+    \begin{enumerate}
+        \item ROC 的一般形式是复平面上以原点为中心的圆环
+        \item ROC \bd{不包含极点}，而且常以极点作为 ROC 的边界
+        \item 在 ROC 内，ZT 及其导数是 $z$ 的连续函数，即 ZT 是 ROC 内每一点的解析函数。
+    \end{enumerate}
+\end{property}
+
+
+
+\subsubsection{常见序列及其 ZT}
+
+\begin{example}[单位冲激序列的 ZT]
+    单位冲击序列 $\delta(n)$ 的 Z 变换为
+    \begin{align*}
+        \mathcal{Z}[\delta(n)] = 1, \quad (\text{ROC}: 0 \le \abs{z} \le +\infty).
+    \end{align*}
+    这是因为
+    \begin{align*}
+        \mathcal{Z}[\delta(n)] = \sum_{n=-\infty}^{+\infty} \delta(n) z^{-n} = \delta(0) = 1.
+    \end{align*}
+\end{example}
+
+\subsubsection{ZT 的性质}
+
+\subsubsection{逆 Z 变换的求解}
