@@ -50,12 +50,32 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
 \begin{property}[Z 变换的 ROC 的性质]
     Z 变换的 ROC 一般具有以下性质：
     \begin{enumerate}
-        \item ROC 的一般形式是复平面上以原点为中心的圆环
-        \item ROC \bd{不包含极点}，而且常以极点作为 ROC 的边界
+        \item ROC 的一般形式是复平面上以原点为中心的圆环。
+        \item ROC \bd{不包含极点}，而且常以极点作为 ROC 的边界。
         \item 在 ROC 内，ZT 及其导数是 $z$ 的连续函数，即 ZT 是 ROC 内每一点的解析函数。
     \end{enumerate}
 \end{property}
 
+\begin{example}[Z 变换 ROC 的求解]
+    Z 变换得到的序列是一个幂级数，幂级数的收敛域称为\bd{收敛圆}，
+    收敛圆的半径称为幂级数的\bd{收敛半径}。收敛半径的求法有两种：
+    \begin{itemize}
+        \item 利用比值判别法，
+            \begin{align*}
+                \lim_{n \to +\infty}\abs{\frac{a_{n+1}}{a_n}} = \rho.
+            \end{align*}
+        \item 利用根值判别法，
+            \begin{align*}
+                \lim_{n \to +\infty}\sqrt[n]{\abs{a_n}} = \rho.
+            \end{align*}
+    \end{itemize}
+    收敛半径 $R$ 与 $\rho$ 的关系为：
+    \begin{itemize}
+        \item 若 $\rho = 0$，则 $R = +\infty$。
+        \item 若 $\rho = +\infty$，则 $R = 0$。
+        \item 对于其他情况，$R = 1/\rho$。
+    \end{itemize}
+\end{example}
 
 
 \subsubsection{常见序列及其 ZT}
@@ -68,6 +88,57 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     这是因为
     \begin{align*}
         \mathcal{Z}[\delta(n)] = \sum_{n=-\infty}^{+\infty} \delta(n) z^{-n} = \delta(0) = 1.
+    \end{align*}
+\end{example}
+
+\begin{example}[单位阶跃序列的 ZT]
+    单位阶跃序列 $u(n)$ 的 Z 变换为
+    \begin{align*}
+        \mathcal{Z}[u(n)] = \frac{1}{1 - z^{-1}}, \quad (\text{ROC}: \abs{z} > 1).
+    \end{align*}
+    这是因为
+    \begin{align*}
+        \mathcal{Z}[u(n)] = \sum_{n=0}^{+\infty} z^{-n} = \frac{1}{1 - z^{-1}}.
+    \end{align*}
+\end{example}
+
+\begin{example}[矩形脉冲序列的 ZT]
+    矩形脉冲序列 $G_N(n) = \begin{cases}
+        1, & 0 \le n < N, \\
+        0, & n < 0 \text{ 或 } n \ge N
+    \end{cases}$ 的 Z 变换为
+    \begin{align*}
+        \mathcal{Z}[G_N(n)] = \frac{1 - z^{-N}}{1 - z^{-1}}, \quad (\text{ROC}: 0 < \abs{z} \le +\infty).
+    \end{align*}
+    这是因为
+    \begin{align*}
+        \mathcal{Z}[G_N(n)] = \sum_{n=0}^{N-1} z^{-n} = \frac{1 - z^{-N}}{1 - z^{-1}}.
+    \end{align*}
+\end{example}
+
+\begin{example}[单位指数序列的 ZT]
+    单位指数序列 $a^n u(n)$ 的 Z 变换为
+    \begin{align*}
+        \mathcal{Z}[a^n u(n)] = \frac{1}{1 - az^{-1}}, \quad (\text{ROC}: \abs{z} > \abs{a}).
+    \end{align*}
+    这是因为
+    \begin{align*}
+        \mathcal{Z}[a^n u(n)] = \sum_{n=0}^{+\infty} a^n z^{-n} = \frac{1}{1 - az^{-1}}.
+    \end{align*}
+    而 $-a^n u(-n-1)$ 的 Z 变换为
+    \begin{align*}
+        \mathcal{Z}[-a^n u(-n-1)] = \begin{cases}
+            1/(1 - az^{-1}), & (\text{ROC}: \abs{z} < \abs{a}), \\
+            0, & (\text{ROC}: \abs{z} = 0).
+        \end{cases}
+    \end{align*}
+    这是因为
+    \begin{align*}
+        \mathcal{Z}[-a^n u(-n-1)] = \sum_{n=-\infty}^{-1} a^n z^{-n}
+        = \begin{cases}
+            1/(1 - az^{-1}), & \abs{z} < \abs{a}, \\
+            0, & \abs{z} = 0.
+        \end{cases}.
     \end{align*}
 \end{example}
 
