@@ -383,6 +383,142 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
 
 \subsubsection{逆 Z 变换的求解}
 
+% TODO
+
+\begin{exercise}
+    已知某滤波器的传递函数如下式：
+    \begin{align*}
+        H(z) = \frac{2 - 3z^{-1} + 4z^{-3}}{1 + 0.2z^{-1} - 0.3z^{-2} + 0.5z^{-4}}.
+    \end{align*}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 写出相应的差分方程。
+        \item 画出滤波器的信号流程图。
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 由传递函数 $H(z)$ 可得其差分方程为
+            \begin{align*}
+                y(n) = -0.2y(n - 1) + 0.3y(n - 2) - 0.5y(n - 4) + 2x(n) - 3x(n - 1) + 4x(n - 3).
+            \end{align*}
+        \item 画出滤波器的信号流程图如图 \ref{fig:chap4-part2-quiz3} 所示。
+        \begin{figure}[H]
+            \centering
+            \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
+            \tikzstyle{circ} = [draw, fill, circle, inner sep=1.5pt]
+            \tikzstyle{no-circ} = [draw, circle, inner sep=0pt]
+            \tikzstyle{sum} = [draw, circle]
+            \tikzstyle{line} = [draw, -latex]
+            \tikzstyle{no-arrow-line} = [draw, -]
+            \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
+            \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
+            \begin{tikzpicture}
+                \node [name=input] (input) {$x(n)$};
+                \node [circ, right of=input, xshift=1cm] (circx) {};
+                \path [no-arrow-line] (input) -- (circx);
+                \node [sum, right of=circx, xshift=4cm] (sum) {$+$};
+                \node [circ, right of=sum, xshift=4cm] (circy) {};
+                \path [no-arrow-line] (sum) -- (circy);
+                \node [name=output, right of=circy, xshift=1cm] (output) {$y(n)$};
+                \path [line] (circy) -- (output);
+        
+                \node [block, below of=circx, yshift=-1cm] (zx1) {$Z^{-1}$};
+                \path [line] (circx) -- (zx1);
+                \node [block, below of=zx1, yshift=-2cm] (zx2) {$Z^{-1}$};
+                \path [line] (zx1) -- (zx2);
+                \node [block, below of=zx2, yshift=-2cm] (zx3) {$Z^{-1}$};
+                \path [line] (zx2) -- (zx3);
+        
+                \node [block, below of=circy, yshift=-1cm] (zy1) {$Z^{-1}$};
+                \path [line] (circy) -- (zy1);
+                \node [block, below of=zy1, yshift=-2cm] (zy2) {$Z^{-1}$};
+                \path [line] (zy1) -- (zy2);
+                \node [block, below of=zy2, yshift=-2cm] (zy3) {$Z^{-1}$};
+                \path [line] (zy2) -- (zy3);
+        
+                \node [gainx, right of=circx, xshift=1cm] (zgx0) {$2$};
+                \path [line] (circx) -- (zgx0);
+                \path [line] (zgx0) -- (sum);
+                \node [gainx, below of=zx1, xshift=2cm, yshift=-0.5cm] (zgx1) {$-3$};
+                \node [circ, below of=zx1, yshift=-0.5cm] (circx1) {};
+                \path [line] (circx1) -- (zgx1);
+                \path [line] (zgx1.east) -- (sum);
+                \node [gainx, below of=zx3, xshift=2cm, yshift=-0.5cm] (zgx3) {$4$};
+                \path [line] (zx3) |- (zgx3);
+                \path [line] (zgx3.east) -- (sum);
+                \node [gainy, below of=zy1, xshift=-2cm, yshift=-0.5cm] (zgy1) {$-0.2$};
+                \node [circ, below of=zy1, yshift=-0.5cm] (circy1) {};
+                \path [line] (circy1) -- (zgy1);
+                \path [line] (zgy1.west) -- (sum);
+                \node [gainy, below of=zy2, xshift=-2cm, yshift=-0.5cm] (zgy2) {$0.3$};
+                \node [circ, below of=zy2, yshift=-0.5cm] (circy2) {};
+                \path [line] (circy2) -- (zgy2);
+                \path [line] (zgy2.west) -- (sum);
+                \node [gainy, below of=zy3, xshift=-2cm, yshift=-0.5cm] (zgy3) {$-0.5$};
+                \path [line] (zy3) |- (zgy3);
+                \path [line] (zgy3.west) -- (sum);
+            \end{tikzpicture}
+            \caption{滤波器的信号流图}
+            \label{fig:chap4-part2-quiz3}
+        \end{figure}
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    已知滤波器的差分方程为
+    \begin{align*}
+        y(n) + 0.8y(n - 1) - 0.9y(n - 2) = x(n - 2),
+    \end{align*}
+    求该滤波器的传递函数（频率响应）。若已知其为因果系统，求其收敛域。
+\end{exercise}
+
+\begin{solution}
+    由差分方程可得其传递函数为
+    \begin{align*}
+        H(z) = \frac{z^{-2}}{1 + 0.8z^{-1} - 0.9z^{-2}}.
+    \end{align*}
+    极点为
+    \begin{align*}
+        z_1 = -\frac{2 + \sqrt{53/2}}{5}, \quad z_2 = -\frac{2 - \sqrt{53/2}}{5}.
+    \end{align*}
+    由于其为因果系统，故其收敛域为
+    \begin{align*}
+        \abs{z} > \max\{\abs{z_1}, \abs{z_2}\} = \frac{2 + \sqrt{53/2}}{5}.
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    对下面给出的 Z 变换结果，求它对应的序列。
+    \begin{align*}
+        X(z) = \frac{2z^{-1} - z^{-2}}{1 - 1.6z^{-1} - 0.8z^{-2}}.
+    \end{align*}
+\end{exercise}
+
+\begin{solution}
+    由题知
+    \begin{align*}
+        X(z) & = \frac{2z - 1}{z^2 - 1.6z - 0.8} \\
+        & = \frac{2z - 1}{(z - 2)(z + 0.4)} \\
+        & = A_0 + \frac{A_1}{1 - 2z^{-1}} + \frac{A_2}{1 + 0.4z^{-1}}.
+    \end{align*}
+    依题有
+    \begin{align*}
+        A_0 & = \left.X(z)\right|_{z = 0} = \frac{5}{4}, \\
+        A_1 & = \left.(1 - 2z^{-1})X(z)\right|_{z = 2} = \frac{5}{8}, \\
+        A_2 & = \left.(1 + 0.4z^{-1})X(z)\right|_{z = -0.4} = -\frac{15}{8}.
+    \end{align*}
+    因此，
+    \begin{align*}
+        X(z) = \frac{5}{4} + \frac{5/8}{1 - 2z^{-1}} - \frac{15/8}{1 + 0.4z^{-1}}.
+    \end{align*}
+    因此，其对应的序列为
+    \begin{align*}
+        x(n) & = \frac{5}{4} + \frac{5}{8}\cdot2^n u(n) - \frac{15}{8}(-0.4)^n u(n), & \abs{z} > 2, \\
+        x(n) & = \frac{5}{4} - \frac{5}{8}\cdot2^n u(-n - 1) - \frac{15}{8}(-0.4)^n u(n), & 0.4 < \abs{z} < 2, \\
+        x(n) & = \frac{5}{4} - \frac{5}{8}\cdot2^n u(-n - 1) + \frac{15}{8}(-0.4)^n u(-n - 1), & \abs{z} < 0.4.
+    \end{align*}
+\end{solution}
 
 \begin{exercise}
     已知某系统的差分方程如下式：
@@ -396,3 +532,407 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
         \item 求该系统对应的因果序列及其收敛域，并判断该状态下系统是否稳定。
     \end{enumerate}
 \end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 该系统是 IIR 型系统，因为其差分方程中包含 $y(n - 2)$。
+        \item 由差分方程可得其传递函数为
+            \begin{align*}
+                H(z) = \frac{1 - 2z^{-2} + 0.5z^{-4}}{1 - 0.25z^{-2}}.
+            \end{align*}
+        \item 画出该系统的信号流图的直接 I 型实现如图 \ref{fig:chap4-part2-quiz6-1} 所示，
+            直接 II 型实现如图 \ref{fig:chap4-part2-quiz6-2} 所示。
+            \begin{figure}[H]
+                \centering
+                \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
+                \tikzstyle{circ} = [draw, fill, circle, inner sep=1.5pt]
+                \tikzstyle{no-circ} = [draw, circle, inner sep=0pt]
+                \tikzstyle{sum} = [draw, circle]
+                \tikzstyle{line} = [draw, -latex]
+                \tikzstyle{no-arrow-line} = [draw, -]
+                \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
+                \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
+                \begin{tikzpicture}
+                    \node [name=input] (input) {$x(n)$};
+                    \node [circ, right of=input, xshift=1cm] (circx) {};
+                    \path [no-arrow-line] (input) -- (circx);
+                    \node [sum, right of=circx, xshift=4cm] (sum) {$+$};
+                    \node [circ, right of=sum, xshift=4cm] (circy) {};
+                    \path [no-arrow-line] (sum) -- (circy);
+                    \node [name=output, right of=circy, xshift=1cm] (output) {$y(n)$};
+                    \path [line] (circy) -- (output);
+            
+                    \node [block, below of=circx, yshift=-1cm] (zx1) {$Z^{-1}$};
+                    \path [line] (circx) -- (zx1);
+                    \node [block, below of=zx1, yshift=-2cm] (zx2) {$Z^{-1}$};
+                    \path [line] (zx1) -- (zx2);
+                    \node [block, below of=zx2, yshift=-2cm] (zx3) {$Z^{-1}$};
+                    \path [line] (zx2) -- (zx3);
+                    \node [block, below of=zx3, yshift=-2cm] (zx4) {$Z^{-1}$};
+                    \path [line] (zx3) -- (zx4);
+            
+                    \node [block, below of=circy, yshift=-1cm] (zy1) {$Z^{-1}$};
+                    \path [line] (circy) -- (zy1);
+                    \node [block, below of=zy1, yshift=-2cm] (zy2) {$Z^{-1}$};
+                    \path [line] (zy1) -- (zy2);
+            
+                    \path [line] (circx) -- (sum);
+                    \node [gainx, below of=zx2, xshift=2cm, yshift=-0.5cm] (zgx2) {$-2$};
+                    \node [circ, below of=zx2, yshift=-0.5cm] (circx2) {};
+                    \path [line] (circx2) -- (zgx2);
+                    \path [line] (zgx2.east) -- (sum);
+                    \node [gainx, below of=zx4, xshift=2cm, yshift=-0.5cm] (zgx4) {$0.5$};
+                    \path [line] (zx4) |- (zgx4);
+                    \path [line] (zgx4.east) -- (sum);
+                    \node [gainy, below of=zy2, xshift=-2cm, yshift=-0.5cm] (zgy2) {$0.25$};
+                    \path [line] (zy2) |- (zgy2);
+                    \path [line] (zgy2.west) -- (sum);
+                \end{tikzpicture}
+                \caption{习题 \theexercise~ 的直接 I 型实现}
+                \label{fig:chap4-part2-quiz6-1}
+            \end{figure}  
+
+            \begin{figure}[H]
+                \centering
+                \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
+                \tikzstyle{circ} = [draw, fill, circle, inner sep=1.5pt]
+                \tikzstyle{no-circ} = [draw, circle, inner sep=0pt]
+                \tikzstyle{sum} = [draw, circle]
+                \tikzstyle{line} = [draw, -latex]
+                \tikzstyle{no-arrow-line} = [draw, -]
+                \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
+                \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
+                \begin{tikzpicture}
+                    \node [name=input] (input) {$x(n)$};
+                    \node [sum, right of=input, xshift=1cm] (sumy) {$+$};
+                    \path [line] (input) -- (sumy);
+                    \node [circ, right of=sumy, xshift=4cm] (circ) {};
+                    \path [no-arrow-line] (sumy) -- (circ);
+                    \node [sum, right of=circ, xshift=4cm] (sumx) {$+$};
+                    \node [name=output, right of=sumx, xshift=1cm] (output) {$y(n)$};
+                    \path [line] (sumx) -- (output);
+            
+                    \path [line] (circ) -- (sumx);
+                    \node [block, below of=circ, yshift=-2cm] (z1) {$Z^{-1}$};
+                    \path [line] (circ) -- (z1);
+                    \node [block, below of=z1, yshift=-2cm] (z2) {$Z^{-1}$};
+                    \path [line] (z1) -- (z2);
+                    \node [block, below of=z2, yshift=-2cm] (z3) {$Z^{-1}$};
+                    \path [line] (z2) -- (z3);
+                    \node [block, below of=z3, yshift=-2cm] (z4) {$Z^{-1}$};
+                    \path [line] (z3) -- (z4);
+                    \node [circ, below of=z2, yshift=-0.5cm] (circ2) {};
+                    \path [no-arrow-line] (z2) -- (circ2);
+                    \coordinate (circ4) at ([yshift=-1.5cm] z4);
+                    \path [no-arrow-line] (z4) -- (circ4);
+                    \node [gainx, right of=circ2, xshift=1cm] (zgx2) {$-2$};
+                    \path [line] (circ2) -- (zgx2);
+                    \path [line] (zgx2.east) -- (sumx);
+                    \node [gainx, right of=circ4, xshift=1cm] (zgx4) {$0.5$};
+                    \path [line] (circ4) -- (zgx4);
+                    \path [line] (zgx4.east) -- (sumx);
+                    \node [gainy, left of=circ2, xshift=-1cm] (zgy2) {$0.25$};
+                    \path [line] (circ2) -- (zgy2);
+                    \path [line] (zgy2.west) -- (sumy);
+                \end{tikzpicture}
+                \caption{习题 \theexercise~ 的直接 II 型实现}
+                \label{fig:chap4-part2-quiz6-2}
+            \end{figure}
+        \item 将 $H(z)$ 化简可得
+            \begin{align*}
+                H(z) = -2z^{-2} + \frac{1/2}{1 - 0.5z^{-1}} + \frac{1/2}{1 + 0.5z^{-1}}.
+            \end{align*}
+            极点有 $z = 0, \pm 1/2$。由于其为因果序列，故其收敛域为 $\abs{z} > 1/2$，单位冲激序列 $h(n)$ 为
+            \begin{align*}
+                h(n) = -2\delta(n - 2) + \frac{1}{2}\cdot0.5^n u(n) + \frac{1}{2}(-0.5)^n u(n).
+            \end{align*}
+            由于收敛域 $\abs{z} > 1/2$，包含单位圆，故该系统是稳定的。
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    用直接 I 型和直接 II 型（标准型）结构实现以下系统函数：
+    \begin{align*}
+        H(z) = \frac{3 + 4.2z^{-1}+0.8z^{-2}}{2 + 0.6z^{-1} - 0.4z^{-2}}.
+    \end{align*}
+\end{exercise}
+
+\begin{solution}
+    直接 I 型结构如图 \ref{fig:chap4-part2-exercise1-1} 所示，直接 II 型结构如图 \ref{fig:chap4-part2-exercise1-2} 所示。
+    \begin{figure}[H]
+        \centering
+        \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
+        \tikzstyle{circ} = [draw, fill, circle, inner sep=1.5pt]
+        \tikzstyle{no-circ} = [draw, circle, inner sep=0pt]
+        \tikzstyle{sum} = [draw, circle]
+        \tikzstyle{line} = [draw, -latex]
+        \tikzstyle{no-arrow-line} = [draw, -]
+        \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
+        \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
+        \begin{tikzpicture}
+            \node [name=input] (input) {$x(n)$};
+            \node [circ, right of=input, xshift=1cm] (circx) {};
+            \path [no-arrow-line] (input) -- (circx);
+            \node [sum, right of=circx, xshift=4cm] (sum) {$+$};
+            \node [circ, right of=sum, xshift=4cm] (circy) {};
+            \path [no-arrow-line] (sum) -- (circy);
+            \node [name=output, right of=circy, xshift=1cm] (output) {$y(n)$};
+            \path [line] (circy) -- (output);
+    
+            \node [block, below of=circx, yshift=-1cm] (zx1) {$Z^{-1}$};
+            \path [line] (circx) -- (zx1);
+            \node [block, below of=zx1, yshift=-2cm] (zx2) {$Z^{-1}$};
+            \path [line] (zx1) -- (zx2);
+    
+            \node [block, below of=circy, yshift=-1cm] (zy1) {$Z^{-1}$};
+            \path [line] (circy) -- (zy1);
+            \node [block, below of=zy1, yshift=-2cm] (zy2) {$Z^{-1}$};
+            \path [line] (zy1) -- (zy2);
+    
+            \node [gainx, right of=circx, xshift=1cm] (zgx0) {$1.5$};
+            \path [line] (circx) -- (zgx0);
+            \path [line] (zgx0) -- (sum);
+            \node [gainx, below of=zx1, xshift=2cm, yshift=-0.5cm] (zgx1) {$2.1$};
+            \node [circ, below of=zx1, yshift=-0.5cm] (circx1) {};
+            \path [line] (circx1) -- (zgx1);
+            \path [line] (zgx1.east) -- (sum);
+            \node [gainx, below of=zx2, xshift=2cm, yshift=-0.5cm] (zgx2) {$0.4$};
+            \path [line] (zx2) |- (zgx2);
+            \path [line] (zgx2.east) -- (sum);
+            \node [gainy, below of=zy1, xshift=-2cm, yshift=-0.5cm] (zgy1) {$-0.3$};
+            \node [circ, below of=zy1, yshift=-0.5cm] (circy1) {};
+            \path [line] (circy1) -- (zgy1);
+            \path [line] (zgy1.west) -- (sum);
+            \node [gainy, below of=zy2, xshift=-2cm, yshift=-0.5cm] (zgy2) {$0.2$};
+            \path [line] (zy2) |- (zgy2);
+            \path [line] (zgy2.west) -- (sum);
+        \end{tikzpicture}
+        \caption{习题 \theexercise~ 的直接 I 型结构}
+        \label{fig:chap4-part2-exercise1-1}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
+        \tikzstyle{circ} = [draw, fill, circle, inner sep=1.5pt]
+        \tikzstyle{no-circ} = [draw, circle, inner sep=0pt]
+        \tikzstyle{sum} = [draw, circle]
+        \tikzstyle{line} = [draw, -latex]
+        \tikzstyle{no-arrow-line} = [draw, -]
+        \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
+        \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
+        \begin{tikzpicture}
+            \node [name=input] (input) {$x(n)$};
+            \node [sum, right of=input, xshift=1cm] (sumy) {$+$};
+            \path [line] (input) -- (sumy);
+            \node [circ, right of=sumy, xshift=4cm] (circ) {};
+            \path [no-arrow-line] (sumy) -- (circ);
+            \node [sum, right of=circ, xshift=4cm] (sumx) {$+$};
+            \node [name=output, right of=sumx, xshift=1cm] (output) {$y(n)$};
+            \path [line] (sumx) -- (output);
+    
+            \node [gainx, right of=circ, xshift=1cm] (zgx0) {$1.5$};
+            \path [line] (circ) -- (zgx0);
+            \path [line] (zgx0) -- (sumx);
+            \node [block, below of=circ, yshift=-2cm] (z1) {$Z^{-1}$};
+            \path [line] (circ) -- (z1);
+            \node [block, below of=z1, yshift=-2cm] (z2) {$Z^{-1}$};
+            \path [line] (z1) -- (z2);
+            \node [circ, below of=z1, yshift=-0.5cm] (circ1) {};
+            \path [no-arrow-line] (z1) -- (circ1);
+            \node [circ, below of=z2, yshift=-0.5cm] (circ2) {};
+            \path [no-arrow-line] (z2) -- (circ2);
+            \node [gainx, right of=circ1, xshift=1cm] (zgx1) {$2.1$};
+            \path [line] (circ1) -- (zgx1);
+            \path [line] (zgx1.east) -- (sumx);
+            \node [gainx, right of=circ2, xshift=1cm] (zgx2) {$0.4$};
+            \path [line] (circ2) -- (zgx2);
+            \path [line] (zgx2.east) -- (sumx);
+            \node [gainy, left of=circ1, xshift=-1cm] (zgy1) {$-0.3$};
+            \path [line] (circ1) -- (zgy1);
+            \path [line] (zgy1.west) -- (sumy);
+            \node [gainy, left of=circ2, xshift=-1cm] (zgy2) {$0.2$};
+            \path [line] (circ2) -- (zgy2);
+            \path [line] (zgy2.west) -- (sumy);
+        \end{tikzpicture}
+        \caption{习题 \theexercise~ 的直接 II 型结构}
+        \label{fig:chap4-part2-exercise1-2}
+    \end{figure}
+\end{solution}
+
+\begin{exercise}
+    已知某系统的差分方程如下式：
+    \begin{align*}
+        y(n) = 2x(n) + x(n - 3) - 0.9y(n - 1) + 0.36y(n - 2).
+    \end{align*}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 求该系统的传递函数 $H(z)$。
+        \item 画出该系统的信号流图。
+        \item 求该系统对应的因果序列及其收敛域，并判断该状态下系统是否稳定。
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 由差分方程可得其传递函数为
+            \begin{align*}
+                H(z) = \frac{2 + z^{-3}}{1 + 0.9z^{-1} - 0.36z^{-2}}.
+            \end{align*}
+        \item 画出该系统的信号流图如图 \ref{fig:chap4-part2-exercise2} 所示。
+            \begin{figure}[H]
+                \centering
+                \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
+                \tikzstyle{circ} = [draw, fill, circle, inner sep=1.5pt]
+                \tikzstyle{no-circ} = [draw, circle, inner sep=0pt]
+                \tikzstyle{sum} = [draw, circle]
+                \tikzstyle{line} = [draw, -latex]
+                \tikzstyle{no-arrow-line} = [draw, -]
+                \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
+                \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
+                \begin{tikzpicture}
+                    \node [name=input] (input) {$x(n)$};
+                    \node [circ, right of=input, xshift=1cm] (circx) {};
+                    \path [no-arrow-line] (input) -- (circx);
+                    \node [sum, right of=circx, xshift=4cm] (sum) {$+$};
+                    \node [circ, right of=sum, xshift=4cm] (circy) {};
+                    \path [no-arrow-line] (sum) -- (circy);
+                    \node [name=output, right of=circy, xshift=1cm] (output) {$y(n)$};
+                    \path [line] (circy) -- (output);
+            
+                    \node [block, below of=circx, yshift=-1cm] (zx1) {$Z^{-1}$};
+                    \path [line] (circx) -- (zx1);
+                    \node [block, below of=zx1, yshift=-2cm] (zx2) {$Z^{-1}$};
+                    \path [line] (zx1) -- (zx2);
+                    \node [block, below of=zx2, yshift=-2cm] (zx3) {$Z^{-1}$};
+                    \path [line] (zx2) -- (zx3);
+            
+                    \node [block, below of=circy, yshift=-1cm] (zy1) {$Z^{-1}$};
+                    \path [line] (circy) -- (zy1);
+                    \node [block, below of=zy1, yshift=-2cm] (zy2) {$Z^{-1}$};
+                    \path [line] (zy1) -- (zy2);
+            
+                    \node [gainx, right of=circx, xshift=1cm] (zgx0) {$2$};
+                    \path [line] (circx) -- (zgx0);
+                    \path [line] (zgx0) -- (sum);
+                    \coordinate (zgx3) at ([xshift=2cm, yshift=-1cm] zx3);
+                    \path [no-arrow-line] (zx3) |- (zgx3);
+                    \path [line] (zgx3) -- (sum);
+                    \node [gainy, below of=zy1, xshift=-2cm, yshift=-0.5cm] (zgy1) {$-0.9$};
+                    \node [circ, below of=zy1, yshift=-0.5cm] (circy1) {};
+                    \path [line] (circy1) -- (zgy1);
+                    \path [line] (zgy1.west) -- (sum);
+                    \node [gainy, below of=zy2, xshift=-2cm, yshift=-0.5cm] (zgy2) {$0.36$};
+                    \path [line] (zy2) |- (zgy2);
+                    \path [line] (zgy2.west) -- (sum);
+                \end{tikzpicture}
+                \caption{习题 \theexercise~ (2) 的直接 I 型实现}
+                \label{fig:chap4-part2-exercise2}
+            \end{figure}
+        \item 考虑 $H(z) = (2 + z^{-3})W(z)$，则
+            \begin{align*}
+                W(z) & = \frac{1}{1 + 0.9z^{-1} - 0.36z^{-2}} \\
+                & = \frac{0.2}{1 - 0.3z^{-1}} + \frac{0.8}{1 + 1.2z^{-1}}.
+            \end{align*}
+            由此可得
+            \begin{align*}
+                w(n) = \begin{cases}
+                        -0.2(0.3)^nu(-n-1) - 0.8(-1.2)^nu(-n-1), & \abs{z} < 0.3, \\
+                        0.2(0.3)^nu(n) - 0.8(-1.2)^nu(-n-1), & 0.3 < \abs{z} < 1.2, \\
+                        0.2(0.3)^nu(n) + 0.8(-1.2)^nu(n), & \abs{z} > 1.2.
+                    \end{cases}
+            \end{align*}
+            由于 $H(z) = (2 + z^{-3})W(z) = 2W(z) + z^{-3}W(z)$，故 $h(n) = 2w(n) + w(n - 3)$。
+            由此可得
+            \begin{align*}
+                h(n) = \begin{cases}
+                    -0.4(0.3)^nu(-n-1) - 1.6(-1.2)^nu(-n-1) \\
+                    \quad - 0.2(0.3)^{n - 3}u(2 - n) - 0.8(-1.2)^{n - 3}u(2 - n), & \abs{z} < 0.3, \\
+                    0.4(0.3)^nu(n) - 1.6(-1.2)^nu(-n-1) + 0.2(0.3)^{n - 3}u(n - 3) \\
+                    \quad - 0.8(-1.2)^{n - 3}u(2 - n), & 0.3 < \abs{z} < 1.2, \\
+                    0.4(0.3)^nu(n) + 1.6(-1.2)^nu(n) \\
+                    \quad + 0.2(0.3)^{n - 3}u(n - 3) + 0.8(-1.2)^{n - 3}u(n - 3), & \abs{z} > 1.2.
+                \end{cases}
+            \end{align*}
+            其中只有 ROC 为 $0.3 < \abs{z} < 1.2$ 时，包含单位圆，该系统是稳定的；其余情况下系统是不稳定的。
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    已知离散系统的差分方程为
+    \begin{align*}
+        y(n) = x(n) + 4x(n - 1) + 0.7y(n - 1) - 0.1y(n - 2),
+    \end{align*}
+    求：
+    \begin{enumerate}[label=(\arabic*)]
+        \item 该系统的传递函数 $H(z)$。
+        \item 系统的单位冲激响应 $h(n)$。
+        \item 画出系统的零极点分布。
+        \item 说明系统的高低通特性。
+        \item 说明系统的稳定性。
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 由差分方程可得其传递函数为
+            \begin{align*}
+                H(z) = \frac{1 + 4z^{-1}}{1 - 0.7z^{-1} + 0.1z^{-2}}.
+            \end{align*}
+        \item 化简 $H(z)$ 可得
+            \begin{align*}
+                H(z) & = \frac{1 + 4z^{-1}}{(1 - 0.2z^{-1})(1 - 0.5z^{-1})} \\
+                & = \frac{15}{1 - 0.5z^{-1}} - \frac{14}{1 - 0.2z^{-1}}.
+            \end{align*}
+            由此可得
+            \begin{align*}
+                h(n) = \begin{cases}
+                    -15(0.5)^nu(-n-1) + 14(0.2)^nu(-n-1), & \abs{z} < 0.2, \\
+                    -15(0.5)^nu(-n-1) - 14(0.2)^nu(n), & 0.2 < \abs{z} < 0.5, \\
+                    15(0.5)^nu(n) - 14(0.2)^nu(n), & \abs{z} > 0.5.
+                \end{cases}
+            \end{align*}
+        \item 零点为 $z = 0, -4$，极点为 $z = 0.2, 0.5$。
+        \item 将 $z = \mathe^{-\mathi\omega}$ 代入得
+            \begin{align*}
+                H(\omega) = \frac{1 + 4\mathe^{\mathi\omega}}{1 - 0.7\mathe^{\mathi\omega} + 0.1\mathe^{2\mathi\omega}},
+            \end{align*}
+            因此
+            \begin{align*}
+                \abs{H(\omega)} & = \frac{\abs{1 + 4\mathe^{\mathi\omega}}}{\abs{1 - 0.7\mathe^{\mathi\omega} + 0.1\mathe^{2\mathi\omega}}} \\
+                & = \frac{\sqrt{17 + 8\cos\omega}}{\sqrt{1.5 + 0.2\cos2\omega - 1.54\cos\omega}}.
+            \end{align*}
+            注意到 $H(0) = 25/2, H(\pi) = 5/3$，故其系统幅频响应图如图 \ref{fig:chap4-part2-exercise3} 所示。
+            \begin{figure}[H]
+                \centering
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        axis lines = middle,
+                        xlabel = {$\omega$},
+                        ylabel = {$\abs{H(\omega)}$},
+                        ylabel style={at={(rel axis cs:0.3, 1)}, anchor=south},
+                        xmin = -0.2, xmax = 6.5,
+                        ymin = -0.2, ymax = 13,
+                        grid = major,
+                        grid style = dashed,
+                        scale only axis,
+                        width = 5cm,
+                        height = 7cm,
+                        axis equal,
+                        xtick = {0, 1.57, 3.14, 4.71, 6.28},
+                        xticklabels = {$0$, $\pi/2$, $\pi$, $3\pi/2$, $2\pi$},
+                        ytick = {0, 2.5, 5, 7.5, 10, 12.5},
+                    ]
+                    \addplot[domain=0:6.28, samples=100, smooth, line width=2pt, blue] {sqrt(17 + 8 * cos(deg(x))) / sqrt(1.5 + 0.2 * cos(deg(2 * x)) - 1.54 * cos(deg(x)))};
+                    \addplot[dashed, red] coordinates {(0, 1.667) (3.14, 1.667) (3.14, 0)};
+                    \addplot[dashed, red] coordinates {(0, 12.5) (6.28, 12.5) (6.28, 0)};
+                    \node at (axis cs:0, 0) [anchor=north west] {O};
+                    \node at (axis cs:0, 1.667) [anchor=east] {$5/3$};
+                    \end{axis}
+                \end{tikzpicture}
+                \caption{习题 \theexercise~ 的系统幅频响应图}
+                \label{fig:chap4-part2-exercise3}
+            \end{figure}
+            由图可知，该系统是低通滤波器。
+        \item 只有 ROC 为 $\abs{z} > 0.5$ 时，包含单位圆，该系统是稳定的；其余情况下系统是不稳定的。
+    \end{enumerate}
+\end{solution}
