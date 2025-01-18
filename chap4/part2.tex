@@ -77,6 +77,110 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     \end{itemize}
 \end{example}
 
+\begin{property}[有限长序列的 ROC]
+    \bd{有限长序列} $x(n)$ 在 $n < n_1$ 或 $n > n_2$ 时为 $0$，
+    则其 Z 变换为
+    \begin{align*}
+        X(z) = \sum_{n=n_1}^{n_2} x(n) z^{-n},
+    \end{align*}
+    其中 $n_1 < n_2$。其 ROC \bd{至少}是 $0 < \abs{z} < +\infty$。
+
+    序列的左右端点只会影响其在 $z = 0$ 和 $z = +\infty$ 处的收敛性：
+    \begin{itemize}
+        \item 若 $n_1 < 0 < n_2$，则 ROC 为 $0 < \abs{z} < +\infty$。
+        \item 若 $n_1 < n_2 \le 0$，则 ROC 为 $0 \le \abs{z} < +\infty$。
+        \item 若 $0 \le n_1 < n_2$，则 ROC 为 $0 < \abs{z} \le +\infty$。
+    \end{itemize}
+\end{property}
+
+\begin{property}[右边序列的 ROC]
+    \bd{右边序列} $x(n)$ 在 $n < n_1$ 时为 $0$，则其 Z 变换为
+    \begin{align*}
+        X(z) = \sum_{n=n_1}^{+\infty} x(n) z^{-n}.
+    \end{align*}
+    若满足
+    \begin{align*}
+        \lim_{n \to +\infty}\sqrt[n]{\abs{x(n)z^{-n}}} < 1,
+    \end{align*}
+    则右边序列的收敛域为
+    \begin{align*}
+        \abs{z} > \lim_{n \to +\infty}\sqrt[n]{\abs{x(n)}} = R_{x1}.
+    \end{align*}
+    因此，\bd{右边序列的 ROC 是半径为 $R_{x1}$ 的圆外部分}。
+
+    序列的左右端点只会影响其在 $z = +\infty$ 处的收敛性：
+    \begin{itemize}
+        \item 若 $n_1 < 0$，则 ROC 为 $R_{x1} < \abs{z} < +\infty$。
+        \item 若 $n_1 \ge 0$，则 ROC 为 $R_{x1} < \abs{z} \le +\infty$。
+    \end{itemize}
+\end{property}
+
+\begin{property}[左边序列的 ROC]
+    \bd{左边序列} $x(n)$ 在 $n > n_2$ 时为 $0$，则其 Z 变换为
+    \begin{align*}
+        X(z) = \sum_{n=-\infty}^{n_2} x(n) z^{-n}.
+    \end{align*}
+    若满足
+    \begin{align*}
+        \lim_{n \to +\infty}\sqrt[n]{\abs{x(-n)z^n}} < 1,
+    \end{align*}
+    则左边序列的收敛域为
+    \begin{align*}
+        \abs{z} < \frac{1}{\lim_{n \to +\infty}\sqrt[n]{\abs{x(-n)}}} = R_{x2}.
+    \end{align*}
+    因此，\bd{左边序列的 ROC 是半径为 $R_{x2}$ 的圆内部分}。
+
+    序列的左右端点只会影响其在 $z = 0$ 处的收敛性：
+    \begin{itemize}
+        \item 若 $n_2 > 0$，则 ROC 为 $0 < \abs{z} < R_{x2}$。
+        \item 若 $n_2 \le 0$，则 ROC 为 $0 \le \abs{z} < R_{x2}$。
+    \end{itemize}
+\end{property}
+
+\begin{property}[双边序列的 ROC]
+    \bd{双边序列}在所有 $n$ 处均有定义，可以将其看成左边序列和右边序列的组合。
+    \begin{align*}
+        X(z) = \sum_{n=-\infty}^{+\infty} x(n) z^{-n} = \sum_{n=0}^{+\infty} x(n) z^{-n} + \sum_{n=-\infty}^{-1} x(n) z^{-n}.
+    \end{align*}
+    则有
+    \begin{align*}
+        R_{x1} = \lim_{n \to +\infty}\sqrt[n]{\abs{x(n)}}, \quad R_{x2} = \frac{1}{\lim_{n \to +\infty}\sqrt[n]{\abs{x(-n)}}}.
+    \end{align*}
+    若 $R_{x1}$ 和 $R_{x2}$ 均存在，且 $R_{x1} < R_{x2}$，则双边序列的 ROC 为
+    \begin{align*}
+        R_{x1} < \abs{z} < R_{x2}.
+    \end{align*}
+    否则，ROC 为空集，即，双边序列的 Z 变换不存在。
+\end{property}
+
+\begin{remark}[ROC 与极点的关系]
+    序列的 ROC 以极点为边界，是连通的区域，且内部不包含极点。
+    \begin{figure}[H]
+        \centering
+        \begin{tabular}{|c||c|}
+            \hline
+            右边序列 & 以其模最大的有限极点的模为半径的圆外面的区域（不包括圆周） \\
+            \hline
+            左边序列 & 以其模最小的非零极点的模为半径的圆内部的区域（不包括圆周） \\
+            \hline
+            双边序列 & 以模的大小相邻的两个极点的模为半径的两个圆所形成的圆环区域（不包括两圆周） \\
+            \hline
+        \end{tabular}
+    \end{figure}
+    如图 \ref{fig:roc_pole} 所示，灰色区域为 ROC，蓝色虚线为 ROC 边界，红色实线为 $\abs{z} = 1$ 的单位圆，
+    绿色叉号为极点。左上角的图片是右边序列，左下角的图片是左边序列，右边的图片是双边序列。
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{chap4/img/roc_pole.png}
+        \caption{ROC 与极点的关系}
+        \label{fig:roc_pole}
+    \end{figure}
+\end{remark}
+
+\begin{note}
+    求 ROC 所求得的是级数收敛的\bd{充分条件而非必要条件}，
+    即，实际上 ROC 可能比所求得的更大。
+\end{note}
 
 \subsubsection{常见序列及其 ZT}
 
@@ -143,5 +247,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
 \end{example}
 
 \subsubsection{ZT 的性质}
+
+
 
 \subsubsection{逆 Z 变换的求解}
