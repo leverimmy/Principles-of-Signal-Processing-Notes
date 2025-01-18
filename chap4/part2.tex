@@ -248,6 +248,151 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
 
 \subsubsection{ZT 的性质}
 
+\begin{property}[ZT 是线性的]
+    设 $x_1(n)$ 和 $x_2(n)$ 的 Z 变换分别为 $X_1(z)$ 和 $X_2(z)$，
+    则有
+    \begin{align*}
+        \mathcal{Z}[a_1 x_1(n) + a_2 x_2(n)] = a_1 X_1(z) + a_2 X_2(z).
+    \end{align*}
+    更一般地，对于任意序列集合 $\{x_k(n)\}$ 和系数集合 $\{a_k\}$，有
+    \begin{align*}
+        \mathcal{Z}\left[\sum_k a_k x_k(n)\right] = \sum_k a_k \mathcal{Z}[x_k(n)] = \sum_k a_k X_k(z).
+    \end{align*}
+\end{property}
 
+\begin{property}[ZT 的时域频移性质]
+    设 $x(n)$ 的 Z 变换为 $X(z)$，则对于任意整数 $m$，有
+    \begin{align*}
+        \mathcal{Z}[x(n - m)] = z^{-m} X(z).
+    \end{align*}
+\end{property}
+
+\begin{property}[ZT 的时域扩展性质]
+    定义序列 $x(n)$ 以周期 $a \quad (a \in \set{Z}, a \neq 0)$ 进行时域扩展而得的序列为
+    \begin{align*}
+        x_{(a)}(n) = \begin{cases}
+            x(n/a), & n/a \in \set{Z}, \\
+            0, & n/a \notin \set{Z}.
+        \end{cases}
+    \end{align*}
+    则有
+    \begin{align*}
+        \mathcal{Z}[x_{(a)}(n)] = \sum_{n=-\infty}^{+\infty} x_{(a)}(n) z^{-n} = \sum_{k=-\infty}^{+\infty} x(k) z^{-ak} = X(z^a). \quad (\text{ROC}: R_1 < \abs{z^a} < R_2).
+    \end{align*}
+    这里的 $a$ 称为\bd{扩展因子}。$a > 1$ 相当于在原序列每两点之间
+    插入 $a - 1$ 个 $0$。$a < - 1$ 相当于原序列先反褶，再在每两点之间
+    插入 $-a - 1$ 个 $0$。
+\end{property}
+
+\begin{property}[ZT 的奇偶对称性质]
+    设 $x(n)$ 的 Z 变换为 $X(z)$。
+    \begin{itemize}
+        \item 若 $x(n)$ 是偶对称的，则
+            \begin{align*}
+                X(z) = \mathcal{Z}[x(n)] = \mathcal{Z}[x(-n)] = X(1/z).
+            \end{align*}
+        \item 若 $x(n)$ 是奇对称的，则
+            \begin{align*}
+                X(z) = \mathcal{Z}[x(n)] = -\mathcal{Z}[x(-n)] = -X(1/z).
+            \end{align*}
+    \end{itemize}
+\end{property}
+
+\begin{corollary}
+    由 ZT 的奇偶对称性可以得知，如果一个偶对称或奇对称序列的 ZT 含有
+    一个非零的零点（或极点）$z_0$，那么它一定含有一个相对应的零点（或极点）$1/z_0$。
+\end{corollary}
+
+\begin{property}[ZT 的时域共轭性质]
+    设 $x(n)$ 的 Z 变换为 $X(z)$，则
+    \begin{align*}
+        \mathcal{Z}[x^*(n)] = X^*(z^*). \quad (\text{ROC}: R_1 < \abs{z} < R_2).
+    \end{align*}
+\end{property}
+
+\begin{corollary}
+    由 ZT 的时域共轭性可以得知，若 $x(n)$ 是实序列，则
+    \begin{align*}
+        X(z) = \mathcal{Z}[x(n)] = \mathcal{Z}[x^*(n)] = X^*(z^*).
+    \end{align*}
+    也就是说，如果一个实序列的 ZT 含有一个零点（或极点）$z_0$，
+    那么它一定含有一个相对应的零点（或极点）$z_0^*$。
+\end{corollary}
+
+\begin{property}[Z 域尺度变换]
+    设 $x(n)$ 的 Z 变换为 $X(z)$，则
+    \begin{align*}
+        \mathcal{Z}[a^nx(n)] = X(z/a), \quad (\text{ROC}: R_1 < \abs{z/a} < R_2), \\
+        \mathcal{Z}[a^{-n}x(n)] = X(az), \quad (\text{ROC}: R_1 < \abs{az} < R_2), \\
+        \mathcal{Z}[(-1)^nx(n)] = X(-z), \quad (\text{ROC}: R_1 < \abs{z} < R_2), \\
+        \mathcal{Z}[\mathe^{\mathi\omega_0 n}x(n)] = X(z\mathe^{-\mathi\omega_0}), \quad (\text{ROC}: R_1 < \abs{z} < R_2).
+    \end{align*}
+    这说明可以用复指数序列来调制序列的相位特性。
+\end{property}
+
+\begin{property}[Z 域的微分性质]
+    设 $x(n)$ 的 Z 变换为 $X(z)$，则
+    \begin{align*}
+        \mathcal{Z}[nx(n)] = -z\frac{\D}{\D{z}}X(z), \quad (\text{ROC}: R_1 < \abs{z} < R_2).
+    \end{align*}
+    此时 ROC 唯一可能的变换是加上或者去掉 $z = 0$ 或 $z = +\infty$。
+    更进一步地，有
+    \begin{align*}
+        \mathcal{Z}[n^mx(n)] = \left(-z\frac{\D}{\D{z}}\right)^m X(z), \quad (\text{ROC}: R_1 < \abs{z} < R_2),
+    \end{align*}
+    其中 $m$ 为非负整数。
+\end{property}
+
+\begin{property}[ZT 的初值定理]
+    设 $x(n)$ 的 Z 变换为 $X(z)$，则
+    \begin{align*}
+        x(0) = \lim_{z \to +\infty} X(z).
+    \end{align*}
+\end{property}
+
+\begin{property}[ZT 的终值定理]
+    设 $x(n)$ 的 Z 变换为 $X(z)$，则
+    \begin{align*}
+        \lim_{n \to +\infty} x(n) = \lim_{z \to 1} (z - 1)X(z).
+    \end{align*}
+\end{property}
+
+\begin{remark}
+    初值定理和终值定理是 Z 变换的两个重要性质。但使用条件非常苛刻，
+    只有在极限存在的情况下才能使用。
+    此时，$X(z)$ 的极点必须在单位圆内（如果位于单位圆上，则只能位于 $z = 1$，
+    且必须是一阶极点）。
+\end{remark}
+
+\begin{property}[ZT 的时域卷积定理]
+    设 $x(n)$ 和 $y(n)$ 的 Z 变换分别为 $X(z)$ 和 $Y(z)$，则
+    \begin{align*}
+        \mathcal{Z}[x(n) * y(n)] = X(z)Y(z).
+    \end{align*}
+    卷积的 ZT 的 ROC 至少是两个序列的 ROC 的交集。
+    当出现\bd{零极点相抵}的情况时，ROC 可能会扩大。
+\end{property}
+
+\begin{property}[ZT 的帕斯瓦尔定理]
+    设 $x(n)$ 和 $y(n)$ 的 Z 变换分别为 $X(z)$ 和 $Y(z)$，则
+    \begin{align*}
+        \sum_{n=-\infty}^{+\infty} x(n)y^*(n) = \frac{1}{2\pi\mathi}\oint_C X(z)Y^*(1/z^*)z^{-1} \D{z},
+    \end{align*}
+    其中 $C$ 为包围 ROC 的逆时针方向的简单闭合曲线。
+\end{property}
 
 \subsubsection{逆 Z 变换的求解}
+
+
+\begin{exercise}
+    已知某系统的差分方程如下式：
+    \begin{align*}
+        y(n) = x(n) - 2x(n - 2) + 0.5x(n - 4) + 0.25y(n - 2).
+    \end{align*}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 判断该系统是 IIR 型还是 FIR 型，并给出判断依据。
+        \item 求该系统的传递函数 $H(z)$。
+        \item 画出该系统的信号流图，分别给出直接 I 型和直接 II 型的实现。
+        \item 求该系统对应的因果序列及其收敛域，并判断该状态下系统是否稳定。
+    \end{enumerate}
+\end{exercise}
