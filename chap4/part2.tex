@@ -936,3 +936,31 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
         \item 只有 ROC 为 $\abs{z} > 0.5$ 时，包含单位圆，该系统是稳定的；其余情况下系统是不稳定的。
     \end{enumerate}
 \end{solution}
+
+\begin{note}
+    在本题中，如果使用 $H(z) = (1 + 4z^{-1})W(z)$，则解答过程如下：
+    \begin{align*}
+        W(z) = \frac{1}{1 - 0.7z^{-1} + 0.1z^{-2}} = \frac{5/3}{1 - 0.5z^{-1}} - \frac{2/3}{1 - 0.2z^{-1}},
+    \end{align*}
+    则
+    \begin{align*}
+        w(n) = \begin{cases}
+            -\frac{5}{3}(0.5)^nu(-n - 1) + \frac{2}{3}(0.2)^nu(-n - 1), & \abs{z} < 0.2, \\
+            -\frac{5}{3}(0.5)^nu(-n - 1) - \frac{2}{3}(0.2)^nu(n), & 0.2 < \abs{z} < 0.5, \\
+            \frac{5}{3}(0.5)^nu(n) - \frac{2}{3}(0.2)^nu(n), & \abs{z} > 0.5.
+        \end{cases}
+    \end{align*}
+    由于 $H(z) = (1 + 4z^{-1})W(z) = W(z) + 4z^{-1}W(z)$，故 $h(n) = w(n) + 4w(n - 1)$。
+    因此，其单位冲激响应为
+    \begin{align*}
+        h(n) = \begin{cases}
+            -\frac{5}{3}(0.5)^nu(-n - 1) + \frac{2}{3}(0.2)^nu(-n - 1) \\
+            \quad - \frac{20}{3}(0.5)^{n - 1}u(-n) + \frac{8}{3}(0.2)^{n - 1}u(-n), & \abs{z} < 0.2, \\
+            -\frac{5}{3}(0.5)^nu(-n - 1) - \frac{2}{3}(0.2)^nu(n) \\
+            \quad - \frac{20}{3}(0.5)^{n - 1}u(-n) - \frac{8}{3}(0.2)^{n - 1}u(n - 1), & 0.2 < \abs{z} < 0.5, \\
+            \frac{5}{3}(0.5)^nu(n) - \frac{2}{3}(0.2)^nu(n) \\
+            \quad + \frac{20}{3}(0.5)^{n - 1}u(n - 1) - \frac{8}{3}(0.2)^{n - 1}u(n - 1), & \abs{z} > 0.5.
+        \end{cases}
+    \end{align*}
+    其中只有 ROC 为 $0.2 < \abs{z} < 0.5$ 时，包含单位圆，该系统是稳定的；其余情况下系统是不稳定的。
+\end{note}
