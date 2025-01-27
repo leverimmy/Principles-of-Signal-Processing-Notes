@@ -383,9 +383,111 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
 
 \subsubsection{逆 Z 变换的求解}
 
-% TODO
+我们在解题的过程中常常会遇到求逆 Z 变换的问题。逆 Z 变换的求解方法有很多，
+这里介绍三种常用的方法。假设 $X(z)$ 可以写成两个多项式的商，即
+\begin{align*}
+    X(z) = \frac{N(z)}{D(z)}.
+\end{align*}
+不妨设 $N(z)$ 和 $D(z)$ 的 $z^{-1}$ 的次数分别为 $M$ 和 $N$，
+且 $D(z)$ 有 $N$ 个不同的根 $p_1, p_2, \ldots, p_N$。
 
-\begin{exercise}
+\begin{enumerate}
+    \item \bd{待定系数法}。不妨设
+        \begin{align*}
+            X(z) & = \frac{N(z)}{D(z)} \\
+            & = \sum_{k = 1}^{M-N}A_kz^{-k} + A_0 + \sum_{k = 1}^{N}\frac{A_k}{1 - p_kz^{-1}}.
+        \end{align*}
+        将结果通分后与 $X(z)$ 比较，即可得到 $A_k$ 的值。
+    \item \bd{部分分式法}。
+        \begin{itemize}
+            \item 如果 $N(z)$ 的次数等于 $D(z)$ 的次数，则
+                \begin{align*}
+                    X(z) & = \frac{N(z)}{D(z)} = \frac{N(z)}{(1 - p_1z^{-1})(1 - p_2z^{-1})\cdots(1 - p_Nz^{-1})} \\
+                    & = A_0 + \frac{A_1}{1 - p_1z^{-1}} + \frac{A_2}{1 - p_2z^{-1}} + \cdots + \frac{A_N}{1 - p_Nz^{-1}}.
+                \end{align*}
+                这里
+                \begin{align*}
+                    A_0 = \left.X(z)\right|_{z = 0}, \quad A_k = \left.(1 - p_kz^{-1})X(z)\right|_{z = p_k} = \left.\frac{N(z)}{\pi_{i \neq k}(1 - p_iz^{-1})}\right|_{z = p_k}.
+                \end{align*}
+            \item 如果 $N(z)$ 的次数小于 $D(z)$ 的次数，则无 $A_0$ 项。
+        \end{itemize}
+        此方法只适用于 \bd{$N(z)$ 的次数小于或等于 $D(z)$ 的次数}的情况，
+        否则需要先进行\bd{多项式除法}，将 $X(z)$ 写成 $Q(z) + \frac{R(z)}{D(z)}$ 的形式。
+    \item \bd{Remove-Restore 法}。记 $W(z) = 1/D(z)$，则 $X(z) = N(z)W(z)$。
+        若 $W(z) = 1/D(z)$ 较为容易写成
+        \begin{align*}
+            \sum_{k = 1}^{N}\frac{A_k}{1 - p_kz^{-1}}
+        \end{align*}
+        的形式，则可以先求出 $W(z)$ 的逆变换 $w(n)$，
+        再使用 Z 变换的\bd{时移性质}得到 $x(n)$。
+\end{enumerate}
+
+\begin{example}
+    已知
+    \begin{align*}
+        X(z) = \frac{6 + z^{-5}}{1 - 0.25z^{-2}},
+    \end{align*}
+    求对应的因果序列。
+\end{example}
+
+\begin{solution}
+    (Remove-Restore 法)
+    记
+    \begin{align*}
+        W(z) = \frac{1}{1 - 0.25z^{-2}} = \frac{0.5}{1 - 0.5z^{-1}} + \frac{0.5}{1 + 0.5z^{-1}},
+    \end{align*}
+    由于 $X(z)$ 对应的是因果序列，因此
+    \begin{align*}
+        w(n) = 0.5(0.5)^n u(n) + 0.5(-0.5)^n u(n).
+    \end{align*}
+    故 $X(z) = (6 + z^{-5})W(z) = 6W(z) + z^{-5}W(n)$。
+    考虑到 Z 变换的时域平移性 $\mathcal{Z}[x(n-m)] = z^{-m}X(Z)$，故
+    \begin{align*}
+        x(n) & = 6w(n) + w(n - 5) \\
+        & = 3(0.5)^nu(n) + 3(-0.5)^nu(n) + 0.5(0.5)^{n-5}u(n-5) + 0.5(-0.5)^{n-5}u(n-5).
+    \end{align*}
+\end{solution}
+
+\begin{solution}
+    (多项式除法)
+    由于
+    \begin{align*}
+        X(z) & = -16z^{-1} - 4z^{-3} + \frac{6 + 16z^{-1}}{1 - 0.25z^{-2}} \\
+        & = -16z^{-1} - 4z^{-3} + \frac{19}{1 - 0.5z^{-1}} - \frac{13}{1 + 0.5z^{-1}},
+    \end{align*}
+    又因为其对应的是因果序列，ROC 为 $\abs{z} > 0.5$。因此
+    \begin{align*}
+        x(n) = -16\delta(n - 1) - 4\delta(n - 3) + 19(0.5)^n u(n) - 13(-0.5)^n u(n).
+    \end{align*}
+\end{solution}
+
+\begin{example}
+    已知
+    \begin{align*}
+        X(z) = \frac{7 - 9.5z^{-1} - 3.5z^{-2} + 5.5z^{-3}}{(1 - z^{-2})(1 - 0.5z^{-1})(1 - 1.5z^{-1})},
+    \end{align*}
+    求其对应的所有可能的序列。
+\end{example}
+
+\begin{solution}
+    由于
+    \begin{align*}
+        X(z) = \frac{1}{1 - z^{-1}} + \frac{1}{1 + z^{-1}} + \frac{3}{1 - 0.5z^{-1}} + \frac{2}{1 - 1.5z^{-1}},
+    \end{align*}
+    因此
+    \begin{align*}
+        x(n) = \begin{cases}
+            -[1 + (-1)^n + 3(0.5)^n + 2(1.5)^n] u(-n-1), & \abs{z} < 0.5, \\
+            3(0.5)^n u(n) - [1 + (-1)^n + 2(1.5)^n] u(-n-1), & 0.5 < \abs{z} < 1, \\
+            [1 + (-1)^n + 3(0.5)^n] u(n) - 2(1.5)^n u(-n-1), & 1 < \abs{z} < 1.5, \\
+            [1 + (-1)^n + 3(0.5)^n + 2(1.5)^n] u(n), & \abs{z} > 1.5.
+        \end{cases}
+    \end{align*}
+\end{solution}
+
+% TODO 4.2 P23-35
+
+\begin{example}
     已知某滤波器的传递函数如下式：
     \begin{align*}
         H(z) = \frac{2 - 3z^{-1} + 4z^{-3}}{1 + 0.2z^{-1} - 0.3z^{-2} + 0.5z^{-4}}.
@@ -394,7 +496,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
         \item 写出相应的差分方程。
         \item 画出滤波器的信号流程图。
     \end{enumerate}
-\end{exercise}
+\end{example}
 
 \begin{solution}
     \begin{enumerate}[label=(\arabic*)]
@@ -459,19 +561,19 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
                 \path [line] (zy3) |- (zgy3);
                 \path [line] (zgy3.west) -- (sum);
             \end{tikzpicture}
-            \caption{滤波器的信号流图}
+            \caption{例 \theexample~ 的信号流图}
             \label{fig:chap4-part2-quiz3}
         \end{figure}
     \end{enumerate}
 \end{solution}
 
-\begin{exercise}
+\begin{example}
     已知滤波器的差分方程为
     \begin{align*}
         y(n) + 0.8y(n - 1) - 0.9y(n - 2) = x(n - 2),
     \end{align*}
     求该滤波器的传递函数（频率响应）。若已知其为因果系统，求其收敛域。
-\end{exercise}
+\end{example}
 
 \begin{solution}
     由差分方程可得其传递函数为
@@ -488,12 +590,12 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     \end{align*}
 \end{solution}
 
-\begin{exercise}
+\begin{example}
     对下面给出的 Z 变换结果，求它对应的序列。
     \begin{align*}
         X(z) = \frac{2z^{-1} - z^{-2}}{1 - 1.6z^{-1} - 0.8z^{-2}}.
     \end{align*}
-\end{exercise}
+\end{example}
 
 \begin{solution}
     由题知
@@ -514,9 +616,11 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     \end{align*}
     因此，其对应的序列为
     \begin{align*}
-        x(n) & = \frac{5}{4} + \frac{5}{8}\cdot2^n u(n) - \frac{15}{8}(-0.4)^n u(n), & \abs{z} > 2, \\
-        x(n) & = \frac{5}{4} - \frac{5}{8}\cdot2^n u(-n - 1) - \frac{15}{8}(-0.4)^n u(n), & 0.4 < \abs{z} < 2, \\
-        x(n) & = \frac{5}{4} - \frac{5}{8}\cdot2^n u(-n - 1) + \frac{15}{8}(-0.4)^n u(-n - 1), & \abs{z} < 0.4.
+        x(n) = \begin{cases}
+            \frac{5}{4} - \frac{5}{8}\cdot2^n u(-n - 1) + \frac{15}{8}(-0.4)^n u(-n - 1), & \abs{z} < 0.4, \\
+            \frac{5}{4} - \frac{5}{8}\cdot2^n u(-n - 1) - \frac{15}{8}(-0.4)^n u(n), & 0.4 < \abs{z} < 2, \\
+            \frac{5}{4} + \frac{5}{8}\cdot2^n u(n) - \frac{15}{8}(-0.4)^n u(n), & \abs{z} > 2.
+        \end{cases}
     \end{align*}
 \end{solution}
 
@@ -588,7 +692,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
                     \path [line] (zy2) |- (zgy2);
                     \path [line] (zgy2.west) -- (sum);
                 \end{tikzpicture}
-                \caption{习题 \theexercise~ 的直接 I 型实现}
+                \caption{例 \theexample~ 的直接 I 型实现}
                 \label{fig:chap4-part2-quiz6-1}
             \end{figure}  
 
@@ -635,7 +739,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
                     \path [line] (circ2) -- (zgy2);
                     \path [line] (zgy2.west) -- (sumy);
                 \end{tikzpicture}
-                \caption{习题 \theexercise~ 的直接 II 型实现}
+                \caption{例 \theexample~ 的直接 II 型实现}
                 \label{fig:chap4-part2-quiz6-2}
             \end{figure}
         \item 将 $H(z)$ 化简可得
