@@ -4,6 +4,12 @@
 
 本仓库是清华大学计算机系《信号处理原理》课程（贾珈老师班级）的学习笔记，主要包括课程的讲义、习题、作业等内容。
 
+## Usage
+
+在本仓库的 [Releases](https://github.com/leverimmy/Principles-of-Signal-Processing-Notes/releases) 页面可以下载最新版本的讲义 PDF 文件。
+
+> Update: 为方便起见，这里提供最新版的[永久链接](https://github.com/leverimmy/Principles-of-Signal-Processing-Notes/releases/download/latest/main.pdf)（此链接永远指向最新版本的讲义，不会因为新版本的发布而失效）。
+
 ## Contributors
 
 - [熊泽恩](https://github.com/leverimmy)
