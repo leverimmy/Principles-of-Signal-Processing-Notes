@@ -1,6 +1,6 @@
 # Principles-of-Signal-Processing-Notes
 
-## Contents
+## Introduction
 
 本仓库是清华大学计算机系《信号处理原理》课程（贾珈老师班级）的学习笔记，主要包括课程的讲义、习题、作业等内容。
 
