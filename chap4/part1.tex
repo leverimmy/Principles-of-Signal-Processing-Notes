@@ -45,19 +45,19 @@
 \end{definition}
 
 \begin{example}
-    \label{exercise:serial-flow-graph}
-    写出如图 \ref{fig:serial-flow-graph} 所示级联流图的差分方程。
+    \label{exercise:serial-flow-chart}
+    写出如图 \ref{fig:serial-flow-chart} 所示级联流图的差分方程。
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{chap4/img/serial_flow_graph.png}
+        \includegraphics[width=0.8\textwidth]{chap4/img/serial_flow_chart.png}
         \caption{例 \theexample~ 的级联流图}
-        \label{fig:serial-flow-graph}
+        \label{fig:serial-flow-chart}
     \end{figure}
 \end{example}
 
 \begin{solution}
     不妨设 $x(n) = x_1(n), y(n) = y_3(n)$，
-    以及 $y_1(n) = x_2(n), y_2(n) = x_3(n)$，则如图 \ref{fig:serial-flow-graph-annotated} 所示，
+    以及 $y_1(n) = x_2(n), y_2(n) = x_3(n)$，则如图 \ref{fig:serial-flow-chart-annotated} 所示，
     \begin{align*}
         y_1(n) & = x_1(n) - 0.1x_1(n - 1) + 0.2x_1(n - 2), \\
         y_2(n) & = x_2(n) + 0.3x_2(n - 1) + 0.1x_2(n - 2), \\
@@ -65,9 +65,9 @@
     \end{align*}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{chap4/img/serial_flow_graph_annotated.png}
+        \includegraphics[width=0.8\textwidth]{chap4/img/serial_flow_chart_annotated.png}
         \caption{例 \theexample~ 的级联流图（带标注）}
-        \label{fig:serial-flow-graph-annotated}
+        \label{fig:serial-flow-chart-annotated}
     \end{figure}
     将 $y_1(n)$ 代入 $y_2(n)$ 的表达式中，将 $y_2(n)$ 代入 $y_3(n)$ 的表达式中，
     可得级联流图的差分方程为
