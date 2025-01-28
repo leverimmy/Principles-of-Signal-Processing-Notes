@@ -119,7 +119,7 @@ def generate_graph_2_str(coeff_x, coeff_y):
     return "\n".join(results)
 
 
-def print_flow_chart(tp, coeff_x, coeff_y, caption_str, label_str):
+def print_flow_chart(chart_type, coeff_x, coeff_y, caption_str, label_str):
     prelude_str = '''
 \\begin{figure}[H]
     \\centering
@@ -139,9 +139,8 @@ def print_flow_chart(tp, coeff_x, coeff_y, caption_str, label_str):
     \\label{{{label_str}}}
 \\end{{figure}}
 '''
-    print(prelude_str + (generate_graph_1_str(coeff_x, coeff_y) if tp == 1 else generate_graph_2_str(coeff_x, coeff_y)) + finale_str)
+    print(prelude_str + (generate_graph_1_str(coeff_x, coeff_y) if chart_type == 1 else generate_graph_2_str(coeff_x, coeff_y)) + finale_str)
 
 
 if __name__ == '__main__':
-    print_flow_chart(1, [2, 0, 1, 1.2], [1, -0.7, -0.6, 1.2], "1", "1")
-    print_flow_chart(2, [2, 0, 1, 1.2], [1, -0.7, -0.6, 1.2], "2", "2")
+    print_flow_chart(chart_type=1, coeff_x=[2, 0, 1, 1.2], coeff_y=[1, -0.7, -0.6, 1.2], caption_str="信号流图（I 型实现）", label_str="fig:flow_chart_1")
