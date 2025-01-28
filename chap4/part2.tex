@@ -381,6 +381,47 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     其中 $C$ 为包围 ROC 的逆时针方向的简单闭合曲线。
 \end{property}
 
+\subsubsection{系统的因果性和稳定性}
+
+\begin{theorem}[因果系统的充要条件]
+    离散线性时不变（LTI）系统是因果系统的充要条件是，传递函数的 ROC 是某个圆
+    外部的区域，包括无穷远点。
+\end{theorem}
+
+\begin{analysis}
+    可以从这个角度来考虑：因果系统的单位冲激响应 $h(n)$ 是因果序列，
+    则 $h(n)$ 只与 $n \ge 0$ 有关，所以 $h(n)$ 是右边序列的一种。
+    右边序列 ZT 的 ROC 是圆外部分；若下标无负值，则 ROC 还包括无穷远点。
+    因此，因果系统的 ROC 是某个圆外部的区域，包括无穷远点。
+\end{analysis}
+
+\begin{theorem}[稳定系统的充要条件]
+    离散线性时不变（LTI）系统是稳定系统的充要条件是，传递函数的 ROC 包含单位圆。
+\end{theorem}
+
+\begin{analysis}
+    设系统的单位冲激响应为 $h(n)$，则由习题 \ref{exercise:LTI-stable} 可知，
+    系统稳定，等价于
+    \begin{align*}
+        \sum_{n = -\infty}^{+\infty} \abs{h(n)} = P < +\infty,
+    \end{align*}
+    其中 $P$ 是一个有限值。由此可知，
+    \begin{align*}
+        \left.\sum_{n = -\infty}^{+\infty} \abs{h(n)}z^{-n}\right|_{\abs{z} = 1} = \sum_{n = -\infty}^{+\infty} \abs{h(n)} = P < +\infty.
+    \end{align*}
+    因此，稳定系统的 ROC 包含单位圆。
+\end{analysis}
+
+\begin{corollary}
+    根据 ZT 的 ROC 与其极点的关系（ROC 不含极点），有下面的结论：
+    \begin{enumerate}
+        \item 若系统是\bd{因果系统}，其 ROC 是某圆外部分，所以全部极点须在单位圆内，
+            这样 ROC 才能包含单位圆，系统才稳定。
+        \item 若系统是\bd{反因果系统}，其 ROC 是某圆内部分，所以全部极点须在单位圆外，
+            这样 ROC 才能包含单位圆，系统才稳定。
+    \end{enumerate}
+\end{corollary}
+
 \subsubsection{逆 Z 变换的求解}
 
 我们在解题的过程中常常会遇到求逆 Z 变换的问题。逆 Z 变换的求解方法有很多，
@@ -434,14 +475,14 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     (Remove-Restore 法)
     记
     \begin{align*}
-        W(z) = \frac{1}{1 - 0.25z^{-2}} = \frac{0.5}{1 - 0.5z^{-1}} + \frac{0.5}{1 + 0.5z^{-1}},
+        W(z) = \frac{1}{1 - 0.25z^{-2}} = \frac{0.5}{1 - 0.5z^{-1}} + \frac{0.5}{1 + 0.5z^{-1}}.
     \end{align*}
-    由于 $X(z)$ 对应的是因果序列，因此
+    由于 $X(z)$ 对应的是因果序列，因此只考虑 ROC 为 $\abs{z} > 0.5$ 的部分，
     \begin{align*}
         w(n) = 0.5(0.5)^n u(n) + 0.5(-0.5)^n u(n).
     \end{align*}
-    故 $X(z) = (6 + z^{-5})W(z) = 6W(z) + z^{-5}W(n)$。
-    考虑到 Z 变换的时域平移性 $\mathcal{Z}[x(n-m)] = z^{-m}X(Z)$，故
+    故 $X(z) = (6 + z^{-5})W(z) = 6W(z) + z^{-5}W(z)$。
+    考虑到 Z 变换的时域平移性 $\mathcal{Z}[x(n-m)] = z^{-m}X(z)$，故
     \begin{align*}
         x(n) & = 6w(n) + w(n - 5) \\
         & = 3(0.5)^nu(n) + 3(-0.5)^nu(n) + 0.5(0.5)^{n-5}u(n-5) + 0.5(-0.5)^{n-5}u(n-5).
@@ -485,7 +526,107 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     \end{align*}
 \end{solution}
 
-% TODO 4.2 P23-35
+\subsubsection{传递函数与系统的串并联}
+
+由于离散时间 LTI 系统的输入输出关系满足 $y(n) = x(n) * h(n)$，因此在 ZT 的框架下，
+\begin{align*}
+    Y(z) = X(z)\cdot H(z),
+\end{align*}
+也就是说，
+\begin{align*}
+    H(z) = \frac{Y(z)}{X(z)}.
+\end{align*}
+
+\begin{definition}[传递函数]
+    定义 $H(z)$ 是系统的输出的 Z 变换 $Y(z)$ 与输入的 Z 变换 $X(z)$ 的比值，
+    \begin{align*}
+        H(z) = \frac{Y(z)}{X(z)}.
+    \end{align*}
+    $H(z)$ 与系统特性有一一对应的关系，也可以说是系统特性的一种反应，所以通常称 $H(z)$ 为 LTI 系统
+    的\bd{传递函数}，也称\bd{系统函数}。
+\end{definition}
+
+\begin{remark}
+    传递函数 $H(z)$ 实际上是系统单位冲激响应 $h(n)$ 的 Z 变换，即
+    \begin{align*}
+        H(z) = \mathcal{Z}[h(n)] = \sum_{n = -\infty}^{+\infty} h(n)z^{-n}.
+    \end{align*}
+\end{remark}
+
+\begin{definition}[系统的串、并联组合]
+    系统在串联和并联的情况下，其传递函数的组合规律如下：
+    \begin{itemize}
+        \item 两个系统的\bd{并联}后新系统的单位冲激响应是并联子系统的单位冲激响应之和，
+            传递函数是并联子系统的传递函数之和。如图 \ref{fig:parallel-system} 所示，
+            是一个并联系统。
+            \begin{align*}
+                h(n) = h_1(n) + h_2(n), \quad H(z) = H_1(z) + H_2(z).
+            \end{align*}
+        \item 两个系统的\bd{串联}后新系统的单位冲激响应是串联子系统的单位冲激响应的卷积，
+            传递函数是串联子系统的传递函数的乘积。如图 \ref{fig:serial-system} 所示，
+            是一个串联系统。
+            \begin{align*}
+                h(n) = h_1(n) * h_2(n), \quad H(z) = H_1(z) \cdot H_2(z).
+            \end{align*}
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{chap4/img/parallel_system.png}
+            \caption{并联系统}
+            \label{fig:parallel-system}
+        \end{subfigure}
+        \begin{subfigure}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{chap4/img/serial_system.png}
+            \caption{串联系统}
+            \label{fig:serial-system}
+        \end{subfigure}
+        \caption{系统的串、并联组合}
+    \end{figure}
+\end{definition}
+
+\begin{property}[传递函数和差分方程之间的关系]
+    回忆差分方程的定义，设系统的差分方程为
+    \begin{align*}
+        \sum_{k = 0}^{K}b_ky(n-k) = \sum_{r = 0}^{R}a_rx(n-r),
+    \end{align*}
+    则系统的传递函数为
+    \begin{align*}
+        H(z) = \frac{Y(z)}{X(z)} = \frac{\sum_{r = 0}^{R}a_rz^{-r}}{\sum_{k = 0}^{K}b_kz^{-k}}.
+    \end{align*}
+\end{property}
+
+\begin{exercise}
+    (习题 \ref{exercise:serial-flow-graph})
+    写出如图 \ref{fig:serial-flow-graph} 所示级联流图的差分方程。
+\end{exercise}
+
+\begin{solution}
+    (使用 ZT 的串联性质)
+    不妨设 $x(n) = x_1(n), y(n) = y_3(n)$，
+    以及 $y_1(n) = x_2(n), y_2(n) = x_3(n)$，则
+    \begin{align*}
+        y_1(n) & = x_1(n) - 0.1x_1(n - 1) + 0.2x_1(n - 2), \\
+        y_2(n) & = x_2(n) + 0.3x_2(n - 1) + 0.1x_2(n - 2), \\
+        y_3(n) & = x_3(n) - 0.4x_3(n - 1).
+    \end{align*}
+    其 ZT 为
+    \begin{align*}
+        H_1(z) & = 1 - 0.1z^{-1} + 0.2z^{-2}, \\
+        H_2(z) & = 1 + 0.3z^{-1} + 0.1z^{-2}, \\
+        H_3(z) & = 1 - 0.4z^{-1}.
+    \end{align*}
+    由 ZT 的串联性质可得
+    \begin{align*}
+        H(z) = H_1(z)H_2(z)H_3(z) = 1 - 0.2z^{-1} + 0.19z^{-2} - 0.058z^{-3} - 0.008z^{-5}.
+    \end{align*}
+    故差分方程为
+    \begin{align*}
+        y(n) = x(n) - 0.2x(n - 1) + 0.19x(n - 2) - 0.058x(n - 3) - 0.008x(n - 5).
+    \end{align*}
+\end{solution}
 
 \begin{example}
     已知某滤波器的传递函数如下式：

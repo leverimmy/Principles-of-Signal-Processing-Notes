@@ -40,6 +40,47 @@
     模拟
 \end{definition}
 
+\begin{example}
+    \label{exercise:serial-flow-graph}
+    写出如图 \ref{fig:serial-flow-graph} 所示级联流图的差分方程。
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{chap4/img/serial_flow_graph.png}
+        \caption{级联流图}
+        \label{fig:serial-flow-graph}
+    \end{figure}
+\end{example}
+
+\begin{solution}
+    不妨设 $x(n) = x_1(n), y(n) = y_3(n)$，
+    以及 $y_1(n) = x_2(n), y_2(n) = x_3(n)$，则如图 \ref{fig:serial-flow-graph-annotated} 所示，
+    \begin{align*}
+        y_1(n) & = x_1(n) - 0.1x_1(n - 1) + 0.2x_1(n - 2), \\
+        y_2(n) & = x_2(n) + 0.3x_2(n - 1) + 0.1x_2(n - 2), \\
+        y_3(n) & = x_3(n) - 0.4x_3(n - 1).
+    \end{align*}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{chap4/img/serial_flow_graph_annotated.png}
+        \caption{级联流图（带标注）}
+        \label{fig:serial-flow-graph-annotated}
+    \end{figure}
+    将 $y_1(n)$ 代入 $y_2(n)$ 的表达式中，将 $y_2(n)$ 代入 $y_3(n)$ 的表达式中，
+    可得级联流图的差分方程为
+    \begin{align*}
+        y_3(n) = x_1(n) - 0.2x_1(n - 1) + 0.19x_1(n - 2) - 0.058x_1(n - 3) - 0.008x_1(n - 5).
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    \label{exercise:LTI-stable}
+    证明：某 LTI 系统稳定的充要条件是
+    \begin{align*}
+        \sum_{n = -\infty}^{\infty} |h(n)| = P < \infty.
+    \end{align*}
+    其中 $h(n)$ 为系统的单位脉冲响应，$P$ 为一个常数。
+\end{exercise}
+
 \begin{exercise}
     已知某系统的差分方程如下式：
     \begin{align*}
