@@ -8,6 +8,7 @@
 \end{definition}
 
 \begin{theorem}[欧拉公式]
+    \label{theorem:euler-formula}
     对于任意的 $\theta \in \set{R}$，都有以下的恒等式成立：
     \begin{align*}
         \mathe^{\mathi \theta} = \cos \theta + \mathi \sin\theta.
@@ -16,8 +17,12 @@
     特别地，当 $\theta = \pi$ 时，有 $\mathe^{\mathi\pi} + 1 = 0$。
 \end{theorem}
 
+\begin{exercise}
+    用泰勒级数法证明定理 \ref{theorem:euler-formula}。
+\end{exercise}
+
 \begin{proof}
-    (欧拉公式的泰勒级数法证明) 分别将 $\mathe^x, \sin x, \cos x$ 进行泰勒（Taylor）展开，得：
+    分别将 $\mathe^x, \sin x, \cos x$ 进行泰勒（Taylor）展开，得：
     \begin{align*}
         \mathe^x &= \sum_{k = 0}^{+\infty}\frac{x^k}{k!}, \\
         \sin x   &= \sum_{k = 0}^{+\infty}\frac{(-1)^kx^{2k + 1}}{(2k + 1)!}, \\
@@ -39,8 +44,29 @@
     \end{align*}
 \end{proof}
 
+\begin{exercise}
+    用微分法证明定理 \ref{theorem:euler-formula}。
+\end{exercise}
+
+\begin{proof}
+    设有函数
+    \begin{align*}
+        f(x) = \frac{\cos x + \mathi \sin x}{\mathe^{\mathi x}}.
+    \end{align*}
+    则
+    \begin{align*}
+        \frac{\D{f}}{\D{x}} & = \frac{(-\sin x + \mathi \cos x)\mathe^{\mathi x}
+                    - (\cos x + \mathi \sin x)\mathi \mathe^{\mathi x}}
+                    {\mathe^{2\mathi x}} \\
+        & = \frac{\mathe^{\mathi x}(-\sin x + \mathi \cos x - \mathi \cos x + \sin x)}{\mathe^{2\mathi x}} \\
+        & = 0.
+    \end{align*}
+    因此 $f(x)$ 为常函数，故 $f(x) = f(0) = 1$。
+    此即 $\mathe^{\mathi x} = \cos x + \mathi \sin x$。
+\end{proof}
+
 \begin{corollary}
-    由欧拉公式可得，对于任意的 $\theta \in \set{R}$：
+    由定理 \ref{theorem:euler-formula} 可得，对于任意的 $\theta \in \set{R}$：
     \begin{align*}
         \sin \theta & = \frac{\mathe^{\mathi\theta} - \mathe^{-\mathi\theta}}{2\mathi}, \\
         \cos \theta & = \frac{\mathe^{\mathi\theta} + \mathe^{-\mathi\theta}}{2}.
@@ -71,23 +97,6 @@
 \begin{example}[复值信号在电磁场中的应用]
     由于电场和磁场互相垂直，所以可以用复值信号的实数部分和虚数部分分别表示电场与磁场信号。
 \end{example}
-
-\begin{proof}
-    (欧拉公式的微分法证明) 设有函数
-    \begin{align*}
-        f(x) = \frac{\cos x + \mathi \sin x}{\mathe^{\mathi x}}.
-    \end{align*}
-    则
-    \begin{align*}
-        \frac{\D{f}}{\D{x}} & = \frac{(-\sin x + \mathi \cos x)\mathe^{\mathi x}
-                    - (\cos x + \mathi \sin x)\mathi \mathe^{\mathi x}}
-                    {\mathe^{2\mathi x}} \\
-        & = \frac{\mathe^{\mathi x}(-\sin x + \mathi \cos x - \mathi \cos x + \sin x)}{\mathe^{2\mathi x}} \\
-        & = 0.
-    \end{align*}
-    因此 $f(x)$ 为常函数，故 $f(x) = f(0) = 1$。
-    此即 $\mathe^{\mathi x} = \cos x + \mathi \sin x$。
-\end{proof}
 
 \begin{definition}[复指数信号]
     形如 $f(t) = K\mathe^{st}$，其中 $K \in \set{R}, s \in \set{C}$ 为参数，$t \in \set{R}$ 为自变量，
@@ -187,14 +196,14 @@
     \end{itemize}
 \end{note}
 
-\begin{example}
-    设 $\omega_0 > 0$，则
+\begin{exercise}
+    证明：设 $\omega_0 > 0$，则
     \begin{align*}
         \{1, \cos(\omega_0t + \varphi_1), \cos(2\omega_0t + \varphi_2),
             \cdots, \cos(n\omega_0 t + \varphi_n)\}
     \end{align*}
     是在 $[0, 2\pi/\omega_0]$ 区间上的正交函数集，其中 $\varphi_i$ 为常数。
-\end{example}
+\end{exercise}
 
 \begin{proof}
     整个证明分为四部分：
@@ -236,13 +245,21 @@
     \end{align*}
 \end{note}
 
-\begin{example}[指数函数集]
+\begin{definition}[指数函数集]
     设 $\omega_0 > 0$，则
     \begin{align*}
         \{\mathe^{\mathi n\omega_0t} \mid n \in \set{Z}\}
     \end{align*}
+    是\bd{指数函数集}。
+\end{definition}
+
+\begin{homework}
+    证明：设 $\omega_0 > 0$，则
+    \begin{align*}
+        \{\mathe^{\mathi n\omega_0t} \mid n \in \set{Z}\}
+    \end{align*}
     是在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上的正交函数集。
-\end{example}
+\end{homework}
 
 \begin{proof}
     任取 $m, n \in \set{Z}$。若 $m \neq n$，则 $\mathe^{\mathi m\omega_0t}$ 和 $\mathe^{\mathi n\omega_0t}$
@@ -273,10 +290,10 @@
     则称此正交函数集 $\{\varphi_i(t)\}$ 为区间 $[t_1, t_2]$ 上的\bd{完备的正交函数集}。
 \end{definition}
 
-\begin{remark}
-    事实上，指数函数集 $\{\mathe^{\mathi n\omega_0t} \mid n \in \set{Z}\}$ 在
+\begin{property}
+    指数函数集 $\{\mathe^{\mathi n\omega_0t} \mid n \in \set{Z}\}$ 在
     区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上是完备的正交函数集。
-\end{remark}
+\end{property}
 
 % \begin{proof}
 %     设 $x(t)$ 是在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上的任意函数。

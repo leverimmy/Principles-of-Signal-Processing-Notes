@@ -228,7 +228,6 @@
         \caption{$3f\left(1 - \frac{t}{2}\right)-1$ 的波形描述}
         \label{fig:waveform-exercise-3}
     \end{figure}
-
 \end{solution}
 
 \begin{remark}
@@ -318,9 +317,8 @@
     \end{align*}
 \end{property}
 
-卷积运算的交换律可以通过变换积分变量的方式来证明。
-
 \begin{proof}
+    卷积运算的交换律可以通过变换积分变量的方式来证明。
     \begin{align*}
         (f_1 * f_2)(t) & = \int_{-\infty}^{+\infty}f_1(t - a)f_2(a)\D{a} \\
         & = \int_{+\infty}^{-\infty}f_1(b)f_2(t - b)\cdot (-\D{b}) \quad (b = t - a) \\
@@ -337,9 +335,8 @@
     卷积运算的分配律通常用于并联系统的分析。
 \end{property}
 
-卷积运算的分配率可以利用积分运算的线性性来证明。
-
 \begin{proof}
+    卷积运算的分配率可以利用积分运算的线性性来证明。
     \begin{align*}
         (f_1 * (f_2 + f_3))(t) & = \int_{-\infty}^{+\infty}f_1(t - a)(f_2(a) + f_3(a))\D{a} \\
         & = \int_{-\infty}^{+\infty}f_1(t - a)f_2(a)\D{a} + \int_{-\infty}^{+\infty}f_1(t - a)f_3(a)\D{a} \\
@@ -349,12 +346,17 @@
 \end{proof}
 
 \begin{property}[卷积运算的结合律]
+    \label{property:convolution-associative}
     卷积运算具有结合律：
     \begin{align*}
         (f_1 * f_2) * f_3 = f_1 * (f_2 * f_3).
     \end{align*}
     卷积运算的结合律通常用于串联系统的分析。
 \end{property}
+
+\begin{exercise}
+    证明性质 \ref{property:convolution-associative}。
+\end{exercise}
 
 \begin{proof}
     \begin{align*}
@@ -367,6 +369,7 @@
 \end{proof}
 
 \begin{property}[卷积的微分性质]
+    \label{property:convolution-differential}
     卷积的微分满足以下性质：两个信号卷积的微分等于其中任一信号的微分与另一信号的卷积，即
     \begin{align*}
         \frac{\D}{\D{t}}\left[f_1(t) * f_2(t)\right]
@@ -375,6 +378,10 @@
     \end{align*}
     其中 $f_1, f_2$ 为  $\set{R}$ 上连续可导函数。
 \end{property}
+
+\begin{homework}
+    证明性质 \ref{property:convolution-differential}。
+\end{homework}
 
 \begin{proof}
     \begin{align*}
@@ -394,6 +401,7 @@
 \end{proof}
 
 \begin{property}[卷积的积分性质]
+    \label{property:convolution-integral}
     卷积的积分满足以下性质：两个信号卷积的积分等于其中任一信号的积分与另一信号的卷积，即
     \begin{align*}
         \int_{-\infty}^{t}(f_1 * f_2)(\lambda)\D{\lambda}
@@ -402,6 +410,10 @@
     \end{align*}
     其中 $f_1, f_2$ 为  $\set{R}$ 上连续可导函数。
 \end{property}
+
+\begin{homework}
+    证明性质 \ref{property:convolution-integral}。
+\end{homework}
 
 \begin{proof}
     \begin{align*}
@@ -419,7 +431,6 @@
     \end{align*}
     同理，由卷积运算的交换律可以证明 $\int_{-\infty}^{t}(f_1 * f_2)(\lambda)\D{\lambda} = \left(\int_{-\infty}^{t}f_1(\lambda)\D{\lambda}\right) * f_2(t)$。
     因此，命题得证。
-    
 \end{proof}
 
 \begin{corollary}
@@ -483,11 +494,16 @@
 \end{proof}
 
 \begin{property}[相关运算与卷积运算的关系]
+    \label{property:correlation-convolution}
     相关运算可以用卷积运算来表示：
     \begin{align*}
         R_{f_1, f_2}(t) = f_1(t) * f_2^*(-t).
     \end{align*}
 \end{property}
+
+\begin{exercise}
+    推导性质 \ref{property:correlation-convolution}。
+\end{exercise}
 
 \begin{proof}
     \begin{align*}
@@ -522,6 +538,7 @@
         f_1(p(t)) * f_2(q(t)) & = \int_{-\infty}^{+\infty}f_1(p(\tau))f_2(q(t-\tau))\D{\tau}
     \end{align*}
 \end{note}
+
 \begin{example}[自相关运算]
     自相关运算是指函数自己与自己求相关。用自相关函数可以检测准周期信号的准周期，
     如图 \ref{fig:self-relation} 所示。

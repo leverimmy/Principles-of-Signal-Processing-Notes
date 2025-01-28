@@ -124,6 +124,23 @@
     \end{figure}
 \end{definition}
 
+\begin{homework}
+    证明：一个函数与单位阶跃函数的卷积等于该函数的积分，即
+    \begin{align*}
+        f(t) * u(t) = \int_{-\infty}^{t}f(\tau)\D{\tau}.
+    \end{align*}
+\end{homework}
+
+\begin{proof}
+    \begin{align*}
+        f(t) * u(t) & = \int_{-\infty}^{+\infty}f(\tau)u(t - \tau)\D{\tau} \\
+        & = \int_{-\infty}^{t}f(\tau)u(t - \tau)\D{\tau} + \int_{t}^{+\infty}f(\tau)u(t - \tau)\D{\tau} \\
+        & = \int_{-\infty}^{t}f(\tau)\D{\tau} + 0 \\
+        & = \int_{-\infty}^{t}f(\tau)\D{\tau}.
+    \end{align*}
+    命题得证。
+\end{proof}
+
 \begin{property}[单位阶跃信号与单位斜变信号的关系]
     单位斜变信号是单位阶跃信号的积分，即
     \begin{align*}
@@ -524,8 +541,8 @@
     \end{figure}
 \end{example}
 
-\begin{note}
-    冲击信号、冲激串和采样信号之间的关系如图 \ref{fig:impulse-impulse-train-sampled-signal} 所示：
+\begin{remark}
+    冲激信号、冲激串和采样信号之间的关系如图 \ref{fig:impulse-impulse-train-sampled-signal} 所示：
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}
@@ -538,7 +555,7 @@
             \draw[-] (continuous_signal) -- (impulse_train);
             \draw[->, dashed, red] (7.5, 0) -- node[right, pos=0.5] {乘法} (sampled_signal);
         \end{tikzpicture}
-        \caption{冲击信号、冲激串和采样信号之间的关系}
+        \caption{冲激信号、冲激串和采样信号之间的关系}
         \label{fig:impulse-impulse-train-sampled-signal}
     \end{figure}
-\end{note}
+\end{remark}
