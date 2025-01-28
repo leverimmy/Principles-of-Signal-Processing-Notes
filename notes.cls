@@ -21,6 +21,7 @@
 % 链接设置
 \hypersetup{
   colorlinks=true,
+  urlcolor=black,
   linkcolor=black
 }
 
@@ -48,7 +49,7 @@
 \newtheorem{example}[theorem]{例}
 \newtheorem{remark}[theorem]{注}
 \newtheorem{exercise}[theorem]{习题}
-\newtheorem{homework}[subsection]{作业}
+\newtheorem{homework}[theorem]{作业}
 
 % 定义证明环境
 \renewcommand{\qedsymbol}{$\blacksquare$}
