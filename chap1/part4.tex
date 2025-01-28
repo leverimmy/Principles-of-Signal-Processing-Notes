@@ -346,17 +346,12 @@
 \end{proof}
 
 \begin{property}[卷积运算的结合律]
-    \label{property:convolution-associative}
     卷积运算具有结合律：
     \begin{align*}
         (f_1 * f_2) * f_3 = f_1 * (f_2 * f_3).
     \end{align*}
     卷积运算的结合律通常用于串联系统的分析。
 \end{property}
-
-\begin{exercise}
-    证明性质 \ref{property:convolution-associative}。
-\end{exercise}
 
 \begin{proof}
     \begin{align*}
@@ -494,16 +489,11 @@
 \end{proof}
 
 \begin{property}[相关运算与卷积运算的关系]
-    \label{property:correlation-convolution}
     相关运算可以用卷积运算来表示：
     \begin{align*}
         R_{f_1, f_2}(t) = f_1(t) * f_2^*(-t).
     \end{align*}
 \end{property}
-
-\begin{exercise}
-    推导性质 \ref{property:correlation-convolution}。
-\end{exercise}
 
 \begin{proof}
     \begin{align*}

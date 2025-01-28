@@ -8,7 +8,6 @@
 \end{definition}
 
 \begin{theorem}[欧拉公式]
-    \label{theorem:euler-formula}
     对于任意的 $\theta \in \set{R}$，都有以下的恒等式成立：
     \begin{align*}
         \mathe^{\mathi \theta} = \cos \theta + \mathi \sin\theta.
@@ -17,11 +16,8 @@
     特别地，当 $\theta = \pi$ 时，有 $\mathe^{\mathi\pi} + 1 = 0$。
 \end{theorem}
 
-\begin{exercise}
-    用泰勒级数法证明定理 \ref{theorem:euler-formula}。
-\end{exercise}
-
 \begin{proof}
+    (泰勒级数法)
     分别将 $\mathe^x, \sin x, \cos x$ 进行泰勒（Taylor）展开，得：
     \begin{align*}
         \mathe^x &= \sum_{k = 0}^{+\infty}\frac{x^k}{k!}, \\
@@ -44,11 +40,8 @@
     \end{align*}
 \end{proof}
 
-\begin{exercise}
-    用微分法证明定理 \ref{theorem:euler-formula}。
-\end{exercise}
-
 \begin{proof}
+    (微分法)
     设有函数
     \begin{align*}
         f(x) = \frac{\cos x + \mathi \sin x}{\mathe^{\mathi x}}.
