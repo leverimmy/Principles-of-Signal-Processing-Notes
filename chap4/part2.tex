@@ -185,7 +185,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
 \subsubsection{常见序列及其 ZT}
 
 \begin{example}[单位冲激序列的 ZT]
-    单位冲击序列 $\delta(n)$ 的 Z 变换为
+    单位冲激序列 $\delta(n)$ 的 Z 变换为
     \begin{align*}
         \mathcal{Z}[\delta(n)] = 1, \quad (\text{ROC}: 0 \le \abs{z} \le +\infty).
     \end{align*}
@@ -463,13 +463,13 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
         再使用 Z 变换的\bd{时移性质}得到 $x(n)$。
 \end{enumerate}
 
-\begin{example}
+\begin{exercise}
     已知
     \begin{align*}
         X(z) = \frac{6 + z^{-5}}{1 - 0.25z^{-2}},
     \end{align*}
     求对应的因果序列。
-\end{example}
+\end{exercise}
 
 \begin{solution}
     (Remove-Restore 法)
@@ -502,13 +502,13 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     \end{align*}
 \end{solution}
 
-\begin{example}
+\begin{exercise}
     已知
     \begin{align*}
         X(z) = \frac{7 - 9.5z^{-1} - 3.5z^{-2} + 5.5z^{-3}}{(1 - z^{-2})(1 - 0.5z^{-1})(1 - 1.5z^{-1})},
     \end{align*}
     求其对应的所有可能的序列。
-\end{example}
+\end{exercise}
 
 \begin{solution}
     由于
@@ -628,7 +628,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     \end{align*}
 \end{solution}
 
-\begin{example}
+\begin{exercise}
     已知某滤波器的传递函数如下式：
     \begin{align*}
         H(z) = \frac{2 - 3z^{-1} + 4z^{-3}}{1 + 0.2z^{-1} - 0.3z^{-2} + 0.5z^{-4}}.
@@ -637,7 +637,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
         \item 写出相应的差分方程。
         \item 画出滤波器的信号流程图。
     \end{enumerate}
-\end{example}
+\end{exercise}
 
 \begin{solution}
     \begin{enumerate}[label=(\arabic*)]
@@ -702,19 +702,19 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
                 \path [line] (zy3) |- (zgy3);
                 \path [line] (zgy3.west) -- (sum);
             \end{tikzpicture}
-            \caption{例 \theexample~ 的信号流图}
+            \caption{习题 \theexercise~ 的信号流图}
             \label{fig:chap4-part2-quiz3}
         \end{figure}
     \end{enumerate}
 \end{solution}
 
-\begin{example}
+\begin{exercise}
     已知滤波器的差分方程为
     \begin{align*}
         y(n) + 0.8y(n - 1) - 0.9y(n - 2) = x(n - 2),
     \end{align*}
     求该滤波器的传递函数（频率响应）。若已知其为因果系统，求其收敛域。
-\end{example}
+\end{exercise}
 
 \begin{solution}
     由差分方程可得其传递函数为
@@ -731,12 +731,12 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     \end{align*}
 \end{solution}
 
-\begin{example}
+\begin{exercise}
     对下面给出的 Z 变换结果，求它对应的序列。
     \begin{align*}
         X(z) = \frac{2z^{-1} - z^{-2}}{1 - 1.6z^{-1} - 0.8z^{-2}}.
     \end{align*}
-\end{example}
+\end{exercise}
 
 \begin{solution}
     由题知
@@ -833,7 +833,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
                     \path [line] (zy2) |- (zgy2);
                     \path [line] (zgy2.west) -- (sum);
                 \end{tikzpicture}
-                \caption{例 \theexample~ 的直接 I 型实现}
+                \caption{习题 \theexercise~ 的直接 I 型实现}
                 \label{fig:chap4-part2-quiz6-1}
             \end{figure}  
 
@@ -880,7 +880,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
                     \path [line] (circ2) -- (zgy2);
                     \path [line] (zgy2.west) -- (sumy);
                 \end{tikzpicture}
-                \caption{例 \theexample~ 的直接 II 型实现}
+                \caption{习题 \theexercise~ 的直接 II 型实现}
                 \label{fig:chap4-part2-quiz6-2}
             \end{figure}
         \item 将 $H(z)$ 化简可得
@@ -895,15 +895,15 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     \end{enumerate}
 \end{solution}
 
-\begin{exercise}
+\begin{homework}
     用直接 I 型和直接 II 型（标准型）结构实现以下系统函数：
     \begin{align*}
         H(z) = \frac{3 + 4.2z^{-1}+0.8z^{-2}}{2 + 0.6z^{-1} - 0.4z^{-2}}.
     \end{align*}
-\end{exercise}
+\end{homework}
 
 \begin{solution}
-    直接 I 型结构如图 \ref{fig:chap4-part2-exercise1-1} 所示，直接 II 型结构如图 \ref{fig:chap4-part2-exercise1-2} 所示。
+    直接 I 型结构如图 \ref{fig:chap4-part2-homework1-1} 所示，直接 II 型结构如图 \ref{fig:chap4-part2-homework1-2} 所示。
     \begin{figure}[H]
         \centering
         \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
@@ -952,8 +952,8 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
             \path [line] (zy2) |- (zgy2);
             \path [line] (zgy2.west) -- (sum);
         \end{tikzpicture}
-        \caption{习题 \theexercise~ 的直接 I 型结构}
-        \label{fig:chap4-part2-exercise1-1}
+        \caption{作业 \thehomework~ 的直接 I 型结构}
+        \label{fig:chap4-part2-homework1-1}
     \end{figure}
     
     \begin{figure}[H]
@@ -1000,12 +1000,12 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
             \path [line] (circ2) -- (zgy2);
             \path [line] (zgy2.west) -- (sumy);
         \end{tikzpicture}
-        \caption{习题 \theexercise~ 的直接 II 型结构}
-        \label{fig:chap4-part2-exercise1-2}
+        \caption{作业 \thehomework~ 的直接 II 型结构}
+        \label{fig:chap4-part2-homework1-2}
     \end{figure}
 \end{solution}
 
-\begin{exercise}
+\begin{homework}
     已知某系统的差分方程如下式：
     \begin{align*}
         y(n) = 2x(n) + x(n - 3) - 0.9y(n - 1) + 0.36y(n - 2).
@@ -1015,7 +1015,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
         \item 画出该系统的信号流图。
         \item 求该系统对应的因果序列及其收敛域，并判断该状态下系统是否稳定。
     \end{enumerate}
-\end{exercise}
+\end{homework}
 
 \begin{solution}
     \begin{enumerate}[label=(\arabic*)]
@@ -1023,7 +1023,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
             \begin{align*}
                 H(z) = \frac{2 + z^{-3}}{1 + 0.9z^{-1} - 0.36z^{-2}}.
             \end{align*}
-        \item 画出该系统的信号流图如图 \ref{fig:chap4-part2-exercise2} 所示。
+        \item 画出该系统的信号流图如图 \ref{fig:chap4-part2-homework2} 所示。
             \begin{figure}[H]
                 \centering
                 \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
@@ -1070,8 +1070,8 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
                     \path [line] (zy2) |- (zgy2);
                     \path [line] (zgy2.west) -- (sum);
                 \end{tikzpicture}
-                \caption{习题 \theexercise~ (2) 的直接 I 型实现}
-                \label{fig:chap4-part2-exercise2}
+                \caption{作业 \thehomework~ (2) 的直接 I 型实现}
+                \label{fig:chap4-part2-homework2}
             \end{figure}
         \item 考虑 $H(z) = (2 + z^{-3})W(z)$，则
             \begin{align*}
@@ -1102,7 +1102,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     \end{enumerate}
 \end{solution}
 
-\begin{exercise}
+\begin{homework}
     已知离散系统的差分方程为
     \begin{align*}
         y(n) = x(n) + 4x(n - 1) + 0.7y(n - 1) - 0.1y(n - 2),
@@ -1115,7 +1115,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
         \item 说明系统的高低通特性。
         \item 说明系统的稳定性。
     \end{enumerate}
-\end{exercise}
+\end{homework}
 
 \begin{solution}
     \begin{enumerate}[label=(\arabic*)]
@@ -1146,7 +1146,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
                 \abs{H(\omega)} & = \frac{\abs{1 + 4\mathe^{\mathi\omega}}}{\abs{1 - 0.7\mathe^{\mathi\omega} + 0.1\mathe^{2\mathi\omega}}} \\
                 & = \frac{\sqrt{17 + 8\cos\omega}}{\sqrt{1.5 + 0.2\cos2\omega - 1.54\cos\omega}}.
             \end{align*}
-            注意到 $H(0) = 25/2, H(\pi) = 5/3$，故其系统幅频响应图如图 \ref{fig:chap4-part2-exercise3} 所示。
+            注意到 $H(0) = 25/2, H(\pi) = 5/3$，故其系统幅频响应图如图 \ref{fig:chap4-part2-homework3} 所示。
             \begin{figure}[H]
                 \centering
                 \begin{tikzpicture}
@@ -1174,8 +1174,8 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
                     \node at (axis cs:0, 1.667) [anchor=east] {$5/3$};
                     \end{axis}
                 \end{tikzpicture}
-                \caption{习题 \theexercise~ 的系统幅频响应图}
-                \label{fig:chap4-part2-exercise3}
+                \caption{作业 \thehomework~ 的系统幅频响应图}
+                \label{fig:chap4-part2-homework3}
             \end{figure}
             由图可知，该系统是低通滤波器。
         \item 只有 ROC 为 $\abs{z} > 0.5$ 时，包含单位圆，该系统是稳定的；其余情况下系统是不稳定的。
