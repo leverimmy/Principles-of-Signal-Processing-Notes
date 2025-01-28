@@ -17,7 +17,7 @@
 
 \begin{example}
     如图 \ref{fig:counterexample-sampling} 所示，
-    三个信号在 $t = -3T, -2T, -T, 0, T, 2T, 3T$ 处取样相等，
+    三个信号在 $t = -3T, -2T, -T, 0, T, 2T, 3T$ 处采样相等，
     但 $x_1(t) \neq x_2(t) \neq x_3(t)$。
     \begin{figure}[H]
         \centering
@@ -152,7 +152,7 @@
     \end{figure}
 \end{example}
 
-\begin{exercise}
+\begin{homework}
     现有信号 $f(t) = \mathe^{-t^2/20}$。为分析某时刻下的``局部频谱''，
     可选合适的窗函数 $w(t, t_0)$，并截取 $f(t)$ 在 $t_0$ 附近的信号，
     即 $f_w(t, t_0) = f(t)\cdot w(t, t_0)$。
@@ -164,7 +164,7 @@
             ``局部频谱''图，并进行对比。
     \end{enumerate}
     （提示：若 $x, c \in \set{R}$，则 $\int_{-\infty}^{+\infty}\mathe^{-(x + \mathi c)^2}\D{x} = \sqrt{\pi}$。）
-\end{exercise}
+\end{homework}
 
 \begin{solution}
     \begin{enumerate}[label=(\arabic*)]
@@ -553,7 +553,7 @@
     即信号的频谱宽度有限，则称之为\bd{带限内插}。
 
     如何恢复原始的时间连续信号?
-    用滤波器函数对信号采样值进行内插来重建模拟信号，相当于滤波器的冲击响应与信号值为权重的脉冲串的卷积。
+    用滤波器函数对信号采样值进行内插来重建模拟信号，相当于滤波器的冲激响应与信号值为权重的脉冲串的卷积。
     \begin{itemize}
         \item (理想带限内插)
             \bd{理想带限内插}是通过\bd{理想低通滤波器}来实现的，它使用理想低通滤波器的单位冲激响应作为内插函数。
@@ -729,12 +729,11 @@
     \end{enumerate}
 \end{definition}
 
-
-\begin{exercise}
+\begin{homework}
     试证明：当对信号 $x(t) = \cos(\omega_0 t + \varphi)$ 欠采样时，
     恢复的信号不仅频率降低，而且相位相反。其中，$\omega_0 < \omega_s < 2\omega_0$，
     且理想低通滤波器的截止频率 $\omega_c \in (\omega_s - \omega_0, \omega_0)$。
-\end{exercise}
+\end{homework}
 
 \begin{proof}
     展开 $x(t)$ 可得
