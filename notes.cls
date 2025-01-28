@@ -26,15 +26,15 @@
 }
 
 % 定义定理风格
-\newtheoremstyle{mystyle}% 名称
-  {3pt}% 上间距
-  {3pt}% 下间距
-  {}% 正文字体
-  {}% 缩进
-  {\bfseries}% 标题字体
-  {.}% 标题后的标点
-  {.5em}% 标题后的空格
-  {}% 头部填充
+\newtheoremstyle{mystyle} % 名称
+  {3pt}                   % 上间距
+  {3pt}                   % 下间距
+  {}                      % 正文字体
+  {}                      % 缩进
+  {\bfseries}             % 标题字体
+  {}                      % 标题后的标点
+  {.5em}                  % 标题后的空格
+  {}                      % 头部填充
 
 % 应用定理风格
 \theoremstyle{mystyle}
@@ -70,25 +70,25 @@
   {\end{proof}\end{mdframed}}
 
 % 定义新命令
-\newcommand\nl[1]{\textup{#1}}
-\newcommand\bd[1]{\textbf{\textup{#1}}}
-\newcommand\ia[1]{\textit{#1}}
-\newcommand\set[1]{\mathbb{#1}}
-\newcommand\abs[1]{\left|#1\right|}
-\newcommand\mathe{\mathrm{e}}
-\newcommand\mathi{\mathrm{i}}
-\newcommand\D[1]{\mathrm{d}#1}
-\newcommand\sa{\mathrm{Sa}}
-\newcommand\sgn[1]{\mathrm{sgn}(#1)}
-\newcommand\ip[2]{\left\langle#1, #2\right\rangle}
-\newcommand\re[1]{\mathrm{Re}#1}
-\newcommand\im[1]{\mathrm{Im}#1}
-\newcommand\DTFT[1]{\mathrm{DTFT}\left[#1\right]}
-\newcommand\IDTFT[1]{\mathrm{IDTFT}\left[#1\right]}
-\newcommand\DFT[1]{\mathrm{DFT}\left[#1\right]}
-\newcommand\IDFT[1]{\mathrm{IDFT}\left[#1\right]}
-\newcommand\rev[1]{\widetilde{#1}}
-\newcommand\vct[1]{\bm{#1}}
+\newcommand\nl[1]{\textup{#1}}                          % 正体
+\newcommand\bd[1]{\textbf{\textup{#1}}}                 % 粗体 
+\newcommand\ia[1]{\textit{#1}}                          % 斜体
+\newcommand\set[1]{\mathbb{#1}}                         % 集合
+\newcommand\abs[1]{\left|#1\right|}                     % 绝对值
+\newcommand\mathe{\mathrm{e}}                           % 自然对数的底数 e
+\newcommand\mathi{\mathrm{i}}                           % 虚数单位 i
+\newcommand\D[1]{\mathrm{d}#1}                          % 微分算子 d
+\newcommand\sa{\mathrm{Sa}}                             % Sa 函数
+\newcommand\sgn[1]{\mathrm{sgn}(#1)}                    % 符号函数
+\newcommand\ip[2]{\left\langle#1, #2\right\rangle}      % 内积
+\newcommand\re[1]{\mathrm{Re}#1}                        % 实部
+\newcommand\im[1]{\mathrm{Im}#1}                        % 虚部
+\newcommand\DTFT[1]{\mathrm{DTFT}\left[#1\right]}       % DTFT 变换
+\newcommand\IDTFT[1]{\mathrm{IDTFT}\left[#1\right]}     % IDTFT 变换
+\newcommand\DFT[1]{\mathrm{DFT}\left[#1\right]}         % DFT 变换
+\newcommand\IDFT[1]{\mathrm{IDFT}\left[#1\right]}       % IDFT 变换
+\newcommand\rev[1]{\widetilde{#1}}                      % 序列回绕
+\newcommand\vct[1]{\bm{#1}}                             % 向量
 
 % 设置列表环境的行间距
 \setlist[enumerate,1]{itemsep=1pt,parsep=0pt,topsep=0pt}
