@@ -89,13 +89,13 @@
     \end{enumerate}
 \end{remark}
 
-\begin{exercise}
+\begin{homework}
     已知 $f(t)$ 的频谱函数为 $F(\omega)$，试证明：
     \begin{align*}
         T \sum_{n = -\infty}^{+\infty}f(nT_s) = \sum_{k = -\infty}^{+\infty}F(k\omega_s),
     \end{align*}
     其中 $\omega_s = 2\pi / T_s$。
-\end{exercise}
+\end{homework}
 
 \begin{proof}
     由于
@@ -152,6 +152,7 @@
 \end{property}
 
 \begin{property}[DTFT 的时域扩展性质]
+    \label{property:DTFT_time_expand}
     设 $x(n)$ 的 DTFT 为 $X(\omega)$，则有
     \begin{align*}
         x_{(a)}(n) = \begin{cases}
@@ -165,8 +166,8 @@
     \end{align*}
 \end{property}
 
-\begin{exercise}
-    证明：若 $X(\omega)$ 是 $x(n)$ 的 DTFT，则
+\begin{homework}
+    证明性质 \ref{property:DTFT_time_expand}。即，若 $X(\omega)$ 是 $x(n)$ 的 DTFT，则
     \begin{align*}
         y(n) = \begin{cases}
             x(n / L), & n = 0, \pm L, \pm 2L, \cdots, \\
@@ -174,7 +175,7 @@
         \end{cases}
     \end{align*}
     的 DTFT $Y(\omega)$ 满足 $Y(\omega) = X(L \omega)$。
-\end{exercise}
+\end{homework}
 
 \begin{proof}
     由题知，对于 $k \in \set{Z}$，都有 $y(kL) = x(k)$。因此，
@@ -201,19 +202,21 @@
     \end{align*}
 \end{property}
 
-\begin{exercise}
+\begin{homework}
     已知 $x(n)$ 的 DTFT 为 $X(\omega)$，试求下列各序列的 DTFT：
     \begin{enumerate}[label=(\arabic*)]
         \item $x(n) * x^*(-n)$
+        \item $x(2n + 1)$
         \item $x(n) - x(n + 2)$
         \item $x(n) * x(n + 1)$
     \end{enumerate}
-\end{exercise}
+\end{homework}
 
 \begin{solution}
     \begin{enumerate}[label=(\arabic*)]
         \item $\DTFT{x(n) * x^*(-n)} = \DTFT{x(n)} \cdot \DTFT{x^*(-n)}
             = X(\omega) \cdot X^*(\omega)$
+        \item 见习题 \ref{exercise:x_2n_1}。
         \item $\DTFT{x(n) - x(n + 2)} = \DTFT{x(n)} - \DTFT{x(n + 2)}
             = X(\omega) - \mathe^{2\mathi\omega}X(\omega)
             = (1 - \mathe^{2\mathi\omega})X(\omega)$
@@ -259,6 +262,21 @@
     在一个圆上进行逆时针旋转，然后求和。
 \end{remark}
 
+\begin{homework}
+    已知序列 $x(n)$ 和 $y(n)$ 的 DTFT 分别为 $X(\omega)$ 和 $Y(\omega)$。
+    对周期函数 $X(\omega)$ 和 $Y(\omega)$，定义相关系数
+    \begin{align*}
+        R_{XY}(\omega) = \int_{-\pi}^{\pi}X(\omega' + \omega)Y^*(\omega')\D{\omega'}
+            = \int_{-\pi}^{\pi}X(\omega')Y^*(\omega' - \omega)\D{\omega'}.
+    \end{align*}
+    记 $R_{XY}(\omega)$ 的 IDTFT 为 $r_{xy}(n)$，
+    试用 $x(n)$ 和 $y(n)$ 表示 $r_{xy}(n)$。
+\end{homework}
+
+\begin{solution}
+    见 \ref{exercise:DTFT_periodic_correlation}。
+\end{solution}
+
 \begin{property}[DTFT 的帕斯瓦尔定理]
     设 $x(n)$ 的 DTFT 为 $X(\omega)$，则有
     \begin{align*}
@@ -283,6 +301,7 @@
         0, & n \ge L \text{ 或 } n < 0.
     \end{cases}
 \end{align*}
+
 接下来，我们将讨论经过窗函数处理后的信号的
 离散时间傅里叶变换 $X_L(\omega)$。
 

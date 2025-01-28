@@ -26,13 +26,13 @@
     其中 $k = 0, 1, \cdots, N - 1$。
 \end{definition}
 
-\begin{exercise}
+\begin{homework}
     利用 DFT 的公式计算
     \begin{align*}
         x(n) = \sin\left(\frac{2\pi}{N}mn\right)
     \end{align*}
     的 $N$ 点 DFT，其中 $0 \le n \le N - 1, 0 < m < N$ 且 $m \in \set{Z}$。
-\end{exercise}
+\end{homework}
 
 \begin{solution}
     由于 $\sin\theta = (\mathe^{\mathi\theta} - \mathe^{-\mathi\theta})/(2\mathi)$，因此
@@ -244,6 +244,7 @@
 \end{property}
 
 \begin{property}[DFT 的共轭对称性]
+    \label{property:dft_conjugate_symmetry}
     设 $x(n)$ 为实序列，则
     \begin{align*}
         X^*(N - k) = X(k), \quad k = 1, \cdots, N - 1.
@@ -260,6 +261,10 @@
     \end{align*}
     解得 $1 \le k \le N - 1$。
 \end{note}
+
+\begin{homework}
+    证明性质 \ref{property:dft_conjugate_symmetry}。
+\end{homework}
 
 \begin{proof}
     由于 $W_N = \mathe^{-2\pi\mathi/N}$，因此
@@ -511,7 +516,7 @@
     \end{tabular}
 \end{figure}
 
-\begin{exercise}
+\begin{homework}
     已知序列 $x(n)$ 的长度为 $N$，$x(n) = x_r(n) + \mathi x_i(n)$，
     其中 $x_r(n)$ 和 $x_i(n)$ 分别是 $x(n)$ 的实部和虚部。
     设 $x(n)$ 的 $N$ 点 DFT 为 $X(k)$，令 $X(k) = X_{ep}(k) + X_{op}(k)$，
@@ -524,7 +529,7 @@
         \item 试用序列 $X(k)$ 分别表示序列 $X_{ep}(k)$ 和 $X_{op}(k)$。
         \item 证明：$\DFT{x_r(n)} = X_{ep}(k), \DFT{\mathi x_i(n)} = X_{op}(k)$，其中 DFT 点数均为 $N$。
     \end{enumerate}
-\end{exercise}
+\end{homework}
 
 \begin{solution}
     \begin{enumerate}[label=(\arabic*)]
@@ -583,7 +588,7 @@
     \end{enumerate}
 \end{solution}
 
-\begin{exercise}
+\begin{homework}
     设有限长序列 $x(n)$ 的取值范围为 $0, 1, \cdots, N-1$，长度 $N$ 为偶数。
     若该序列的 $N$ 点 DFT 为 $X(k)$，试用 $X(k)$ 表示下列各序列的 DFT。
     \begin{enumerate}[label=(\arabic*)]
@@ -606,7 +611,7 @@
                 \end{cases}
             \end{align*}
     \end{enumerate}
-\end{exercise}
+\end{homework}
 
 \begin{solution}
     \begin{enumerate}[label=(\arabic*)]
