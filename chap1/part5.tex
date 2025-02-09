@@ -124,23 +124,6 @@
     \end{figure}
 \end{definition}
 
-\begin{homework}
-    证明：一个函数与单位阶跃函数的卷积等于该函数的积分，即
-    \begin{align*}
-        f(t) * u(t) = \int_{-\infty}^{t}f(\tau)\D{\tau}.
-    \end{align*}
-\end{homework}
-
-\begin{proof}
-    \begin{align*}
-        f(t) * u(t) & = \int_{-\infty}^{+\infty}f(\tau)u(t - \tau)\D{\tau} \\
-        & = \int_{-\infty}^{t}f(\tau)u(t - \tau)\D{\tau} + \int_{t}^{+\infty}f(\tau)u(t - \tau)\D{\tau} \\
-        & = \int_{-\infty}^{t}f(\tau)\D{\tau} + 0 \\
-        & = \int_{-\infty}^{t}f(\tau)\D{\tau}.
-    \end{align*}
-    命题得证。
-\end{proof}
-
 \begin{property}[单位阶跃信号与单位斜变信号的关系]
     单位斜变信号是单位阶跃信号的积分，即
     \begin{align*}

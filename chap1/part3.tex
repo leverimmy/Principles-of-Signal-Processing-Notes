@@ -246,34 +246,6 @@
     是\bd{指数函数集}。
 \end{definition}
 
-\begin{homework}
-    证明：设 $\omega_0 > 0$，则
-    \begin{align*}
-        \{\mathe^{\mathi n\omega_0t} \mid n \in \set{Z}\}
-    \end{align*}
-    是在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上的正交函数集。
-\end{homework}
-
-\begin{proof}
-    任取 $m, n \in \set{Z}$。若 $m \neq n$，则 $\mathe^{\mathi m\omega_0t}$ 和 $\mathe^{\mathi n\omega_0t}$
-    在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上正交，这是因为
-    \begin{align*}
-        \int_{-\frac{\pi}{\omega_0}}^{\frac{\pi}{\omega_0}}\mathe^{\mathi m\omega_0t}\mathe^{-\mathi n\omega_0t}\D{t}
-        = \int_{-\frac{\pi}{\omega_0}}^{\frac{\pi}{\omega_0}}\mathe^{\mathi (m - n)\omega_0t}\D{t}
-        = \frac{\mathe^{\mathi (m - n)\omega_0t}}{\mathi (m - n)\omega_0}\Big|_{-\frac{\pi}{\omega_0}}^{\frac{\pi}{\omega_0}}
-        = 0.
-    \end{align*}
-    若 $m = n$，则 $\mathe^{\mathi m\omega_0t}$ 和 $\mathe^{\mathi n\omega_0t}$
-    在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上不正交，这是因为
-    \begin{align*}
-        \int_{-\frac{\pi}{\omega_0}}^{\frac{\pi}{\omega_0}}\mathe^{\mathi m\omega_0t}\mathe^{-\mathi m\omega_0t}\D{t}
-        = \int_{-\frac{\pi}{\omega_0}}^{\frac{\pi}{\omega_0}}1\D{t}
-        = \frac{2\pi}{\omega_0} \neq 0.
-    \end{align*}
-    因此 $\{\mathe^{\mathi n\omega_0t} \mid n \in \set{Z}\}$ 是
-    在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上的正交函数集。
-\end{proof}
-
 \begin{definition}[完备的正交函数集]
     如果在区间 $[t_1, t_2]$ 上，除了正交函数集 $\{\varphi_i(t)\}$ 之外，不存在函数 $x(t)$，
     满足 $0 < \int_{t_1}^{t_2}x(t)x^*(t)\D{t} < +\infty$，使得

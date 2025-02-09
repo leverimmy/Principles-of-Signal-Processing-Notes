@@ -1,0 +1,31 @@
+\subsection{作业 1}
+
+\begin{homework}
+    证明：设 $\omega_0 > 0$，则
+    \begin{align*}
+        \{\mathe^{\mathi n\omega_0t} \mid n \in \set{Z}\}
+    \end{align*}
+    是在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上的正交函数集。
+
+    （选做：进一步说明该函数集在区间 $[-\pi/\omega_0, \pi/\omega_0]$ 上是否是完备正交函数集。）
+\end{homework}
+
+\begin{proof}
+    任取 $m, n \in \set{Z}$。若 $m \neq n$，则 $\mathe^{\mathi m\omega_0t}$ 和 $\mathe^{\mathi n\omega_0t}$
+    在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上正交，这是因为
+    \begin{align*}
+        \int_{-\frac{\pi}{\omega_0}}^{\frac{\pi}{\omega_0}}\mathe^{\mathi m\omega_0t}\mathe^{-\mathi n\omega_0t}\D{t}
+        = \int_{-\frac{\pi}{\omega_0}}^{\frac{\pi}{\omega_0}}\mathe^{\mathi (m - n)\omega_0t}\D{t}
+        = \frac{\mathe^{\mathi (m - n)\omega_0t}}{\mathi (m - n)\omega_0}\Big|_{-\frac{\pi}{\omega_0}}^{\frac{\pi}{\omega_0}}
+        = 0.
+    \end{align*}
+    若 $m = n$，则 $\mathe^{\mathi m\omega_0t}$ 和 $\mathe^{\mathi n\omega_0t}$
+    在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上不正交，这是因为
+    \begin{align*}
+        \int_{-\frac{\pi}{\omega_0}}^{\frac{\pi}{\omega_0}}\mathe^{\mathi m\omega_0t}\mathe^{-\mathi m\omega_0t}\D{t}
+        = \int_{-\frac{\pi}{\omega_0}}^{\frac{\pi}{\omega_0}}1\D{t}
+        = \frac{2\pi}{\omega_0} \neq 0.
+    \end{align*}
+    因此 $\{\mathe^{\mathi n\omega_0t} \mid n \in \set{Z}\}$ 是
+    在区间 $[-\frac{\pi}{\omega_0}, \frac{\pi}{\omega_0}]$ 上的正交函数集。
+\end{proof}

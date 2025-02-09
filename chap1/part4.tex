@@ -374,27 +374,6 @@
     其中 $f_1, f_2$ 为  $\set{R}$ 上连续可导函数。
 \end{property}
 
-\begin{homework}
-    证明性质 \ref{property:convolution-differential}。
-\end{homework}
-
-\begin{proof}
-    \begin{align*}
-        \frac{\D}{\D{t}}\left[f_1(t) * f_2(t)\right]
-        & = \frac{\D}{\D{t}}\left[\int_{-\infty}^{+\infty}f_1(a) \cdot f_2(t - a)\D{a}\right] \\
-        & = \int_{-\infty}^{+\infty}f_1(a) \cdot \frac{\D}{\D{t}}\left[f_2(t - a)\right]\D{a}.
-    \end{align*}
-    记 $g(t) = \frac{\D}{\D{t}}\left[f_2(t)\right]$，则 $g(t - a) = \frac{\D}{\D{t}}\left[f_2(t - a)\right]$。因此
-    \begin{align*}
-        \int_{-\infty}^{+\infty}f_1(a) \cdot \frac{\D}{\D{t}}\left[f_2(t - a)\right]\D{a}
-        = \int_{-\infty}^{+\infty}f_1(a) \cdot g(t - a)\D{a}
-        = f_1(t) * g(t)
-        = f_1(t) * \frac{\D}{\D{t}}\left[f_2(t)\right].
-    \end{align*}
-    同理，由卷积运算的交换律可以证明 $\frac{\D}{\D{t}}\left[f_1(t) * f_2(t)\right] = \frac{\D}{\D{t}}\left[f_1(t)\right] * f_2(t)$。
-    因此，命题得证。
-\end{proof}
-
 \begin{property}[卷积的积分性质]
     \label{property:convolution-integral}
     卷积的积分满足以下性质：两个信号卷积的积分等于其中任一信号的积分与另一信号的卷积，即
@@ -405,28 +384,6 @@
     \end{align*}
     其中 $f_1, f_2$ 为  $\set{R}$ 上连续可导函数。
 \end{property}
-
-\begin{homework}
-    证明性质 \ref{property:convolution-integral}。
-\end{homework}
-
-\begin{proof}
-    \begin{align*}
-        \int_{-\infty}^{t}(f_1 * f_2)(\lambda)\D{\lambda}
-        & = \int_{-\infty}^{t}\left[\int_{-\infty}^{+\infty}f_1(a)f_2(\lambda - a)\D{a}\right]\D{\lambda} \\
-        & = \int_{-\infty}^{+\infty}f_1(a)\left[\int_{-\infty}^{t}f_2(\lambda - a)\D{\lambda}\right]\D{a}.
-    \end{align*}
-    记 $g(t) = \int_{-\infty}^{t}f_2(\lambda)\D{\lambda}$，
-    则 $g(t - a) = \int_{-\infty}^{t - a}f_2(\lambda')\D{\lambda'} = \int_{-\infty}^{t}f_2(\lambda - a)\D{\lambda}, \lambda = \lambda' + a$。因此
-    \begin{align*}
-        \int_{-\infty}^{+\infty}f_1(a)\left[\int_{-\infty}^{t}f_2(\lambda - a)\D{\lambda}\right]\D{a}
-        = \int_{-\infty}^{+\infty}f_1(a)g(t - a)\D{a}
-        = f_1(t) * g(t)
-        = f_1(t) * \left(\int_{-\infty}^{t}f_2(\lambda)\D{\lambda}\right).
-    \end{align*}
-    同理，由卷积运算的交换律可以证明 $\int_{-\infty}^{t}(f_1 * f_2)(\lambda)\D{\lambda} = \left(\int_{-\infty}^{t}f_1(\lambda)\D{\lambda}\right) * f_2(t)$。
-    因此，命题得证。
-\end{proof}
 
 \begin{corollary}
     设 $f_1, f_2$ 为 $\set{R}$ 上的 $n$ 次可微函数，则

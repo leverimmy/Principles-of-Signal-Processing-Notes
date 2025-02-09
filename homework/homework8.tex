@@ -1,0 +1,118 @@
+\subsection{作业 8}
+
+\begin{homework}
+    利用 DFT 的公式计算
+    \begin{align*}
+        x(n) = \sin\left(\frac{2\pi}{N}mn\right)
+    \end{align*}
+    的 $N$ 点 DFT，其中 $0 \le n \le N - 1, 0 < m < N$ 且 $m \in \set{Z}$。
+\end{homework}
+
+\begin{solution}
+    由于 $\sin\theta = (\mathe^{\mathi\theta} - \mathe^{-\mathi\theta})/(2\mathi)$，因此
+    \begin{align*}
+        x(n) & = \sin\left(\frac{2\pi}{N}mn\right) \\
+        & = \frac{\mathe^{2\pi\mathi mn/N} - \mathe^{-2\pi\mathi mn/N}}{2\mathi} \\
+        & = \frac{\mathi}{2} \left(W_N^{mn} - W_N^{-mn}\right).
+    \end{align*}
+    由 DFT 的定义可知
+    \begin{align*}
+        X(k) & = \sum_{n = 0}^{N - 1} x(n)W_N^{kn} \\
+        & = \sum_{n = 0}^{N - 1} \sin\left(\frac{2\pi}{N}mn\right)W_N^{kn} \\
+        & = \frac{\mathi}{2}\sum_{n = 0}^{N - 1}\left(W_N^{mn} - W_N^{-mn}\right)W_N^{kn} \\
+        & = \frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k + m)n} - \frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k - m)n}.
+    \end{align*}
+    当 $k + m = N$ 时，$\frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k + m)n} = \mathi N / 2$。
+    当 $k + m \neq N$ 时，$\frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k + m)n}$ 为等比数列求和，故
+    \begin{align*}
+        \frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k + m)n} & = \frac{\mathi}{2}\frac{1 - \left(W_N^{k + mN}\right)^N}{1 - W_N^{k + m}} \\
+        & = 0.
+    \end{align*}
+    当 $k = m$ 时，$\frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k - m)n} = \mathi N / 2$。
+    当 $k \ne m$ 时，$\frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k - m)n}$ 为等比数列求和，故
+    \begin{align*}
+        \frac{\mathi}{2}\sum_{n = 0}^{N - 1}W_N^{(k - m)n} & = \frac{\mathi}{2} \cdot \frac{1 - \left(W_N^{k - m}\right)^N}{1 - W_N^{k - m}} \\
+        & = 0.
+    \end{align*}
+    综上所述，
+    \begin{align*}
+        X(k) = \frac{\mathi N}{2}(\delta(k + m - N) - \delta(k - m)).
+    \end{align*}
+\end{solution}
+
+\begin{homework}
+    证明性质 \ref{property:dft_conjugate_symmetry}。
+\end{homework}
+
+\begin{proof}
+    由于 $W_N = \mathe^{-2\pi\mathi/N}$，因此
+    \begin{align*}
+        \left(W_N^{(N - k)n}\right)^* & = \left(\mathe^{-2\pi\mathi n(N-k)/N}\right)^* \\
+        & = \mathe^{-2\pi\mathi n(k-N)/N} \\
+        & = \mathe^{-2\pi\mathi kn/N} \cdot \mathe^{2\pi\mathi n} \\
+        & = \left(\mathe^{-2\pi\mathi/N}\right)^{kn} \\
+        & = W_N^{kn}.
+    \end{align*}
+    由于 $x(n)$ 为实序列，故 $x(n) = x^*(n)$，所以由 DFT 的定义可知
+    \begin{align*}
+        X^*(N - k) & = \left(\sum_{n = 0}^{N - 1} x(n)W_N^{(N - k)n}\right)^* \\
+        & = \sum_{n = 0}^{N - 1} x^*(n)\left(W_N^{(N - k)n}\right)^* \\
+        & = \sum_{n = 0}^{N - 1} x(n)W_N^{kn} \\
+        & = X(k).
+    \end{align*}
+    命题得证。
+\end{proof}
+
+\begin{homework}
+    本课介绍了 DFT 的快速算法 FFT。相应地，可将 $N$ 点 IDFT 运算递归地分解
+    为 $N/2$ 点，$N/4$ 点，……，$2$ 点 IDFT 运算，从而实现 IDFT 的快速运算。
+
+    设序列 $X(k)$ 的长度为 $N$，$N$ 为
+    偶数，$X(k)$ 的 $N$ 点 IDFT 为 $x(n)$。$G(k)$ 是 $X(k)$ 中
+    下标为偶数的元素组成的子序列，$H(k)$ 是 $X(k)$ 中下标为奇数的元素
+    组成的子序列，它们的长度是 $N/2$，对应的 $N/2$ 点 IDFT 分别
+    是 $g(n)$ 和 $h(n)$。试用 $g(n)$ 和 $h(n)$ 表示 $x(n)$。
+\end{homework}
+
+\begin{solution}
+    IDFT 的定义为
+    \begin{align*}
+        x(n) = \frac{1}{N}\sum_{k = 0}^{N - 1}X(k)W_N^{-kn},
+    \end{align*}
+    可以将其分为两组，
+    \begin{align*}
+        x(n) & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k)W_N^{-2kn}
+            + \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k + 1)W_N^{-(2k + 1)n} \\
+        & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}G(k)W_{N/2}^{-kn}
+            + \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/2 - 1}H(k)W_{N/2}^{-kn}.
+    \end{align*}
+    由于 $G(k) = X(2k), H(k) = X(2k + 1)$，其中 $k = 0, 1, \cdots, N / 2 - 1$，故
+    \begin{align*}
+        \begin{cases}
+            \sum_{k = 0}^{N/2 - 1}X(2k)W_{N/2}^{-kn}
+                = \sum_{k = 0}^{N/2 - 1}G(r)W_{N/2}^{-kn} = \frac{N}{2}g(n), \\
+            \sum_{k = 0}^{N/2 - 1}X(2k + 1)W_{N/2}^{-kn}
+                = \sum_{k = 0}^{N/2 - 1}H(r)W_{N/2}^{-kn} = \frac{N}{2}h(n),
+        \end{cases}
+    \end{align*}
+    其中 $n = 0, 1, \cdots, N/2 - 1$。因此
+    \begin{align*}
+        x(n) = \frac{1}{2}\left(g(n) + W_N^{-n}h(n)\right), \quad n = 0, 1, \cdots, N / 2 - 1.
+    \end{align*}
+    再考虑后半部分，
+    \begin{align*}
+        x\left(\frac{N}{2} + n\right) & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k)W_{N/2}^{-k\left(\frac{N}{2} + n\right)}
+            + \frac{W_N^{-\left(\frac{N}{2} + n\right)}}{N}\sum_{k = 0}^{N/2 - 1}X(2k + 1)W_{N/2}^{-k\left(\frac{N}{2} + n\right)} \\
+        & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}X(2k)W_{N/2}^{-kn}
+            - \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/2 - 1}X(2k + 1)W_{N/2}^{-kn} \\
+        & = \frac{1}{N}\sum_{k = 0}^{N/2 - 1}G(k)W_{N/2}^{-kn}
+            - \frac{W_N^{-n}}{N}\sum_{k = 0}^{N/2 - 1}H(k)W_{N/2}^{-kn} \\
+        & = \frac{1}{2}\left(g(n) - W_N^{-n}h(n)\right), \quad n = 0, 1, \cdots, N / 2 - 1.
+    \end{align*}
+    综上所述，
+    \begin{align*}
+        x(n) = \frac{1}{2}\left(g(n) + W_N^{-n}h(n)\right),
+            \quad x\left(\frac{N}{2} + n\right) = \frac{1}{2}\left(g(n) - W_N^{-n}h(n)\right),
+    \end{align*}
+    其中 $n = 0, 1, \cdots, N / 2 - 1$。
+\end{solution}

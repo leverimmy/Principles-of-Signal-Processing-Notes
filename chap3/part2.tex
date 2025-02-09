@@ -89,36 +89,6 @@
     \end{enumerate}
 \end{remark}
 
-\begin{homework}
-    已知 $f(t)$ 的频谱函数为 $F(\omega)$，试证明：
-    \begin{align*}
-        T \sum_{n = -\infty}^{+\infty}f(nT_s) = \sum_{k = -\infty}^{+\infty}F(k\omega_s),
-    \end{align*}
-    其中 $\omega_s = 2\pi / T_s$。
-\end{homework}
-
-\begin{proof}
-    由于
-    \begin{align*}
-        \hat{F}(\omega) = \frac{1}{T_s}\sum_{m = -\infty}^{+\infty}F(\omega - m\omega_s),
-    \end{align*}
-    且
-    \begin{align*}
-        \hat{F}(\omega) = \sum_{n = -\infty}^{+\infty}f(nT_s)\mathe^{-\mathi\omega nT_s},
-    \end{align*}
-    故当 $\omega = 0$ 时，有
-    \begin{align*}
-        \frac{1}{T_s}\sum_{m = -\infty}^{+\infty}F(-m\omega_s) & = \hat{F}(0) \\
-        & = \sum_{n = -\infty}^{+\infty}f(nT_s) \cdot \mathe^{0} \\
-        & = \sum_{n = -\infty}^{+\infty}f(nT_s).
-    \end{align*}
-    此即
-    \begin{align*}
-        T_s \cdot \sum_{n = -\infty}^{+\infty}f(nT_s) = \sum_{m = -\infty}^{+\infty}F(-m\omega_s).
-    \end{align*}
-    命题得证。
-\end{proof}
-
 \subsubsection{离散时间傅里叶变换的性质}
 
 \begin{property}[DTFT 的周期性]
@@ -166,28 +136,6 @@
     \end{align*}
 \end{property}
 
-\begin{homework}
-    证明性质 \ref{property:DTFT_time_expand}。即，若 $X(\omega)$ 是 $x(n)$ 的 DTFT，则
-    \begin{align*}
-        y(n) = \begin{cases}
-            x(n / L), & n = 0, \pm L, \pm 2L, \cdots, \\
-            0, & \text{otherwise},
-        \end{cases}
-    \end{align*}
-    的 DTFT $Y(\omega)$ 满足 $Y(\omega) = X(L \omega)$。
-\end{homework}
-
-\begin{proof}
-    由题知，对于 $k \in \set{Z}$，都有 $y(kL) = x(k)$。因此，
-    \begin{align*}
-        Y(\omega) & = \sum_{n = -\infty}^{+\infty}y(n)\mathe^{-\mathi\omega n} \\
-        & = \sum_{k = -\infty}^{+\infty}y(k L)\mathe^{-\mathi\omega kL} \\
-        & = \sum_{k = -\infty}^{+\infty}x(k)\mathe^{-\mathi\omega kL} \\
-        & = X(L\omega).
-    \end{align*}
-    命题得证。
-\end{proof}
-
 \begin{property}[DTFT 的频域微分性质]
     设 $x(n)$ 的 DTFT 为 $X(\omega)$，则有
     \begin{align*}
@@ -201,30 +149,6 @@
         \DTFT{x_1(n) * x_2(n)} = X_1(\omega)X_2(\omega).
     \end{align*}
 \end{property}
-
-\begin{homework}
-    已知 $x(n)$ 的 DTFT 为 $X(\omega)$，试求下列各序列的 DTFT：
-    \begin{enumerate}[label=(\arabic*)]
-        \item $x(n) * x^*(-n)$
-        \item $x(2n + 1)$
-        \item $x(n) - x(n + 2)$
-        \item $x(n) * x(n + 1)$
-    \end{enumerate}
-\end{homework}
-
-\begin{solution}
-    \begin{enumerate}[label=(\arabic*)]
-        \item $\DTFT{x(n) * x^*(-n)} = \DTFT{x(n)} \cdot \DTFT{x^*(-n)}
-            = X(\omega) \cdot X^*(\omega)$
-        \item 见习题 \ref{exercise:x_2n_1}。
-        \item $\DTFT{x(n) - x(n + 2)} = \DTFT{x(n)} - \DTFT{x(n + 2)}
-            = X(\omega) - \mathe^{2\mathi\omega}X(\omega)
-            = (1 - \mathe^{2\mathi\omega})X(\omega)$
-        \item $\DTFT{x(n) * x(n + 1)} = \DTFT{x(n)} \cdot \DTFT{x(n + 1)}
-            = X(\omega) \cdot \mathe^{\mathi\omega}X(\omega)
-            = \mathe^{\mathi\omega}(X(\omega))^2$
-    \end{enumerate}
-\end{solution}
 
 \begin{property}[DTFT 的频域卷积定理]
     设 $x_1(n)$ 和 $x_2(n)$ 的 DTFT 分别为 $X_1(\omega)$ 和 $X_2(\omega)$，则有
@@ -261,21 +185,6 @@
     $[0, N-1]$ 也是一个周期。由于信号是周期的，所以可以想象 $y(n)$ 至 $y(n - m)$ 是
     在一个圆上进行逆时针旋转，然后求和。
 \end{remark}
-
-\begin{homework}
-    已知序列 $x(n)$ 和 $y(n)$ 的 DTFT 分别为 $X(\omega)$ 和 $Y(\omega)$。
-    对周期函数 $X(\omega)$ 和 $Y(\omega)$，定义相关系数
-    \begin{align*}
-        R_{XY}(\omega) = \int_{-\pi}^{\pi}X(\omega' + \omega)Y^*(\omega')\D{\omega'}
-            = \int_{-\pi}^{\pi}X(\omega')Y^*(\omega' - \omega)\D{\omega'}.
-    \end{align*}
-    记 $R_{XY}(\omega)$ 的 IDTFT 为 $r_{xy}(n)$，
-    试用 $x(n)$ 和 $y(n)$ 表示 $r_{xy}(n)$。
-\end{homework}
-
-\begin{solution}
-    见 \ref{exercise:DTFT_periodic_correlation}。
-\end{solution}
 
 \begin{property}[DTFT 的帕斯瓦尔定理]
     设 $x(n)$ 的 DTFT 为 $X(\omega)$，则有
