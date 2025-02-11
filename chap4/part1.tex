@@ -237,6 +237,7 @@
 \end{example}
 
 \begin{theorem}[频率响应与差分方程]
+    \label{thm:freq-response-diff-equation}
     设有差分方程
     \begin{align*}
         \sum_{k = 0}^{N}b(k)y(n - k) = \sum_{k = 0}^{M}a(k)x(n - k),
@@ -262,6 +263,19 @@
     \end{align*}
     命题得证。
 \end{proof}
+
+\begin{remark}
+    对于定理 \ref{thm:freq-response-diff-equation}，我们可以进一步讨论。
+    对于差分方程
+    \begin{align*}
+        \sum_{k = 0}^{N}b(k)y(n - k) = \sum_{k = 0}^{M}a(k)x(n - k),
+    \end{align*}
+    \begin{itemize}
+        \item 输出信号可以由输入信号的当前（及过去）与输出信号的过去的线性组合表示。
+        \item 输出信号与其延迟信号的叠加，等于输入信号与其延迟信号的叠加。
+    \end{itemize}
+    它们的 DTFT 相等，说明\bd{原信号在时域叠加，结果信号的频谱也是原信号频谱的叠加}。
+\end{remark}
 
 \begin{exercise}
     已知某因果系统的流图如 \ref{fig:chap4-part1-quiz2} 所示，且满足 $0 < a < 1$.
