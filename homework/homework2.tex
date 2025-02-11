@@ -2,6 +2,13 @@
 
 \begin{homework}
     证明性质 \ref{property:convolution-differential}。
+    卷积的微分满足以下性质：两个信号卷积的微分等于其中任一信号的微分与另一信号的卷积，即
+    \begin{align*}
+        \frac{\D}{\D{t}}\left[f_1(t) * f_2(t)\right]
+        = f_1(t) * \frac{\D}{\D{t}}\left[f_2(t)\right]
+        = \frac{\D}{\D{t}}\left[f_1(t)\right] * f_2(t),
+    \end{align*}
+    其中 $f_1, f_2$ 为  $\set{R}$ 上连续可导函数。
 \end{homework}
 
 \begin{proof}
@@ -23,6 +30,13 @@
 
 \begin{homework}
     证明性质 \ref{property:convolution-integral}。
+    卷积的积分满足以下性质：两个信号卷积的积分等于其中任一信号的积分与另一信号的卷积，即
+    \begin{align*}
+        \int_{-\infty}^{t}(f_1 * f_2)(\lambda)\D{\lambda}
+        = f_1(t) * \left(\int_{-\infty}^{t}f_2(\lambda)\D{\lambda}\right)
+        = \left(\int_{-\infty}^{t}f_1(\lambda)\D{\lambda}\right) * f_2(t),
+    \end{align*}
+    其中 $f_1, f_2$ 为  $\set{R}$ 上连续可导函数。
 \end{homework}
 
 \begin{proof}
