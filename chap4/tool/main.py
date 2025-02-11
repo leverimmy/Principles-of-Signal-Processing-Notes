@@ -143,4 +143,4 @@ def print_flow_chart(chart_type, coeff_x, coeff_y, caption_str, label_str):
 
 
 if __name__ == '__main__':
-    print_flow_chart(chart_type=1, coeff_x=[2, 0, 1, 1.2], coeff_y=[1, -0.7, -0.6, 1.2], caption_str="信号流图（I 型实现）", label_str="fig:flow_chart_1")
+    print_flow_chart(chart_type=1, coeff_x=[1], coeff_y=[1, -1], caption_str="信号流图（I 型实现）", label_str="fig:flow_chart_1")

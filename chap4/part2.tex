@@ -553,40 +553,6 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
     \end{align*}
 \end{remark}
 
-\begin{definition}[系统的串、并联组合]
-    系统在串联和并联的情况下，其传递函数的组合规律如下：
-    \begin{itemize}
-        \item 两个系统的\bd{并联}后新系统的单位冲激响应是并联子系统的单位冲激响应之和，
-            传递函数是并联子系统的传递函数之和。如图 \ref{fig:parallel-system} 所示，
-            是一个并联系统。
-            \begin{align*}
-                h(n) = h_1(n) + h_2(n), \quad H(z) = H_1(z) + H_2(z).
-            \end{align*}
-        \item 两个系统的\bd{串联}后新系统的单位冲激响应是串联子系统的单位冲激响应的卷积，
-            传递函数是串联子系统的传递函数的乘积。如图 \ref{fig:serial-system} 所示，
-            是一个串联系统。
-            \begin{align*}
-                h(n) = h_1(n) * h_2(n), \quad H(z) = H_1(z) \cdot H_2(z).
-            \end{align*}
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \begin{subfigure}{0.45\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{chap4/img/parallel_system.png}
-            \caption{并联系统}
-            \label{fig:parallel-system}
-        \end{subfigure}
-        \begin{subfigure}{0.45\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{chap4/img/serial_system.png}
-            \caption{串联系统}
-            \label{fig:serial-system}
-        \end{subfigure}
-        \caption{系统的串、并联组合}
-    \end{figure}
-\end{definition}
-
 \begin{property}[传递函数和差分方程之间的关系]
     回忆差分方程的定义，设系统的差分方程为
     \begin{align*}
@@ -605,6 +571,7 @@ Z 变换是离散时间信号与系统的理论研究中的一种重要的数学
 
 \begin{solution}
     (使用 ZT 的串联性质)
+    回忆定义 \ref{property:parallel-serial-system}，利用串联系统的性质进行计算。
     不妨设 $x(n) = x_1(n), y(n) = y_3(n)$，
     以及 $y_1(n) = x_2(n), y_2(n) = x_3(n)$，则
     \begin{align*}
