@@ -106,6 +106,7 @@
 \end{theorem}
 
 \begin{property}[差分方程与卷积运算]
+    \label{property:diff-equation-convolution}
     写出 FIR 和 IIR 系统的差分方程如下：
     \begin{align*}
         \sum_{k = 0}^{N}b(k)y(n - k) & = \sum_{k = 0}^{M}a(k)x(n - k) & \text{(IIR)} \\
@@ -212,18 +213,55 @@
         H(\omega) = \abs{H(\omega)}\mathe^{\mathi \varphi(\omega)}.
     \end{align*}
     其中，$\abs{H(\omega)}$ 是\bd{幅频响应}，$\varphi(\omega)$ 是\bd{相频响应}。
-
-    频率响应是脉冲响应 $h(n)$ 的 DTFT，即
+    
+    接下来，我们将从 DTFT 的角度来理解频率响应函数和差分方程之间的关系。
     \begin{align*}
         H(\omega) = \sum_{n = -\infty}^{+\infty}h(n)\mathe^{\mathi n \omega}.
     \end{align*}
-    % TODO: 这里的 \omega_s 是什么意思？
     由上式可以看出，$H(\omega)$ 是周期函数，分别关于 $\omega = 0$ 和 $\omega = \omega_s/2$ 共轭对称。
 \end{definition}
 
-\begin{property}[频率响应与差分方程]
+\begin{example}[FIR 系统的频率响应]
+    设有 FIR 系统，其差分方程为
+    \begin{align*}
+        y(n) = \sum_{k = -\infty}^{+\infty}x(k)h(n - k),
+    \end{align*}
+    即 $y(n) = x(n) * h(n)$。对等式左右求 DTFT，得
+    \begin{align*}
+        Y(\omega) = X(\omega) H(\omega).
+    \end{align*}
+    因此，滤波器的\bd{频率响应}为
+    \begin{align*}
+        H(\omega) = Y(\omega) / X(\omega) = \DTFT{h(n)}.
+    \end{align*}
+\end{example}
 
-\end{property}
+\begin{theorem}[频率响应与差分方程]
+    设有差分方程
+    \begin{align*}
+        \sum_{k = 0}^{N}b(k)y(n - k) = \sum_{k = 0}^{M}a(k)x(n - k),
+    \end{align*}
+    其中 $x(n), y(n)$ 的 DTFT 分别为 $X(\omega), Y(\omega)$，则系统的频率响应为
+    \begin{align*}
+        H(\omega) = \frac{Y(\omega)}{X(\omega)} = \frac{\sum_{k = 0}^{M}a(k)\mathe^{-\mathi k \omega}}{\sum_{k = 0}^{N}b(k)\mathe^{-\mathi k \omega}}.
+    \end{align*}
+\end{theorem}
+
+\begin{proof}
+    考虑差分方程
+    \begin{align*}
+        \sum_{k = 0}^{N}b(k)y(n - k) = \sum_{k = 0}^{M}a(k)x(n - k),
+    \end{align*}
+    即 $b(n) * y(n) = a(n) * x(n)$。对等式左右求 DTFT，得
+    \begin{align*}
+        Y(\omega) \sum_{k = 0}^{N}b(k)\mathe^{-\mathi k\omega} = X(\omega)\sum_{k = 0}^{M}a(k)\mathe^{-\mathi k\omega}.
+    \end{align*}
+    此即
+    \begin{align*}
+        H(\omega) = \frac{Y(\omega)}{X(\omega)} = \frac{\sum_{k = 0}^{M}a(k)\mathe^{-\mathi k \omega}}{\sum_{k = 0}^{N}b(k)\mathe^{-\mathi k \omega}}.
+    \end{align*}
+    命题得证。
+\end{proof}
 
 \begin{exercise}
     已知某因果系统的流图如 \ref{fig:chap4-part1-quiz2} 所示，且满足 $0 < a < 1$.
@@ -241,7 +279,8 @@
         \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
         \begin{tikzpicture}
             \node [name=input] (input) {$x(n)$};
-            \path [no-arrow-line] (input) -- (sum);
+    
+    
             \node [sum, right of=input, xshift=4cm] (sum) {$+$};
             \node [circ, right of=sum, xshift=4cm] (circy) {};
             \path [no-arrow-line] (sum) -- (circy);
@@ -252,11 +291,12 @@
             \node [block, below of=circy, yshift=-1cm] (zy1) {$Z^{-1}$};
             \path [line] (circy) -- (zy1);
     
-            \node [gainy, below of=zy1, xshift=-2cm, yshift=-0.5cm] (zgy1) {$a$};
+            \path [line] (input) -- (sum);
+            \node [gainy, below of=zy1, xshift=-2cm, yshift=-0.5cm] (zgy1) {$1$};
             \path [line] (zy1) |- (zgy1);
             \path [line] (zgy1.west) -- (sum);
         \end{tikzpicture}
-        \caption{习题 \theexercise~ 信号流图}
+        \caption{习题 \theexercise~ 的信号流图}
         \label{fig:chap4-part1-quiz2}
     \end{figure}
 \end{exercise}
@@ -283,17 +323,17 @@
             \begin{axis}[
                 axis lines = middle,
                 xlabel = {$\omega$},
-                ylabel = {$\abs{H(\omega)$}},
+                ylabel = {$\abs{H(\omega)}$},
                 ylabel style={at={(rel axis cs:0.3, 1)}, anchor=south},
-                xmin = -0.2, xmax = 6.5,
+                xmin = -2, xmax = 7,
                 ymin = -0.2, ymax = 2.2,
-                xtick distance = 1,
-                grid = major,
-                grid style = dashed,
+                xtick = {0, 3.14, 6.28},
+                xticklabels = {$0$, $\pi$, $2\pi$},
+                ytick = {0, 2},
+                yticklabels = {$ $, $ $},
                 scale only axis,
-                width = 6cm,
-                height = 7cm,
-                axis equal,
+                width = 8cm,
+                height = 5cm,
             ]
             \addplot[domain=0:6.28, samples=100, smooth, line width=2pt, blue] {1 / sqrt(1.25 - cos(deg(x)))};
             \addplot[dashed, red] coordinates {(0, 0.667) (3.14, 0.667) (3.14, 0)};
@@ -301,11 +341,18 @@
             \node at (axis cs:0, 0) [anchor=north west] {O};
             \node at (axis cs:0, 0.667) [anchor=east] {$1/(1 + a)$};
             \node at (axis cs:0, 2) [anchor=east] {$1/(1 - a)$};
-            \node at (axis cs:3.14, 0) [anchor=north] {$\pi$};
-            \node at (axis cs:6.28, 0) [anchor=north] {$2\pi$};
             \end{axis}
         \end{tikzpicture}
-        \caption{习题 \theexercise~ 幅频响应函数}
+        \caption{习题 \theexercise~ 的幅频响应函数}
         \label{fig:chap4-part1-quiz2-plot}
     \end{figure}
 \end{solution}
+
+\subsubsection{由差分方程求脉冲响应函数}
+
+在性质 \ref{property:diff-equation-convolution} 中我们已经知道，
+对于 FIR 系统，$h(n) = a(n)$。那么对于 IIR 系统，
+\begin{align*}
+    \sum_{k = 0}^{N}b(k)y(n - k) = \sum_{k = 0}^{M}a(k)x(n - k).
+\end{align*}
+我们应该如何求解 $h(n)$ 呢？可以考虑使用更强大的工具——Z 变换。
