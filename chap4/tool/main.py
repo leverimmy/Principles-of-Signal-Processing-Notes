@@ -2,9 +2,9 @@ def generate_graph_1_str(coeff_x, coeff_y):
     assert coeff_y[0] == 1
     results = [
         "        \\node [name=input] (input) {$x(n)$};",
-        "        \\node [circ, right of=input, xshift=1cm] (circx) {};",
-        "        \\path [no-arrow-line] (input) -- (circx);",
-        "        \\node [sum, right of=circx, xshift=4cm] (sum) {$+$};",
+        "        \\node [circ, right of=input, xshift=1cm] (circx) {};" if len(coeff_x) != 1 else "",
+        "        \\path [no-arrow-line] (input) -- (circx);" if len(coeff_x) != 1 else "",
+        f"        \\node [sum, right of={"circx" if len(coeff_x) != 1 else "input"}, xshift=4cm] (sum) {{$+$}};",
         "        \\node [circ, right of=sum, xshift=4cm] (circy) {};",
         "        \\path [no-arrow-line] (sum) -- (circy);",
         "        \\node [name=output, right of=circy, xshift=1cm] (output) {$y(n)$};",
@@ -32,11 +32,19 @@ def generate_graph_1_str(coeff_x, coeff_y):
             # 单独处理 x(n) 前的系数
             if i == 0:
                 if v == 1:
-                    results.append(f"        \\path [line] (circ{name}) -- (sum);")
+                    if len(coeff_x) != 1:
+                        results.append(f"        \\path [line] (circ{name}) -- (sum);")
+                    else:
+                        results.append(f"        \\path [line] (input) -- (sum);")
                 else:
-                    results.append(f"        \\node [gain{name}, right of=circ{name}, xshift={sign * 1}cm] (zg{name}{i}) {{${v}$}};")
-                    results.append(f"        \\path [line] (circ{name}) -- (zg{name}{i});")
-                    results.append(f"        \\path [line] (zg{name}{i}) -- (sum);")
+                    if len(coeff_x) != 1:
+                        results.append(f"        \\node [gain{name}, right of=circ{name}, xshift={sign * 1}cm] (zg{name}{i}) {{${v}$}};")
+                        results.append(f"        \\path [line] (circ{name}) -- (zg{name}{i});")
+                        results.append(f"        \\path [line] (zg{name}{i}) -- (sum);")
+                    else:
+                        results.append(f"        \\node [gain{name}, right of=input, xshift={sign * 1}cm] (zg{name}{i}) {{${v}$}};")
+                        results.append(f"        \\path [line] (input) -- (zg{name}{i});")
+                        results.append(f"        \\path [line] (zg{name}{i}) -- (sum);")
             else:
                 if v == 1:
                     if i == len(coeff) - 1:
@@ -62,6 +70,8 @@ def generate_graph_1_str(coeff_x, coeff_y):
 
 def generate_graph_2_str(coeff_x, coeff_y):
     assert coeff_y[0] == 1
+    if len(coeff_x) == 1:
+        raise ValueError("Unimplemented!")
     results = [
         "        \\node [name=input] (input) {$x(n)$};",
         "        \\node [sum, right of=input, xshift=1cm] (sumy) {$+$};",
@@ -143,4 +153,4 @@ def print_flow_chart(chart_type, coeff_x, coeff_y, caption_str, label_str):
 
 
 if __name__ == '__main__':
-    print_flow_chart(chart_type=1, coeff_x=[1], coeff_y=[1, -1], caption_str="信号流图（I 型实现）", label_str="fig:flow_chart_1")
+    print_flow_chart(chart_type=2, coeff_x=[2], coeff_y=[1, -1], caption_str="习题 \\theexercise~ 信号流图", label_str="fig:chap4-part1-quiz2")
