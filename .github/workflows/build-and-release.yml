@@ -1,11 +1,11 @@
-name: Build LaTeX document
+name: Build LaTeX document and release PDF
 
 on:
   push:
     tags: "*"
 
 jobs:
-  build_latex:
+  build-and-release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
