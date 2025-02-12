@@ -4,6 +4,8 @@
 
 \subsection{滤波器的表示}
 
+\subsubsection{滤波器的表示}
+
 \begin{definition}
     \bd{滤波器}是以特定方式改变信号的频率特性，从而变换信号的处理系统。
     滤波器一般有如下类别，如图 \ref{fig:filter-types} 所示：
@@ -40,11 +42,66 @@
     \end{enumerate}
 \end{definition}
 
-\subsubsection{系统的分类}
+\begin{example}[（低通）滤波器的滤波特性参数]
+    \begin{figure}[H]
+        \centering
+        % TODO: 需要重新截图
+        \includegraphics[width=0.8\textwidth]{chap4/img/filter_characteristics.png}
+        \caption{滤波器的滤波特性参数}
+        \label{fig:filter-characteristics}
+    \end{figure}
+    虚线表示的是\bd{理想低通滤波器}的滤波特性，实线表示的是\bd{窗函数法}设计
+    得到的\bd{实际低通滤波器}的滤波特性。
+\end{example}
 
-\subsubsection{系统的描述方法}
+\subsubsection{什么是系统}
+
+滤波器是以特定方式改变信号的频率特性的系统。那么，什么是系统呢？
+
+\begin{definition}[系统]
+    \bd{系统}是由若干相互作用和相互依赖的事物组合而成的具有特定功能的整体。例如，
+    计算机系统、医疗系统、雷达导航系统等。
+
+    通俗地说，对信号处理的各种环境都可以被称为系统。在信号处理领域，系统是为了
+    传送信号或对信号进行加工处理而构成的某种组合。这种组合，既可以有对应的物理设备，
+    如电容、放大器等，也可以是纯粹的算法，如计算机软件程序等；关键在于，系统是
+    一个具有``特定功能的整体''。
+\end{definition}
+
+\begin{example}[系统的分类]
+    
+\end{example}
+
+\begin{example}[常见的系统类型]
+    这里仅讨论线性、
+\end{example}
+
+\begin{remark}
+    为什么要研究滤波器这一系统呢？
+    因为我们需要对信号进行处理，而滤波器是信号处理的重要工具。
+    \begin{itemize}
+        \item 对于具有特定参数的系统，它具有何种处理信号的特性？
+            \subitem 即：分析信号在通过系统后，信号的特性会发生怎样的变化？
+            % \end{itemize}
+        \item 对于给定的传输和处理信号的要求，如何设计并实现一个与其相匹配的系统？
+            \begin{itemize}
+                \item 即：如何设计并实现系统，使系统满足信号处理的要求？系统应具有怎样的功能和参数？
+            \end{itemize}
+    \end{itemize}
+\end{remark}
+\begin{example}[系统的描述方法]
+    
+\end{example}
 
 \subsubsection{系统响应的分类}
+
+\begin{example}[]
+    常见的两种系统响应是\bd{零输入响应}和\bd{零状态响应}。
+    \begin{itemize}
+        \item 
+    \end{itemize}
+
+\end{example}
 
 \subsubsection{FIR 和 IIR 滤波器}
 
