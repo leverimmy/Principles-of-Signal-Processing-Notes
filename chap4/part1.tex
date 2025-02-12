@@ -4,7 +4,7 @@
 
 \subsection{滤波器的表示}
 
-\subsubsection{滤波器的表示}
+\subsubsection{什么是滤波器}
 
 \begin{definition}
     \bd{滤波器}是以特定方式改变信号的频率特性，从而变换信号的处理系统。
@@ -42,17 +42,17 @@
     \end{enumerate}
 \end{definition}
 
-\begin{example}[（低通）滤波器的滤波特性参数]
+\begin{property}[滤波器的滤波特性参数]
+    （低通）滤波器的滤波特性参数如图 \ref{fig:filter-characteristics} 所示。
+    虚线表示的是\bd{理想低通滤波器}的滤波特性，实线表示的是\bd{窗函数法}设计
+    得到的\bd{实际低通滤波器}的滤波特性。
     \begin{figure}[H]
         \centering
-        % TODO: 需要重新截图
         \includegraphics[width=0.8\textwidth]{chap4/img/filter_characteristics.png}
         \caption{滤波器的滤波特性参数}
         \label{fig:filter-characteristics}
     \end{figure}
-    虚线表示的是\bd{理想低通滤波器}的滤波特性，实线表示的是\bd{窗函数法}设计
-    得到的\bd{实际低通滤波器}的滤波特性。
-\end{example}
+\end{property}
 
 \subsubsection{什么是系统}
 
@@ -68,13 +68,44 @@
     一个具有``特定功能的整体''。
 \end{definition}
 
-\begin{example}[系统的分类]
-    
-\end{example}
+\subsubsection{系统的分类}
 
-\begin{example}[常见的系统类型]
-    这里仅讨论线性、
-\end{example}
+\begin{definition}[连续时间系统与离散时间系统]
+    系统可以分为连续时间系统和离散时间系统。
+    \begin{itemize}
+        \item \bd{连续时间系统}是指输入和输出的信号都是连续时间信号，
+            并且在系统内部也没有对信号进行转换的系统。
+        \item \bd{离散时间系统}是指输入和输出的信号都是离散时间信号，
+            并且在系统内部，信号也是离散时间的形式的系统。
+    \end{itemize}
+    
+    对于这两种不同的系统类别，它们的系统原理和分析方法，除少部分内容不同外，
+    其余大部分内容是相同的。本章主要讨论离散时间系统。
+\end{definition}
+
+\begin{definition}[线性系统]
+    同时满足叠加性与齐次性的系统称为\bd{线性系统}。
+    \begin{itemize}
+        \item 满足\bd{叠加性}是指：当几个输入信号同时输入系统时，系统总的
+            输出等于几个输入信号单独输入系统时的输出信号和。
+        \item 满足\bd{齐次性}是指：当输入信号乘以某个常数时，系统的输出也
+            乘以相同的常数。
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[时不变系统]
+    若系统既是线性的，又是时不变的，则称其为\bd{线性时不变系统}，简称\bd{LTI 系统}。
+\end{definition}
+
+\begin{definition}[因果系统]
+    如果系统的输出取决于现在和以前的输入数据，而与以后的输入数据无关，
+    则称该系统为\bd{因果系统}。所有实际系统都是因果系统。
+\end{definition}
+
+\begin{definition}[稳定系统]
+    若系统在有界输入下产生有界输出，则称该系统为\bd{稳定系统}。
+    这个性质通常被称为 \bd{BIBO(Bounded Input, Bounded Output) 原则}。
+\end{definition}
 
 \begin{remark}
     为什么要研究滤波器这一系统呢？
@@ -82,26 +113,84 @@
     \begin{itemize}
         \item 对于具有特定参数的系统，它具有何种处理信号的特性？
             \subitem 即：分析信号在通过系统后，信号的特性会发生怎样的变化？
-            % \end{itemize}
         \item 对于给定的传输和处理信号的要求，如何设计并实现一个与其相匹配的系统？
-            \begin{itemize}
-                \item 即：如何设计并实现系统，使系统满足信号处理的要求？系统应具有怎样的功能和参数？
-            \end{itemize}
+            \subitem 即：如何设计并实现系统，使系统满足信号处理的要求？系统应具有怎样的功能和参数？
     \end{itemize}
 \end{remark}
-\begin{example}[系统的描述方法]
-    
+
+\begin{example}[系统的描述方法]    
 \end{example}
 
-\subsubsection{系统响应的分类}
+\subsubsection{零输入响应与零状态响应}
 
-\begin{example}[]
-    常见的两种系统响应是\bd{零输入响应}和\bd{零状态响应}。
-    \begin{itemize}
-        \item 
-    \end{itemize}
+常见的两种系统响应是\bd{零输入响应}和\bd{零状态响应}。
 
+\begin{definition}[零输入响应]
+    系统可能在没有给任何激励信号作用时，产生信号输出。
+    在这种情况下，系统的输出显然是与外界无关的（因为外界并没有给系统输入信号），
+    输出是由系统自身的内部信息引起的。
+
+    系统自身的内部信息，可能是先前激励（或挠动）作用的后果；
+    不过，没有必要追究它们历史演变的详细过程，只需知道在当前激励接入系统时，
+    系统瞬时状态即可。
+
+    由此看来，系统的零输入响应是一种纯粹由系统的起始状态所产生的响应。
+\end{definition}
+
+\begin{definition}[零状态响应]
+    系统在每一时刻都对应一种状态，开始研究系统的时刻系统所处的状态称为起始状态。
+    所谓系统的零状态响应，就是指系统在起始状态时状态值为零（相当于系统没有存储任何能量和信息）。
+
+    在这种状况下，给系统输入一个激励信号，则系统所产生输出响应就被称为系统的零状态响应。
+\end{definition}
+
+\begin{example}
+    求下列滤波器脉冲响应的前六个采样值：
+    \begin{align*}
+        y(n) = 0.25(x(n) + x(n - 1) + x(n - 2) + x(n - 3))
+    \end{align*}
 \end{example}
+
+\begin{solution}
+    用 $\delta(n)$ 代替 $x(n)$，用 $h(n)$ 代替 $y(n)$，则有
+    \begin{align*}
+        h(n) = 0.25(\delta(n) + \delta(n - 1) + \delta(n - 2) + \delta(n - 3)).
+    \end{align*}
+
+    由此可得 $h(n)$ 的前六个采样值为
+    \begin{align*}
+        h(0) & = 0.25, \\
+        h(1) & = 0.25, \\
+        h(2) & = 0.25, \\
+        h(3) & = 0.25, \\
+        h(4) & = 0, \\
+        h(5) & = 0.
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    求下列滤波器脉冲响应的前六个采样值，其中滤波器是因果系统（即，脉冲响应在 $n < 0$ 时为零）：
+    \begin{align*}
+        y(n) - 0.4y(n - 1) = x(n) - x(n - 1).
+    \end{align*}
+\end{exercise}
+
+\begin{solution}
+    用 $\delta(n)$ 代替 $x(n)$，用 $h(n)$ 代替 $y(n)$，则有
+    \begin{align*}
+        h(n) - 0.4h(n - 1) = \delta(n) - \delta(n - 1).
+    \end{align*}
+
+    由于该滤波器为因果系统，故 $h(-1) = 0$。由此可得 $h(n)$ 的前六个采样值为
+    \begin{align*}
+        h(0) & = 1, \\
+        h(1) & = -0.6, \\
+        h(2) & = -0.24, \\
+        h(3) & = -0.096, \\
+        h(4) & = -0.0384, \\
+        h(5) & = -0.01536.
+    \end{align*}
+\end{solution}
 
 \subsubsection{FIR 和 IIR 滤波器}
 
@@ -137,13 +226,17 @@
     \end{align*}
 \end{solution}
 
-% TODO: 4.1 第一个 PPT
-
 \subsubsection{用差分方程表示系统}
+
+\label{subsubsection:diff-equation-representation}
 
 \subsubsection{用流图表示系统}
 
+\label{subsubsection:flow-chart-representation}
+
 \subsubsection{用脉冲响应表示系统}
+
+\label{subsubsection:pulse-response-representation}
 
 \begin{theorem}
     设某滤波器的脉冲响应为 $h(n)$，某输入信号为 $x(n)$。则输入信号可以表示
@@ -164,8 +257,8 @@
     \label{property:diff-equation-convolution}
     写出 FIR 和 IIR 系统的差分方程如下：
     \begin{align*}
-        \sum_{k = 0}^{N}b(k)y(n - k) & = \sum_{k = 0}^{M}a(k)x(n - k) & \text{(IIR)} \\
-        y(n) & = \sum_{k = 0}^{M}a(k)x(n - k) & \text{(FIR)}
+        \sum_{k = 0}^{N}b(k)y(n - k) & = \sum_{k = 0}^{M}a(k)x(n - k) \qquad \text{(IIR)} \\
+        y(n) & = \sum_{k = 0}^{M}a(k)x(n - k) \qquad \text{(FIR)}
     \end{align*}
     在 FIR 系统的差分方程中，实际上系数 $a(k)$ 就是系统的脉冲响应 $h(k)$。也就是说，有
     \begin{align*}
@@ -179,9 +272,9 @@
 \begin{remark}
     由以上讨论可知，描述系统的方式有以下几种：
     \begin{itemize}
-        \item 系统的差分方程
-        \item 流图
-        \item 数字系统的脉冲响应 $h(n)$
+        \item 系统的差分方程，见 \ref{subsubsection:diff-equation-representation} 节。
+        \item 流图，见 \ref{subsubsection:flow-chart-representation} 节。
+        \item 数字系统的脉冲响应 $h(n)$，见 \ref{subsubsection:pulse-response-representation} 节。
     \end{itemize}
 \end{remark}
 
