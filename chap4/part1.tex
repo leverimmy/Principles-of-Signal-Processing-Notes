@@ -6,7 +6,7 @@
 
 \subsubsection{什么是滤波器}
 
-\begin{definition}
+\begin{definition}[滤波器]
     \bd{滤波器}是以特定方式改变信号的频率特性，从而变换信号的处理系统。
     滤波器一般有如下类别，如图 \ref{fig:filter-types} 所示：
     \begin{enumerate}[label=(\arabic*)]
@@ -118,7 +118,7 @@
     \end{itemize}
 \end{remark}
 
-\subsubsection{用差分方程表示系统}
+\subsubsection{系统的描述方法（一）：差分方程}
 
 \label{subsubsection:diff-equation-representation}
 
@@ -139,7 +139,7 @@
     \end{align*}
 \end{example}
 
-\subsubsection{用流图表示系统}
+\subsubsection{系统的描述方法（二）：流图}
 
 \label{subsubsection:flow-chart-representation}
 
@@ -149,8 +149,107 @@
 
     以下是流图中常见的符号：
     \begin{itemize}
-        \item 延时单元
-
+        \item \bd{延时单元}：如图 \ref{fig:delay-unit} 所示，表示信号延时一个单位。
+            \begin{figure}[H]
+                \centering
+                \begin{subfigure}{0.45\textwidth}
+                    \centering
+                    \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
+                    \tikzstyle{line} = [draw, -latex]
+                    \begin{tikzpicture}
+                        \node (input) {$x(n)$};
+                        \node [block, right of=input, xshift=1.5cm] (delay) {$Z^{-1}$};
+                        \node [right of=delay, xshift=1.5cm] (output) {$x(n - 1)$};
+                        
+                        \path [line] (input) -- (delay);
+                        \path [line] (delay) -- (output);
+                    \end{tikzpicture}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}{0.45\textwidth}
+                    \centering
+                    \centering
+                    \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
+                    \tikzstyle{line} = [draw, -latex]
+                    \begin{tikzpicture}
+                        \node (input) {$x(n)$};
+                        \node [block, right of=input, xshift=1.5cm] (delay) {$D$};
+                        \node [right of=delay, xshift=1.5cm] (output) {$x(n - 1)$};
+                        
+                        \path [line] (input) -- (delay);
+                        \path [line] (delay) -- (output);
+                    \end{tikzpicture}
+                \end{subfigure}
+                \caption{延时单元}
+                \label{fig:delay-unit}
+            \end{figure}
+        \item \bd{信号相加}：如图 \ref{fig:sum-unit} 所示，表示信号相加。
+            \begin{figure}[H]
+                \centering
+                \begin{subfigure}{0.45\textwidth}
+                    \centering
+                    \tikzstyle{sum} = [draw, circle]
+                    \tikzstyle{line} = [draw, -latex]
+                    \begin{tikzpicture}
+                        \node (input1) {$x_1(n)$};
+                        \node [sum, right of=input1, xshift=1.5cm] (sum) {$+$};
+                        \node [below of=sum, yshift=-1cm] (input2) {$x_2(n)$};
+                        \node [right of=sum, xshift=1.5cm] (output) {$x_1(n) + x_2(n)$};
+                        
+                        \path [line] (input) -- (sum);
+                        \path [line] (input2) -- (sum);
+                        \path [line] (sum) -- (output);
+                    \end{tikzpicture}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}{0.45\textwidth}
+                    \centering
+                    \tikzstyle{sum} = [draw, circle]
+                    \tikzstyle{line} = [draw, -latex]
+                    \begin{tikzpicture}
+                        \node (input1) {$x_1(n)$};
+                        \node [sum, right of=input1, xshift=1.5cm] (sum) {$\Sigma$};
+                        \node [below of=sum, yshift=-1cm] (input2) {$x_2(n)$};
+                        \node [right of=sum, xshift=1.5cm] (output) {$x_1(n) + x_2(n)$};
+                        
+                        \path [line] (input) -- (sum);
+                        \path [line] (input2) -- (sum);
+                        \path [line] (sum) -- (output);
+                    \end{tikzpicture}
+                \end{subfigure}
+                \caption{信号相加}
+                \label{fig:sum-unit}
+            \end{figure}
+        \item \bd{乘上系数}：如图 \ref{fig:gain-unit} 所示，表示信号乘上系数。
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}{0.45\textwidth}
+                \centering
+                \tikzstyle{line} = [draw, -latex]
+                \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
+                \begin{tikzpicture}
+                    \node (input) {$x(n)$};
+                    \node [gainx, right of=input, xshift=1.5cm] (gx) {$a_0$};
+                    \node [right of=sum, xshift=1.5cm] (output) {$a_0x(n)$};
+                    
+                    \path [line] (input) -- (gx);
+                    \path [line] (gx) -- (output);
+                \end{tikzpicture}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.45\textwidth}
+                \centering
+                \tikzstyle{line} = [draw, -latex]
+                \begin{tikzpicture}
+                    \node (input) {$x(n)$};
+                    \node [right of=input, xshift=3cm] (output) {$a_0x(n)$};
+                    
+                    \path [line] (input) -- node[above] {$a_0$} (output);
+                \end{tikzpicture}
+            \end{subfigure}
+            \caption{乘上系数}
+            \label{fig:gain-unit}
+        \end{figure}
     \end{itemize}
 \end{definition}
 
@@ -174,12 +273,12 @@
         \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
         \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
         \begin{tikzpicture}
-            \node [name=input] (input) {$x(n)$};
+            \node (input) {$x(n)$};
             \node [circ, right of=input, xshift=1cm] (circx) {};
             \path [no-arrow-line] (input) -- (circx);
             \node [sum, right of=circx, xshift=4cm] (sum) {$+$};
             \node [circ, right of=sum, xshift=4cm] (circy) {};
-            \node [name=output, right of=circy, xshift=1cm] (output) {$y(n)$};
+            \node [right of=circy, xshift=1cm] (output) {$y(n)$};
             \path [line] (circy) -- (output);
     
             \node [block, below of=circx, yshift=-1cm] (zx1) {$Z^{-1}$};
@@ -266,12 +365,12 @@
 
     由此可得 $h(n)$ 的前六个采样值为
     \begin{align*}
-        h(0) & = 0.25, \\
-        h(1) & = 0.25, \\
-        h(2) & = 0.25, \\
-        h(3) & = 0.25, \\
-        h(4) & = 0, \\
-        h(5) & = 0.
+        h(0) = 0.25, \quad
+        h(1) = 0.25, \quad
+        h(2) = 0.25, \quad
+        h(3) = 0.25, \quad
+        h(4) = 0, \quad
+        h(5) = 0.
     \end{align*}
 \end{solution}
 
@@ -290,16 +389,80 @@
 
     由于该滤波器为因果系统，故 $h(-1) = 0$。由此可得 $h(n)$ 的前六个采样值为
     \begin{align*}
-        h(0) & = 1, \\
-        h(1) & = -0.6, \\
-        h(2) & = -0.24, \\
-        h(3) & = -0.096, \\
-        h(4) & = -0.0384, \\
-        h(5) & = -0.01536.
+        h(0) = 1, \quad
+        h(1) = -0.6, \quad
+        h(2) = -0.24, \quad
+        h(3) = -0.096, \quad
+        h(4) = -0.0384, \quad
+        h(5) = -0.01536.
     \end{align*}
 \end{solution}
 
 \subsubsection{FIR 和 IIR 滤波器}
+
+\begin{definition}[FIR 滤波器]
+    设有差分方程
+    \begin{align*}
+        y(n) = \sum_{k = 0}^{M}a(k)x(n - k).
+    \end{align*}
+
+    上述系统的脉冲响应在有限个非零采样值后下降为零，这种响应被称为\bd{有限脉冲响应}（FIR），
+    对应的系统被称为 \bd{FIR 滤波器}。
+\end{definition}
+
+\begin{definition}[IIR 滤波器]
+    设有差分方程
+    \begin{align*}
+        \sum_{k = 0}^{N}b(k)y(n - k) = \sum_{k = 0}^{M}a(k)x(n - k).
+    \end{align*}
+
+    显然，新的输出取决于过去的输出，所以脉冲响应永远不会消失，
+    这种响应被称为\bd{无限脉冲响应}（IIR），对应的系统被称为 \bd{IIR 滤波器}。
+\end{definition}
+
+\begin{property}[FIR 滤波器的流图]
+    FIR 滤波器的流图如图 \ref{fig:fir-flow-chart} 所示。
+    \begin{figure}[H]
+        \centering
+        \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
+        \tikzstyle{circ} = [draw, fill, circle, inner sep=1.5pt]
+        \tikzstyle{no-circ} = [draw, circle, inner sep=0pt]
+        \tikzstyle{sum} = [draw, circle]
+        \tikzstyle{line} = [draw, -latex]
+        \tikzstyle{no-arrow-line} = [draw, -]
+        \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
+        \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
+        \begin{tikzpicture}
+            \node (input) {$x(n)$};
+            \node [circ, right of=input, xshift=1cm] (circx) {};
+            \path [no-arrow-line] (input) -- (circx);
+            \node [sum, right of=circx, xshift=4cm] (sum) {$+$};
+            \node [right of=sum, xshift=1cm] (output) {$y(n)$};
+            \path [line] (sum) -- (output);
+    
+            \node [block, below of=circx, yshift=-1cm] (zx1) {$Z^{-1}$};
+            \path [line] (circx) -- (zx1);
+            \node [block, below of=zx1, yshift=-2cm] (zx2) {$Z^{-1}$};
+            \path [line] (zx1) -- (zx2);
+            \node [block, below of=zx2, yshift=-2cm] (zx3) {$Z^{-1}$};
+            \path [line, dashed] (zx2) -- (zx3);
+    
+    
+            \node [gainx, right of=circx, xshift=1cm] (zgx0) {$a_0$};
+            \path [line] (circx) -- (zgx0);
+            \path [line] (zgx0) -- (sum);
+            \node [gainx, below of=zx1, xshift=2cm, yshift=-0.5cm] (zgx1) {$a_1$};
+            \node [circ, below of=zx1, yshift=-0.5cm] (circx1) {};
+            \path [line] (circx1) -- (zgx1);
+            \path [line] (zgx1.east) -- (sum);
+            \node [gainx, below of=zx3, xshift=2cm, yshift=-0.5cm] (zgx3) {$a_M$};
+            \path [line] (zx3) |- (zgx3);
+            \path [line] (zgx3.east) -- (sum);
+        \end{tikzpicture}
+        \caption{FIR 滤波器的流图}
+        \label{fig:fir-flow-chart}
+    \end{figure}
+\end{property}
 
 \begin{example}
     \label{exercise:serial-flow-chart}
@@ -333,7 +496,23 @@
     \end{align*}
 \end{solution}
 
-\subsubsection{用脉冲响应表示系统}
+\begin{remark}[滤波器差分方程流图优化]
+    
+\end{remark}
+
+\begin{example}[二阶非递归滤波器节级联]
+    
+\end{example}
+
+\begin{definition}[IIR 滤波器的直接 I 型实现]
+    
+\end{definition}
+
+\begin{definition}[IIR 滤波器的直接 II 型实现]
+    
+\end{definition}
+
+\subsubsection{系统的描述方法（三）：脉冲响应}
 
 \label{subsubsection:pulse-response-representation}
 
@@ -441,6 +620,7 @@
             \caption{并联系统}
             \label{fig:parallel-system}
         \end{subfigure}
+        \hfill
         \begin{subfigure}{0.45\textwidth}
             \centering
             \includegraphics[width=\textwidth]{chap4/img/serial_system.png}
@@ -539,13 +719,13 @@
         \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
         \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
         \begin{tikzpicture}
-            \node [name=input] (input) {$x(n)$};
+            \node (input) {$x(n)$};
     
     
             \node [sum, right of=input, xshift=4cm] (sum) {$+$};
             \node [circ, right of=sum, xshift=4cm] (circy) {};
             \path [no-arrow-line] (sum) -- (circy);
-            \node [name=output, right of=circy, xshift=1cm] (output) {$y(n)$};
+            \node [right of=circy, xshift=1cm] (output) {$y(n)$};
             \path [line] (circy) -- (output);
     
     
