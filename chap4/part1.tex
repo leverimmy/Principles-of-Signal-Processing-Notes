@@ -118,9 +118,93 @@
     \end{itemize}
 \end{remark}
 
-\begin{example}[系统的描述方法]    
-    
+\subsubsection{用差分方程表示系统}
+
+\label{subsubsection:diff-equation-representation}
+
+\begin{definition}[差分方程]
+    \bd{差分方程}是描述离散时间系统的一种数学模型。对于线性时不变系统，
+    差分方程的一般形式为
+    \begin{align*}
+        \sum_{k = 0}^{N}b(k)y(n - k) = \sum_{k = 0}^{M}a(k)x(n - k).
+    \end{align*}
+    其中，$x(n)$ 是输入信号，$y(n)$ 是输出信号，$a(k), b(k)$ 是系统的系数。$N$ 为
+    所需过去输出的个数，通常称为滤波器的\bd{阶数}。
+\end{definition}
+
+\begin{example}
+    如下是一个差分方程的例子：
+    \begin{align*}
+        y(n) = \frac{1}{b_0}(a_0x(n) + a_1x(n - 1) - b_1(y(n - 1))).
+    \end{align*}
 \end{example}
+
+\subsubsection{用流图表示系统}
+
+\label{subsubsection:flow-chart-representation}
+
+\begin{definition}[流图]
+    \bd{流图}是描述系统的输入输出关系的图形表示法。流图中，用方框表示系统，
+    用箭头表示信号的流动方向。流图的优点是直观，易于理解。
+
+    以下是流图中常见的符号：
+    \begin{itemize}
+        \item 延时单元
+
+    \end{itemize}
+\end{definition}
+
+\begin{exercise}
+    画出下列差分方程对应的流图：
+    \begin{align*}
+        y(n) = \frac{1}{b_0}(a_0x(n) + a_1x(n - 1) - b_1(y(n - 1))).
+    \end{align*}
+\end{exercise}
+
+\begin{solution}
+    该差分方程对应的流图如图 \ref{fig:chap4-part1-quiz1} 所示。
+    \begin{figure}[H]
+        \centering
+        \tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=1cm]
+        \tikzstyle{circ} = [draw, fill, circle, inner sep=1.5pt]
+        \tikzstyle{no-circ} = [draw, circle, inner sep=0pt]
+        \tikzstyle{sum} = [draw, circle]
+        \tikzstyle{line} = [draw, -latex]
+        \tikzstyle{no-arrow-line} = [draw, -]
+        \tikzstyle{gainx} = [draw, isosceles triangle, isosceles triangle apex angle=60]
+        \tikzstyle{gainy} = [draw, isosceles triangle, isosceles triangle apex angle=60, shape border rotate=180]
+        \begin{tikzpicture}
+            \node [name=input] (input) {$x(n)$};
+            \node [circ, right of=input, xshift=1cm] (circx) {};
+            \path [no-arrow-line] (input) -- (circx);
+            \node [sum, right of=circx, xshift=4cm] (sum) {$+$};
+            \node [circ, right of=sum, xshift=4cm] (circy) {};
+            \node [name=output, right of=circy, xshift=1cm] (output) {$y(n)$};
+            \path [line] (circy) -- (output);
+    
+            \node [block, below of=circx, yshift=-1cm] (zx1) {$Z^{-1}$};
+            \path [line] (circx) -- (zx1);
+    
+            \node [block, below of=circy, yshift=-1cm] (zy1) {$Z^{-1}$};
+            \path [line] (circy) -- (zy1);
+    
+            \node [gainx, right of=circx, xshift=1cm] (zgx0) {$a_0$};
+            \path [line] (circx) -- (zgx0);
+            \path [line] (zgx0) -- (sum);
+            \node [gainx, below of=zx1, xshift=2cm, yshift=-0.5cm] (zgx1) {$a_1$};
+            \path [line] (zx1) |- (zgx1);
+            \path [line] (zgx1.east) -- (sum);
+            \node [gainx, right of=sum, xshift=2cm] (zgy0) {$1/b_0$};
+            \path [line] (sum) -- (zgy0);
+            \path [line] (zgy0) -- (circy);
+            \node [gainy, below of=zy1, xshift=-2cm, yshift=-0.5cm] (zgy1) {$-b_1$};
+            \path [line] (zy1) |- (zgy1);
+            \path [line] (zgy1.west) -- (sum);
+        \end{tikzpicture}
+        \caption{习题 \theexercise~ 信号流图}
+        \label{fig:chap4-part1-quiz1}
+    \end{figure}
+\end{solution}
 
 \subsubsection{零输入响应与零状态响应}
 
@@ -144,6 +228,28 @@
 
     在这种状况下，给系统输入一个激励信号，则系统所产生输出响应就被称为系统的零状态响应。
 \end{definition}
+
+\begin{definition}[滤波器的脉冲响应（冲激响应）]
+    \bd{滤波器的脉冲响应}（冲激响应）是指滤波器对脉冲输入的响应，
+    即：当滤波器的输入为单位脉冲信号 $\delta(n)$ 时，滤波器的输出为单位脉冲响应。
+\end{definition}
+
+\begin{remark}
+    系统的输入输出关系可以由图 \ref{fig:system-input-output} 总结。
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \node (input) [draw, rectangle, minimum width=2cm, minimum height=1cm] at (0, 0) {输入信号（激励）};
+            \node (system) [draw, rectangle, minimum width=2cm, minimum height=1cm] at (5, 0) {系统};
+            \node (output) [draw, rectangle, minimum width=2cm, minimum height=1cm] at (10, 0) {输出信号（响应）};
+        
+            \draw[->] (input) --  (system);
+            \draw[->] (system) -- (output);
+        \end{tikzpicture}
+        \caption{系统的输入输出关系}
+        \label{fig:system-input-output}
+    \end{figure}
+\end{remark}
 
 \begin{example}
     求下列滤波器脉冲响应的前六个采样值：
@@ -226,14 +332,6 @@
         y_3(n) = x_1(n) - 0.2x_1(n - 1) + 0.19x_1(n - 2) - 0.058x_1(n - 3) - 0.008x_1(n - 5).
     \end{align*}
 \end{solution}
-
-\subsubsection{用差分方程表示系统}
-
-\label{subsubsection:diff-equation-representation}
-
-\subsubsection{用流图表示系统}
-
-\label{subsubsection:flow-chart-representation}
 
 \subsubsection{用脉冲响应表示系统}
 
