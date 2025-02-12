@@ -1,7 +1,9 @@
 name: Build LaTeX document
+
 on:
   push:
     tags: "*"
+
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -16,7 +18,7 @@ jobs:
         with:
           root_file: main.tex
           latexmk_use_xelatex: true
-          
+
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
         with:
