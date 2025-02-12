@@ -244,12 +244,12 @@
         & = \frac{1 - \mathe^{-\mathi\omega L}}{1 - \mathe^{-\mathi\omega}} \\
         & = \frac{\sin(\omega L/2)}{\sin(\omega/2)}\mathe^{-\mathi\omega(L-1)/2}.
     \end{align*}
-    因此，画出它的幅度谱如 \ref{fig:DTFT_window.png} 所示，图像以 $2\pi$ 为周期。
+    因此，画出它的幅度谱如 \ref{fig:DTFT-window.png} 所示，图像以 $2\pi$ 为周期。
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{chap3/img/DTFT_window.png}
         \caption{窗函数的频谱}
-        \label{fig:DTFT_window.png}
+        \label{fig:DTFT-window.png}
     \end{figure}
     为方便起见，我们定义它的\bd{主瓣宽度}为
     \begin{align*}
@@ -269,12 +269,12 @@
     \begin{align*}
         X(\omega) = 2\pi(A_1\delta(\omega - \omega_1) + A_2\delta(\omega - \omega_2)).
     \end{align*}
-    画出它的频谱如 \ref{fig:DTFT_two_freqs.png} 所示。
+    画出它的频谱如 \ref{fig:DTFT-two-freqs.png} 所示。
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.3\textwidth]{chap3/img/DTFT_two_freqs.png}
         \caption{两个频率的信号的频谱}
-        \label{fig:DTFT_two_freqs.png}
+        \label{fig:DTFT-two-freqs.png}
     \end{figure}
     可以看出，这两个频率的间隔为 $\Delta\omega = \omega_2 - \omega_1$。
 \end{example}
@@ -290,12 +290,12 @@
         X_L(\omega) & = \frac{1}{2\pi}X(\omega) \otimes W(\omega) \\
         & = A_1W(\omega - \omega_1) + A_2W(\omega - \omega_2).
     \end{align*}
-    画出它的频谱如 \ref{fig:DTFT_two_freqs_window.png} 所示。
+    画出它的频谱如 \ref{fig:DTFT-two-freqs-window.png} 所示。
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{chap3/img/DTFT_two_freqs_window.png}
         \caption{两个频率的信号的频谱}
-        \label{fig:DTFT_two_freqs_window.png}
+        \label{fig:DTFT-two-freqs-window.png}
     \end{figure}
     可以看出，这两个频率的间隔为 $\Delta\omega = \omega_2 - \omega_1$。
 \end{example}
@@ -322,12 +322,12 @@
             两个边缘处的突变所造成的。这个现象被称为\bd{频率泄漏}。
             好像是这些原来谱中没有的高频成分是从``内部''（信号原谱分布区间）中
             ``泄漏''出来的一样。显然，这些泄漏量与窗函数的旁瓣有关系，如
-            图 \ref{fig:DTFT_leakage.png} 所示。
+            图 \ref{fig:DTFT-leakage.png} 所示。
             \begin{figure}[H]
                 \centering
                 \includegraphics[width=0.6\textwidth]{chap3/img/DTFT_leakage.png}
                 \caption{频率泄漏}
-                \label{fig:DTFT_leakage.png}
+                \label{fig:DTFT-leakage.png}
             \end{figure}
     \end{enumerate}
 \end{remark}

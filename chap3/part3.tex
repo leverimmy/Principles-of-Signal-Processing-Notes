@@ -96,12 +96,12 @@
     \end{align*}
     其中 $n = 0, 1, \cdots, N - 1$。
     这类似于将长度为 $L$ 的序列切成每块长度为 $N$ 的子序列，然后将这些子序列按位相加，
-    如果一块子序列的长度不足 $N$，则在末尾补 $0$。如图 \ref{fig:wrapped_sequence} 所示。
+    如果一块子序列的长度不足 $N$，则在末尾补 $0$。如图 \ref{fig:wrapped-sequence} 所示。
     \begin{figure}[H]
         \centering
         \includegraphics[width = 0.6\textwidth]{chap3/img/wrapped_sequence.png}
         \caption{回绕序列的示意图}
-        \label{fig:wrapped_sequence}
+        \label{fig:wrapped-sequence}
     \end{figure}
 \end{definition}
 
@@ -168,12 +168,12 @@
 \begin{remark}
     多个完全不同的序列，只要它们的回绕序列相等，它们的 DFT 也就相等。
     从 IDFT 只能得到唯一的一个序列，实际上对应所有序列的回绕序列。
-    如图 \ref{fig:wrapped_sequence_relation} 所示。
+    如图 \ref{fig:wrapped-sequence-relation} 所示。
     \begin{figure}[H]
         \centering
         \includegraphics[width = 0.6\textwidth]{chap3/img/wrapped_sequence_relation.png}
         \caption{回绕序列的 DFT 与 IDFT 的关系}
-        \label{fig:wrapped_sequence_relation}
+        \label{fig:wrapped-sequence-relation}
     \end{figure}
 \end{remark}
 
