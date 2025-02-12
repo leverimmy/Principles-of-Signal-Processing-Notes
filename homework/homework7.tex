@@ -10,20 +10,6 @@
     \end{enumerate}
 \end{homework}
 
-\begin{solution}
-    \begin{enumerate}[label=(\arabic*)]
-        \item $\DTFT{x(n) * x^*(-n)} = \DTFT{x(n)} \cdot \DTFT{x^*(-n)}
-            = X(\omega) \cdot X^*(\omega)$
-        \item 见习题 \ref{exercise:x-2n-1}。
-        \item $\DTFT{x(n) - x(n + 2)} = \DTFT{x(n)} - \DTFT{x(n + 2)}
-            = X(\omega) - \mathe^{2\mathi\omega}X(\omega)
-            = (1 - \mathe^{2\mathi\omega})X(\omega)$
-        \item $\DTFT{x(n) * x(n + 1)} = \DTFT{x(n)} \cdot \DTFT{x(n + 1)}
-            = X(\omega) \cdot \mathe^{\mathi\omega}X(\omega)
-            = \mathe^{\mathi\omega}(X(\omega))^2$
-    \end{enumerate}
-\end{solution}
-
 \begin{homework}
     证明性质 \ref{property:DTFT-time-expand}。即，若 $X(\omega)$ 是 $x(n)$ 的 DTFT，则
     \begin{align*}
@@ -35,17 +21,6 @@
     的 DTFT $Y(\omega)$ 满足 $Y(\omega) = X(L \omega)$。
 \end{homework}
 
-\begin{proof}
-    由题知，对于 $k \in \set{Z}$，都有 $y(kL) = x(k)$。因此，
-    \begin{align*}
-        Y(\omega) & = \sum_{n = -\infty}^{+\infty}y(n)\mathe^{-\mathi\omega n} \\
-        & = \sum_{k = -\infty}^{+\infty}y(k L)\mathe^{-\mathi\omega kL} \\
-        & = \sum_{k = -\infty}^{+\infty}x(k)\mathe^{-\mathi\omega kL} \\
-        & = X(L\omega).
-    \end{align*}
-    命题得证。
-\end{proof}
-
 \begin{homework}
     已知序列 $x(n)$ 和 $y(n)$ 的 DTFT 分别为 $X(\omega)$ 和 $Y(\omega)$。
     对周期函数 $X(\omega)$ 和 $Y(\omega)$，定义相关系数
@@ -56,7 +31,3 @@
     记 $R_{XY}(\omega)$ 的 IDTFT 为 $r_{xy}(n)$，
     试用 $x(n)$ 和 $y(n)$ 表示 $r_{xy}(n)$。
 \end{homework}
-
-\begin{solution}
-    见 \ref{exercise:DTFT-periodic-correlation}。
-\end{solution}

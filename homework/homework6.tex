@@ -6,35 +6,6 @@
     且理想低通滤波器的截止频率 $\omega_c \in (\omega_s - \omega_0, \omega_0)$。
 \end{homework}
 
-\begin{proof}
-    展开 $x(t)$ 可得
-    \begin{align*}
-        x(t) = \cos(\omega_0 t + \varphi) = \cos\varphi\cos\omega_0 t- \sin\varphi \sin\omega_0 t.
-    \end{align*}
-    因此，
-    \begin{align*}
-        X(\mathi\omega) & = \mathcal{F}[x(t)] \\
-        & = \cos\varphi\cdot \pi[\delta(\omega - \omega_0) + \delta(\omega + \omega_0)]
-            + \sin\varphi\cdot \mathi\pi[\delta(\omega - \omega_0) - \delta(\omega + \omega_0)] \\
-        & = (\cos\varphi + \mathi\sin\varphi)\pi\delta(\omega - \omega_0)
-            + (\cos\varphi - \mathi\sin\varphi)\pi\delta(\omega + \omega_0).
-    \end{align*}
-    类似 \ref{fig:undersampling}，当 $\omega_s < 2\omega_0$ 时，产生频谱混叠。此时，
-    \begin{align*}
-        X_r(\mathi\omega) = (\cos\varphi - \mathi\sin\varphi)\pi\delta(\omega - \omega_0 + \omega_s)
-            + (\cos\varphi + \mathi\sin\varphi)\pi\delta(\omega + \omega_0 - \omega_s).
-    \end{align*}
-    因此
-    \begin{align*}
-        x_r(t) = \mathcal{F}^{-1}[X_r(\mathi\omega)] & = \cos\varphi\cos((\omega_0 - \omega_s)t)
-            - \sin\varphi\sin((\omega_0 - \omega_s)t) \\
-        & = \cos((\omega_0 - \omega_s)t + \varphi) \\
-        & = \cos((\omega_s - \omega_0)t - \varphi).
-    \end{align*}
-    由于 $\omega_s < 2\omega_0$，故 $\omega_s - \omega_0 < \omega_0$，即 $\omega_s - \omega_0$ 为正频率。
-    因此，恢复的信号不仅频率降低，而且相位相反。命题得证。
-\end{proof}
-
 \begin{homework}
     已知 $f(t)$ 的频谱函数为 $F(\omega)$，试证明：
     \begin{align*}
@@ -42,25 +13,3 @@
     \end{align*}
     其中 $\omega_s = 2\pi / T_s$。
 \end{homework}
-
-\begin{proof}
-    由于
-    \begin{align*}
-        \hat{F}(\omega) = \frac{1}{T_s}\sum_{m = -\infty}^{+\infty}F(\omega - m\omega_s),
-    \end{align*}
-    且
-    \begin{align*}
-        \hat{F}(\omega) = \sum_{n = -\infty}^{+\infty}f(nT_s)\mathe^{-\mathi\omega nT_s},
-    \end{align*}
-    故当 $\omega = 0$ 时，有
-    \begin{align*}
-        \frac{1}{T_s}\sum_{m = -\infty}^{+\infty}F(-m\omega_s) & = \hat{F}(0) \\
-        & = \sum_{n = -\infty}^{+\infty}f(nT_s) \cdot \mathe^{0} \\
-        & = \sum_{n = -\infty}^{+\infty}f(nT_s).
-    \end{align*}
-    此即
-    \begin{align*}
-        T_s \cdot \sum_{n = -\infty}^{+\infty}f(nT_s) = \sum_{m = -\infty}^{+\infty}F(-m\omega_s).
-    \end{align*}
-    命题得证。
-\end{proof}
