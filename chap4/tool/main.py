@@ -1,13 +1,13 @@
 def generate_graph_1_str(coeff_x, coeff_y):
     assert coeff_y[0] == 1
     results = [
-        "        \\node [name=input] (input) {$x(n)$};",
+        "        \\node (input) {$x(n)$};",
         "        \\node [circ, right of=input, xshift=1cm] (circx) {};" if len(coeff_x) != 1 else "",
         "        \\path [no-arrow-line] (input) -- (circx);" if len(coeff_x) != 1 else "",
         f"        \\node [sum, right of={"circx" if len(coeff_x) != 1 else "input"}, xshift=4cm] (sum) {{$+$}};",
         "        \\node [circ, right of=sum, xshift=4cm] (circy) {};",
         "        \\path [no-arrow-line] (sum) -- (circy);",
-        "        \\node [name=output, right of=circy, xshift=1cm] (output) {$y(n)$};",
+        "        \\node [right of=circy, xshift=1cm] (output) {$y(n)$};",
         "        \\path [line] (circy) -- (output);", ""
     ]
 
@@ -73,13 +73,13 @@ def generate_graph_2_str(coeff_x, coeff_y):
     if len(coeff_x) == 1:
         raise ValueError("Unimplemented!")
     results = [
-        "        \\node [name=input] (input) {$x(n)$};",
+        "        \\node (input) {$x(n)$};",
         "        \\node [sum, right of=input, xshift=1cm] (sumy) {$+$};",
         "        \\path [line] (input) -- (sumy);",
         "        \\node [circ, right of=sumy, xshift=4cm] (circ) {};",
         "        \\path [no-arrow-line] (sumy) -- (circ);",
         "        \\node [sum, right of=circ, xshift=4cm] (sumx) {$+$};",
-        "        \\node [name=output, right of=sumx, xshift=1cm] (output) {$y(n)$};",
+        "        \\node [right of=sumx, xshift=1cm] (output) {$y(n)$};",
         "        \\path [line] (sumx) -- (output);", ""
     ]
 
