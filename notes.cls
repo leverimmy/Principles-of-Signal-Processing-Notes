@@ -78,7 +78,7 @@
 \newcommand\mathe{\mathrm{e}}                           % 自然对数的底数 e
 \newcommand\mathi{\mathrm{i}}                           % 虚数单位 i
 \newcommand\D[1]{\mathrm{d}{#1}}                        % 微分算子 d
-\newcommand\sa[1]{\mathrm{Sa}{#1}}                             % Sa 函数
+\newcommand\sa[1]{\mathrm{Sa}{#1}}                      % Sa 函数
 \newcommand\sgn[1]{\mathrm{sgn}(#1)}                    % 符号函数
 \newcommand\ip[2]{\left\langle#1, #2\right\rangle}      % 内积
 \newcommand\re[1]{\mathrm{Re}{#1}}                      % 实部
