@@ -77,12 +77,12 @@
 \newcommand\abs[1]{\left|#1\right|}                     % 绝对值
 \newcommand\mathe{\mathrm{e}}                           % 自然对数的底数 e
 \newcommand\mathi{\mathrm{i}}                           % 虚数单位 i
-\newcommand\D[1]{\mathrm{d}#1}                          % 微分算子 d
-\newcommand\sa{\mathrm{Sa}}                             % Sa 函数
+\newcommand\D[1]{\mathrm{d}{#1}}                        % 微分算子 d
+\newcommand\sa[1]{\mathrm{Sa}{#1}}                             % Sa 函数
 \newcommand\sgn[1]{\mathrm{sgn}(#1)}                    % 符号函数
 \newcommand\ip[2]{\left\langle#1, #2\right\rangle}      % 内积
-\newcommand\re[1]{\mathrm{Re}#1}                        % 实部
-\newcommand\im[1]{\mathrm{Im}#1}                        % 虚部
+\newcommand\re[1]{\mathrm{Re}{#1}}                      % 实部
+\newcommand\im[1]{\mathrm{Im}{#1}}                      % 虚部
 \newcommand\DTFT[1]{\mathrm{DTFT}\left[#1\right]}       % DTFT 变换
 \newcommand\IDTFT[1]{\mathrm{IDTFT}\left[#1\right]}     % IDTFT 变换
 \newcommand\DFT[1]{\mathrm{DFT}\left[#1\right]}         % DFT 变换
