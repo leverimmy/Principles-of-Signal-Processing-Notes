@@ -307,3 +307,6 @@ TSWLatexianTemp*
 
 # PDF files
 *.pdf
+
+# macOS auxiliary files
+.DS_Store
